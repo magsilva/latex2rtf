@@ -131,6 +131,11 @@ if [ $ext = "tex" ] ; then
 
     inline=`${GREP} -c INLINE_DOT_ON_BASELINE $name.$ext`
 
+    rm -f $name.dvi
+    rm -f $name.pdf
+    rm -f $name.eps
+    rm -f $name.png
+
     $LATEX $name > /dev/null
     
     if [ -e "$name.dvi" ] ; then

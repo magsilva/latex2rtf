@@ -2,6 +2,13 @@
 ## latex2rtf changes from 2.3.0
 ##############
 
+r1226 | whennings
+WH: in graphics.c, fixed incorrect handling of tmp_dir
+in latex2png, delete existing output files before conversion
+
+r1225 | whennings
+WH: in latex2png, changed parameter in call to xelatex
+
 r1224 | whennings
 WH: in graphics.c, adding tmp_path to PutPdfFile and PutPsFile
 incremented version to 2.3.2

@@ -1426,10 +1426,10 @@ static void PutPdfFile(char *s, double height0, double width0, double scale, dou
 
        tmp_dir = getTmpPath();
        pdf = strdup_together(g_home_dir, s);
-       eps = strdup_together(tmp_dir, eps);
        out = SysGraphicsConvert(CONVERT_PS_TO_EPS, 0, g_dots_per_inch, pdf, eps);
         
        if (out != NULL) {
+           eps = strdup_together(tmp_dir, eps);
            putRtfStrEscaped("[###");
            putRtfStrEscaped(eps);
            putRtfStrEscaped("###]");
@@ -1497,10 +1497,10 @@ static void PutPsFile(char *s, double height0, double width0, double scale, doub
   
        tmp_dir = getTmpPath();
        ps  = strdup_together(g_home_dir, s);
-       eps = strdup_together(tmp_dir, eps);
        out = SysGraphicsConvert(CONVERT_PS_TO_EPS, 0, g_dots_per_inch, ps, eps);
 
        if (out != NULL) {
+           eps = strdup_together(tmp_dir, eps);
            putRtfStrEscaped("[###");
            putRtfStrEscaped(eps);
            putRtfStrEscaped("###]");
