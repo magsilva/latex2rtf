@@ -23,7 +23,7 @@
 DVIPS="dvips -q -l 1 -E -R"
 LATEX="latex --interaction batchmode --output-format dvi"
 PDFLATEX="latex --interaction batchmode --output-format pdf"
-XELATEX="xelatex -interaction=batchmode"
+XELATEX="xelatex --interaction batchmode"
 CONVERT="convert"
 PDF2EPS="eps2eps"
 GREP="grep"
