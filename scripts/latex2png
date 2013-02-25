@@ -34,7 +34,7 @@ SED="sed"
 # LaTeX is run in the Windows environment and thus needs the ";" as separator.
 TEXINPSEP=":" #Unix
 #TEXINPSEP=";"  #MS Windows
-VERSION="1.20"
+VERSION="1.30"
 
 help()
 {
@@ -141,11 +141,15 @@ if [ $ext = "tex" ] ; then
     if [ -e "$name.dvi" ] ; then
        $DVIPS -o $name.eps $name.dvi
        if [ ! -e "$name.eps" ] ; then
-         echo "latex2png: error: dvips failed to translate $name.dvi to $name.eps"
+         if [ $opt_k -eq 1 ] ; then
+            echo "latex2png: error: dvips failed to translate $name.dvi to $name.eps"
+         fi
          exit 1
        fi
     else
-       echo "latex2png: latex failed to translate $name.tex to $name.dvi, trying pdflatex"
+       if [ $opt_k -eq 1 ] ; then
+          echo "latex2png: latex failed to translate $name.tex to $name.dvi, trying pdflatex"
+       fi
        $PDFLATEX $name > /dev/null
        if [ -e "$name.pdf" ] ; then
           $PDF2EPS $name.pdf $name.eps
@@ -154,7 +158,9 @@ if [ $ext = "tex" ] ; then
              exit 1
           fi
        else
-          echo "latex2png: pdflatex failed to translate $name.tex to $name.pdf, trying xelatex"
+          if [ $opt_k -eq 1 ] ; then
+             echo "latex2png: pdflatex failed to translate $name.tex to $name.pdf, trying xelatex"
+          fi
           $XELATEX $name > /dev/null
           if [ -e "$name.pdf" ] ; then
              $PDF2EPS $name.pdf $name.eps
@@ -179,17 +185,21 @@ if [ $ext = "tex" ] ; then
            # now create an eps without the adjustment stuff
            $SED -e "s/\^I_g//" $name.tex >$name.tmp
            rm $name.tex
-           rm $name.pdf
+           rm -f $name.pdf
            rm $name.eps
            mv $name.tmp $name.tex
            $LATEX $name > /dev/null
            if [ -e "$name.dvi" ] ; then
               $DVIPS -o $name.eps $name.dvi
            else
-              echo "latex2png: latex failed to translate $name.tex w/o adj to $name.dvi, trying pdflatex"
+              if [ $opt_k -eq 1 ] ; then
+                 echo "latex2png: latex failed to translate $name.tex w/o adj to $name.dvi, trying pdflatex"
+              fi
               $PDFLATEX $name > /dev/null
               if [ ! -e "$name.pdf" ] ; then
-                 echo "latex2png: pdflatex failed to translate $name.tex w/o adj to $name.pdf, trying xelatex"
+                 if [ $opt_k -eq 1 ] ; then
+                    echo "latex2png: pdflatex failed to translate $name.tex w/o adj to $name.pdf, trying xelatex"
+                 fi
                  $XELATEX $name > /dev/null
                  if [ ! -e "$name.pdf" ] ; then
                     echo "latex2png: error: xelatex failed to translate $name.tex w/o adj to $name.pdf"
