@@ -2,6 +2,13 @@
 ## latex2rtf changes from 2.3.0
 ##############
 
+r1230 | whennings
+WH: do not split equations at \\ in align environments
+    even when converting to bitmap or eps
+
+r1229 | whennings
+WH: latex2png: suppress verbose messages unless opt_k (debugging) is set
+
 r1228 | whennings
 WH: creating html files in doc/web removed from doc/Makefile in Unix distribution
    (but not in SVN repository)
