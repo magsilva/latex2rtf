@@ -14,7 +14,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 This file is available from http://sourceforge.net/projects/latex2rtf/
 */
@@ -395,7 +395,7 @@ purpose: converts inputfile and writes result to outputfile
                     if ((cNext = getTexChar()) && cNext == '`') {
                         fprintRTF("\\'a1 ");
                     } else {
-                        fprintRTF("! ");
+                        fprintRTF("!");      /* WH 2014-06-16: Blank removed, was fprintRTF("! ") */
                         ungetTexChar(cNext);
                     }
                 }
@@ -406,8 +406,8 @@ purpose: converts inputfile and writes result to outputfile
                 if ((cNext = getTexChar()) && cNext == '`') {
                     fprintRTF("\\'bf ");
                 } else {
-                    fprintRTF("? ");
-                    ungetTexChar(cNext);
+                    fprintRTF("?");
+                    ungetTexChar(cNext);     /* WH 2014-06-16: Blank removed, was fprintRTF("? ") */
                 }
                 break;
 

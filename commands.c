@@ -14,7 +14,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 This file is available from http://sourceforge.net/projects/latex2rtf/
  
@@ -398,6 +398,7 @@ static CommandArray commands[] = {
     {"csname", CmdIgnore, 0},
     {"foreignlanguage", CmdIgnore, 0},
     {"endcsname", CmdIgnoreParameter, No_Opt_One_NormParam},
+    {"usetikzlibrary", CmdTikzlib, 0},
     {"", NULL, 0}
 };
 
@@ -811,17 +812,19 @@ static CommandArray params[] = {
     {"spacing", CmdSpacingEnviron, 0},
     
     {"small", CmdFontSizeEnviron, 12},
-	{"tiny", CmdFontSizeEnviron, 10},
-	{"scriptsize", CmdFontSizeEnviron, 14},
-	{"footnotesize", CmdFontSizeEnviron, 16},
-	{"normalsize", CmdFontSizeEnviron, 20},
-	{"large", CmdFontSizeEnviron, 24},
-	{"Large", CmdFontSizeEnviron, 28},
-	{"LARGE", CmdFontSizeEnviron, 34},
-	{"huge", CmdFontSizeEnviron, 40},
-	{"Huge", CmdFontSizeEnviron, 50}, 
+    {"tiny", CmdFontSizeEnviron, 10},
+    {"scriptsize", CmdFontSizeEnviron, 14},
+    {"footnotesize", CmdFontSizeEnviron, 16},
+    {"normalsize", CmdFontSizeEnviron, 20},
+    {"large", CmdFontSizeEnviron, 24},
+    {"Large", CmdFontSizeEnviron, 28},
+    {"LARGE", CmdFontSizeEnviron, 34},
+    {"huge", CmdFontSizeEnviron, 40},
+    {"Huge", CmdFontSizeEnviron, 50}, 
 	
-	{"", NULL, 0}
+    {"tikzpicture",CmdTikzPicture, 0},
+
+    {"", NULL, 0}
 };                              /* end of list */
 
 

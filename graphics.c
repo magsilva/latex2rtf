@@ -14,7 +14,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 This file is available from http://sourceforge.net/projects/latex2rtf/
 */
@@ -144,6 +144,13 @@ typedef struct _GdiCommentMultiFormats {
  table for graphics format handling
  **********************************/
 
+typedef void PutFileFnc(char *, double, double, double, double);
+
+typedef struct {
+    char       *extension;
+    PutFileFnc *encoder;
+} GraphConvertElement;
+
 static void PutPictFile(char *, double, double, double, double);
 static void PutPngFile (char *, double, double, double, double);
 static void PutJpegFile(char *, double, double, double, double);
@@ -155,7 +162,7 @@ static void PutPsFile  (char *, double, double, double, double);
 static void PutTiffFile(char *, double, double, double, double);
 static void PutGifFile (char *, double, double, double, double);
 
-static GraphConvertElement GraphConvertTable[] = {
+GraphConvertElement GraphConvertTable[] = {
     { ".png",  PutPngFile  },
     { ".pdf",  PutPdfFile  },
     { ".jpg",  PutJpegFile },
@@ -225,6 +232,9 @@ void CmdGraphicsPath(int code)
 
 static char *g_psset_info   = NULL;
 static char *g_psstyle_info = NULL;
+
+static char *tikzlibs[32];
+static int tikzlibsnum = 0;
 
 /******************************************************************************
      purpose : portable routine to delete filename
@@ -309,7 +319,7 @@ static char *SysGraphicsConvert(int opt, int offset, uint16_t dpi, const char *i
 
     int N = 511;        
 
-    diagnostics(4, "SysGraphicsConvert '%s' to '%s'", in, out);
+    diagnostics(3, "SysGraphicsConvert '%s' to '%s'", in, out);
 
     out_tmp = strdup_tmp_path(out);
 
@@ -814,18 +824,24 @@ static void AdjustScaling(double h, double w, double target_h, double target_w, 
         diagnostics(5,"AdjustScaling target_h=%f target_w=%f", target_h, target_w);
 
         if (target_h != 0 && h != 0) 
-                *sy = (uint16_t) my_rint(100.0 * target_h / h);
+            *sy = (uint16_t) my_rint(100.0 * target_h / h);
         else
-                *sy = (uint16_t) my_rint(s * 100);
+            *sy = (uint16_t) my_rint(s * 100);
         
         if (target_w == 0 || w == 0)
-                *sx = *sy;
+            *sx = *sy;
         else
-                *sx = (uint16_t) my_rint(100.0 * target_w / w);
+            *sx = (uint16_t) my_rint(100.0 * target_w / w);
 
         /* catch the case when width is specified, but not height */
         if (target_h == 0 && target_w != 0)
-                *sy = *sx;
+            *sy = *sx;
+
+        /* special case if both are zero then just set scaling to one */
+        if (target_h == 0 && target_w == 0) {
+            *sx = 100. * s;
+            *sy = 100. * s;
+        }
 
         diagnostics(5,"AdjustScaling xscale=%d yscale=%d", *sx, *sy);
 }
@@ -1282,7 +1298,7 @@ static void PutEmfFile(char *s, double height0, double width0, double scale, dou
     fprintRTF("\n{\\pict\\emfblip\\picw%ld\\pich%ld", w, h);
     fprintRTF("\\picwgoal%ld\\pichgoal%ld\n", width * 20, height * 20);
 
-        AdjustScaling(height*20,width*20,height0,width0,scale,&sx,&sy);
+    AdjustScaling(height*20,width*20,height0,width0,scale,&sx,&sy);
     if (sx != 100 && sy != 100)
         fprintRTF("\\picscalex%d\\picscaley%d", sx,sy);
 
@@ -1677,7 +1693,7 @@ static double GetBaseline(const char *tex_file_stem, const char *pre)
 /******************************************************************************
  purpose   : Convert LaTeX to Bitmap and insert in RTF file
  ******************************************************************************/
-void PutLatexFile(const char *tex_file_stem, double scale, const char *pre, conversion_t convertTo, int hinline)
+static void PutLatexFile(const char *tex_file_stem, double scale, const char *pre, conversion_t convertTo, int hinline)
 {
     char *png_file_name = NULL;
     char *tmp_path;
@@ -1706,7 +1722,7 @@ void PutLatexFile(const char *tex_file_stem, double scale, const char *pre, conv
         return;
     }
 
-    diagnostics(4, "Rendering LaTeX as a bitmap...");
+    diagnostics(3, "Rendering LaTeX as a bitmap...");
 
     /* arrived at by trial and error ... works for sizes from 72 to 1200 dpi */
     bmoffset = g_dots_per_inch / 60 + 1;
@@ -1751,7 +1767,7 @@ void PutLatexFile(const char *tex_file_stem, double scale, const char *pre, conv
 
     baseline = GetBaseline(tex_file_stem, pre);
     
-    diagnostics(4, "PutLatexFile bitmap has (height=%d,width=%d) baseline=%g  resolution=%u", 
+    diagnostics(3, "PutLatexFile bitmap has (height=%d,width=%d) baseline=%g  resolution=%u", 
                                     png_height, png_width, baseline, png_resolution);
     
     height_goal = (scale * png_height * POINTS_PER_METER / png_yres * 20.0 + 0.5);
@@ -1763,6 +1779,9 @@ void PutLatexFile(const char *tex_file_stem, double scale, const char *pre, conv
     safe_free(png_file_name);
 }
 
+/* this is more general than just equations because it is used to create
+   documents for the latex picture, music, tikzpicture environments also */
+   
 static char *SaveEquationAsFile(const char *post_begin_document,
                                 const char *pre, const char *eq_with_spaces, const char *post)
 {
@@ -1813,8 +1832,10 @@ static char *SaveEquationAsFile(const char *post_begin_document,
         else {
         fprintf(f, "%s\n.\\quad %s\n%s", pre, eq, post);  
         }
-    } else if (strstr(pre, "equation"))
-        fprintf(f, "$$%s$$", eq);
+    } 
+    else if (strstr(pre, "equation"))
+        /* fprintf(f, "$$%s$$", eq);  WH 2014-01-17*/
+        fprintf(f, "\\begin{displaymath}\n%s\n\\end{displaymath}", eq);  /* WH 2014-04-03*/
     else
         fprintf(f, "%s\n%s\n%s", pre, eq, post);
 
@@ -1887,7 +1908,7 @@ void WriteLatexAsBitmapOrEPS(char *pre, char *eq, char *post, conversion_t conve
 {
     char *p, *abbrev, *latex_to_convert;
     char *name = NULL;
-    int hinline;
+    int hinline = 0;
     
     /* go to a bit a trouble to give the user some feedback */
     latex_to_convert = strdup_together3(pre,eq,post);
@@ -1897,7 +1918,6 @@ void WriteLatexAsBitmapOrEPS(char *pre, char *eq, char *post, conversion_t conve
     safe_free(latex_to_convert);
         
     if (eq == NULL) return;
-    hinline = 0;
 
 /* suppress bitmap equation numbers in eqnarrays with zero or one \label{}'s*/
     if (pre && streq(pre, "\\begin{eqnarray}")) {
@@ -1928,8 +1948,9 @@ void WriteLatexAsBitmapOrEPS(char *pre, char *eq, char *post, conversion_t conve
         
     } else  {
         name = SaveEquationAsFile(NULL, pre, eq, post);
-        if ( streq(pre, "$") || streq(pre, "\\begin{math}") || streq(pre, "\\(") ) hinline=1;
-        }
+        if ( streq(pre, "$") || streq(pre, "\\begin{math}") || streq(pre, "\\(") ) 
+            hinline=1;
+    }
     
     if (name) {
         if (strstr(pre, "music") 
@@ -1938,7 +1959,8 @@ void WriteLatexAsBitmapOrEPS(char *pre, char *eq, char *post, conversion_t conve
             || strstr(pre, "tabular")
             || strstr(pre, "tabbing")
             || strstr(pre, "psgraph")
-            || strstr(pre, "pspicture")) 
+            || strstr(pre, "pspicture")
+            || strstr(pre, "tikzpicture")) 
             PutLatexFile(name, g_png_figure_scale, pre, convertTo, hinline);
         else
             PutLatexFile(name, g_png_equation_scale, pre, convertTo, hinline);
@@ -2004,7 +2026,7 @@ static char *exists_with_any_extension(const char *dir, const char *name, const 
     
     /* else try the different directories in the graphics path */
     for (i=0; i<nGraphicsPathElems; i++) {
-        newpath = strdup_together(dir,graphicsPath[i]);
+        newpath = strdup_together(graphicsPath[i], dir);
         diagnostics(4,"does '%s%s%s' exist?",newpath,name,ext);
         x = exists_with_extension(newpath,name,ext);
         safe_free(newpath);
@@ -2396,6 +2418,36 @@ void CmdPicture(int code)
 }
 
 /******************************************************************************
+  purpose: handle \begin{tikzpicture} ... \end{tikzpicture}
+           by converting to png image and inserting
+ ******************************************************************************/
+void CmdTikzPicture(int code)
+{
+    char *picture = NULL;
+    char post[] = "\\end{tikzpicture}";
+
+    if (!(code & ON)) {
+        diagnostics(4, "exiting CmdTikzPicture");
+        return;
+    } else 
+        diagnostics(4, "entering CmdTikzPicture");
+
+    picture = getTexUntil(post, 0);
+
+    PrepareDisplayedBitmap("picture");
+    if (g_figure_comment_converted) {
+      WriteLatexAsBitmapOrEPS("\\begin{tikzpicture}", picture, post, EPS);
+    } else {
+      WriteLatexAsBitmapOrEPS("\\begin{tikzpicture}", picture, post, BITMAP);
+    }
+    FinishDisplayedBitmap();
+
+    ConvertString(post);    /* to balance \begin{tikzpicture} */
+    safe_free(picture);
+}
+
+
+/******************************************************************************
   purpose: Process \begin{music} ... \end{music} environment
  ******************************************************************************/
 void CmdMusic(int code)
@@ -2418,4 +2470,12 @@ void CmdMusic(int code)
 
     ConvertString(endmusic);             /* to balance the \begin{music} */
     safe_free(contents);
+}
+
+void CmdTikzlib(int code) 
+{
+    char *tikzlib = getBraceParam();
+    tikzlibsnum++;
+    if (tikzlibsnum<32)
+    	tikzlibs[tikzlibsnum-1]=tikzlib;
 }

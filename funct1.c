@@ -15,7 +15,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 This file is available from http://sourceforge.net/projects/latex2rtf/
  
@@ -2322,7 +2322,7 @@ static int NumForColor(char * color)
         n = 92;
     else if (strcmp(color, "PurpleHeart") == 0)
         n = 93;
-    else if (strcmp(color, "PurpleMountains’Majesty") == 0)
+    else if (strcmp(color, "PurpleMountainMajesty") == 0)
         n = 94;
     else if (strcmp(color, "PurplePizzazz") == 0)
         n = 95;
