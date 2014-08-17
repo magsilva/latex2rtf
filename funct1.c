@@ -1170,7 +1170,10 @@ void CmdVerbatim(int code)
             case VERBATIM_4:
                 endtag = strdup("\\end{comment}");
                 break;
-        }
+            case VERBATIM_5:
+                endtag = strdup("\\end{lstlisting}");
+                break;
+         }
 
         verbatim_text = getTexUntil(endtag, 1);
         UpdateLineNumber(verbatim_text);
@@ -1179,7 +1182,7 @@ void CmdVerbatim(int code)
             /* alltt environment */
             ConvertAllttString(verbatim_text);
 
-        else if (true_code == VERBATIM_1 || true_code == VERBATIM_2) {
+        else if (true_code == VERBATIM_1 || true_code == VERBATIM_2 || true_code == VERBATIM_5) {
 
             show_string(5, verbatim_text, "verbatim");
             putRtfStrEscaped(verbatim_text);
@@ -1641,6 +1644,36 @@ void CmdSubFigure(int code)
     }       
     incrementCounter("subfigure");
 }
+
+void CmdSubFloat(int code)
+{
+    char *caption, *contents;
+    
+    diagnostics(4,"CmdSubFloat");
+    
+    caption = getBracketParam();
+    contents = getBraceParam();
+    
+    startParagraph("subfloat", PARAGRAPH_FIRST);
+    
+    /* insert the figure */
+    ConvertString(contents);
+    free(contents);
+    CmdEndParagraph(0);
+
+    /* now the caption */
+    if (caption) {
+        int n;
+        startParagraph("subfloat", PARAGRAPH_FIRST);
+        n = getCounter("subfloat");
+        fprintRTF("(%c) ", (char) (n + (int) 'a'));
+        ConvertString(caption);
+        CmdEndParagraph(0);
+        free(caption);
+    }       
+    incrementCounter("subfloat");
+}
+
 
 static void FixTildes(char *s)
 {
@@ -2417,5 +2450,15 @@ void CmdLap(int code)
 {
     char *s = getBraceParam();
     ConvertString(s);
+    free(s);
+}
+
+
+/******************************************************************************
+  purpose: parse a command and ignore the text
+******************************************************************************/
+void CmdClear(int code)
+{
+    char *s = getBraceParam();
     free(s);
 }

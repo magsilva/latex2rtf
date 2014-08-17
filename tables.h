@@ -3,6 +3,7 @@
 #define TABULAR_LONG      3
 #define TABULAR_LONG_STAR 4
 #define TABBING           5
+#define TABULAR_X         6
 
 #define TABLE             2
 #define TABLE_STAR        3

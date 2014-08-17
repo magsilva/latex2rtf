@@ -941,6 +941,11 @@ void CmdTabular(int code)
             end = strdup("\\end{tabular}");
             begin = strdup("\\begin{tabular}");
             break;
+        case TABULAR_X:
+            end = strdup("\\end{tabularx}");
+            begin = strdup("\\begin{tabularx}");
+            width = getBraceParam();
+            break;
         case TABULAR_STAR:
             end = strdup("\\end{tabular*}");
             begin = strdup("\\begin{tabular*}");

@@ -44,6 +44,7 @@ This file is available from http://sourceforge.net/projects/latex2rtf/
 #define VERBATIM_2   2
 #define VERBATIM_3   3
 #define VERBATIM_4   4
+#define VERBATIM_5   5
       
 #define VERB_VERB    1
 #define VERB_STAR    2
@@ -155,6 +156,7 @@ extern int  g_processing_list_environment;
 void CmdIgnoreEnviron(int code);
 void CmdFigure(int code);
 void CmdSubFigure(int code);
+void CmdSubFloat(int code);
 void Cmd_OptParam_Without_braces(int code);
 void CmdColumn(int code);
 void GetInputParam(char *, int);
@@ -190,3 +192,5 @@ int  TryConditionSet(char *command);
 void CmdAppendix(int code);
 void CmdAcronymItem(int code);
 void CmdLap(int code);
+void CmdClear(int code);
+

@@ -656,6 +656,9 @@ static void CmdUseOnepackage(char* package, char *options)
     } else if (strcmp(package, "subfigure") == 0) {
         diagnostics(WARNING, "partial support for subfigure package");
 
+    } else if (strcmp(package, "subfig") == 0) {
+        diagnostics(WARNING, "partial support for subfig package");
+
     } else if (strcmp(package, "natbib") == 0) {
         if (options && strstr(options, "longnamesfirst"))
             set_longnamesfirst();

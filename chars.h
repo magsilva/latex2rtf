@@ -30,6 +30,7 @@ void CmdUnicodeChar(int code);
 void CmdLogo(int code);
 
 void CmdFrenchAbbrev(int code);
+void CmdLatinAbbrev(int code);
 void CmdCzechAbbrev(int code);
 void CmdLatin2Char(int code);
 void CmdEuro(int code);

@@ -240,14 +240,15 @@ static CommandArray commands[] = {
     {"footnotemark", CmdIgnoreParameter, One_Opt_No_NormParam},
     {"endnotemark", CmdIgnoreParameter, One_Opt_No_NormParam},
     {"label", CmdLabel, LABEL_LABEL},
+    {"cref", CmdLabel, LABEL_REF},
     {"ref", CmdLabel, LABEL_REF},
     {"vref", CmdLabel, LABEL_VREF},
     {"eqref", CmdLabel, LABEL_EQREF},
     {"pageref", CmdLabel, LABEL_PAGEREF},
     {"nameref", CmdLabel, LABEL_NAMEREF},
     {"cite", CmdCite, CITE_CITE},
-    {"onlinecite", CmdCite, CITE_CITE},
-    {"citeonline", CmdCite, CITE_CITE},
+    {"citet", CmdNatbibCite, CITE_T},
+    {"citeonline", CmdNatbibCite, CITE_CITE},
     {"nobibliography", CmdIgnoreParameter, No_Opt_One_NormParam},  
     {"bibliography", CmdBibliography, 0},
     {"bibitem", CmdBibitem, 0},
@@ -256,6 +257,8 @@ static CommandArray commands[] = {
     {"newsavebox", CmdIgnoreParameter, No_Opt_One_NormParam},
     {"usebox", CmdIgnoreParameter, No_Opt_One_NormParam},
     {"subfigure", CmdSubFigure, 0},
+    {"subfig", CmdSubFloat, 0},
+    {"subfloat", CmdSubFloat, 0},
 
     {"quad", CmdQuad, 1},
     {"qquad", CmdQuad, 2},
@@ -356,6 +359,7 @@ static CommandArray commands[] = {
     {"nobreakspace", CmdNonBreakSpace, 100},
     {"thinspace", CmdNonBreakSpace, 50},
     {"abstract", CmdAbstract, ABSTRACT_SIMPLE},
+    {"resumo", CmdAbstract, ABSTRACT_SIMPLE},
     {"keywords", CmdKeywords, 0},
     {"endinput", CmdEndInput, 0},
     {"color", CmdTextColor, 0},
@@ -363,6 +367,7 @@ static CommandArray commands[] = {
     {"tableofcontents", CmdTableOfContents, 0},
     {"listoffigures", CmdListOf, LIST_OF_FIGURES},
     {"listoftables", CmdListOf, LIST_OF_TABLES},
+    {"lstlistoflistings", CmdIgnore, 0},
     {"numberline", CmdNumberLine, 0},
     {"contentsline", CmdContentsLine, 0},
     {"centering", CmdAlign, PAR_CENTERING},
@@ -381,7 +386,18 @@ static CommandArray commands[] = {
     { "newacroplural", CmdAcrodef,        ACRONYM_NEWACROPLURAL },
     { "harvardcite",   CmdAuxHarvardCite, 0 },
     { "bibcite",       CmdBibCite,        0 },
-    
+
+    {"frontmatter", CmdIgnore, 0},
+    {"mainmatter", CmdIgnore, 0},
+    {"backmatter", CmdIgnore, 0},
+    {"settocdepth", CmdClear, 0},
+    {"foreign", CmdLap, 0},
+    {"eg", CmdLatinAbbrev, 0},
+    {"ie", CmdLatinAbbrev, 1},
+    {"srccode", CmdLap, 0},
+    {"csname", CmdIgnore, 0},
+    {"foreignlanguage", CmdIgnore, 0},
+    {"endcsname", CmdIgnoreParameter, No_Opt_One_NormParam},
     {"", NULL, 0}
 };
 
@@ -480,6 +496,7 @@ static CommandArray PreambleCommands[] = {
     {"date", CmdTitle, TITLE_DATE},
     {"affiliation", CmdTitle, TITLE_AFFILIATION},
     {"abstract", CmdTitle, TITLE_ABSTRACT},
+    {"resumo", CmdTitle, TITLE_ABSTRACT},
     {"keywords", CmdKeywords, 0},
     {"acknowledgements", CmdTitle, TITLE_ACKNOWLEDGE},
     {"bibliographystyle", CmdBibliographyStyle, 0},
@@ -489,7 +506,7 @@ static CommandArray PreambleCommands[] = {
     {"docnumber", CmdIgnoreParameter, No_Opt_One_NormParam},
     {"graphicspath",  CmdGraphicsPath, 0 },
     {"", NULL, 0}
-};                              /* end of list */
+};
 
 static CommandArray ItemizeCommands[] = {
     {"item", CmdItem, ITEMIZE_MODE},
@@ -736,10 +753,12 @@ static CommandArray params[] = {
     {"compactdesc", CmdList, DESCRIPTION_MODE},
     {"compactitem", CmdList, ITEMIZE_MODE},
 
+    {"lstlisting", CmdVerbatim, VERBATIM_5},
     {"verbatim", CmdVerbatim, VERBATIM_1},
     {"comment", CmdVerbatim, VERBATIM_4},
     {"verse", CmdVerse, 0},
     {"tabular", CmdTabular, TABULAR},
+    {"tabularx", CmdTabular, TABULAR_X},
     {"tabular*", CmdTabular, TABULAR_STAR},
     {"longtable", CmdTabular, TABULAR_LONG},
     {"longtable*", CmdTabular, TABULAR_LONG_STAR},
@@ -760,6 +779,7 @@ static CommandArray params[] = {
     {"table*", CmdTable, TABLE_STAR},
     {"thebibliography", CmdThebibliography, 0},
     {"abstract", CmdAbstract, ABSTRACT_BEGIN_END},
+    {"resumo", CmdAbstract, ABSTRACT_BEGIN_END},
     {"acknowledgments", CmdAcknowledgments, 0},
     {"titlepage", CmdTitlepage, 0},
 
@@ -1030,6 +1050,7 @@ purpose: commands for ignored commands (placeholder)
 static CommandArray ignoreCommands[] = {
     {"", NULL, 0}
 };
+
 
 int CurrentEnvironmentCount(void)
 
