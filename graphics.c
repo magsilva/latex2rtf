@@ -1816,8 +1816,12 @@ static char *SaveEquationAsFile(const char *post_begin_document,
     
     eq = strdup_noendblanks(eq_with_spaces);
     
+    /* Include packages and run commands defined in the document preamble */
+    fprintf(f, "%s", "\\documentclass{minimal}\n");
     fprintf(f, "%s", g_preamble);
     fprintf(f, "\\thispagestyle{empty}\n");
+    fprintf(f, "\\usepackage{tikz}\n");
+    fprintf(f, "\\usepackage{pgfplots}\n");
     fprintf(f, "\\begin{document}\n");
     if (post_begin_document) 
             fprintf(f, "%s\n", post_begin_document);
@@ -2436,9 +2440,9 @@ void CmdTikzPicture(int code)
 
     PrepareDisplayedBitmap("picture");
     if (g_figure_comment_converted) {
-      WriteLatexAsBitmapOrEPS("\\begin{tikzpicture}", picture, post, EPS);
+      WriteLatexAsBitmapOrEPS("\\usetikzlibrary{positioning}\n\\usetikzlibrary{shapes.geometric}\\begin{tikzpicture}", picture, post, EPS);
     } else {
-      WriteLatexAsBitmapOrEPS("\\begin{tikzpicture}", picture, post, BITMAP);
+      WriteLatexAsBitmapOrEPS("\\usetikzlibrary{positioning}\n\\usetikzlibrary{shapes.geometric}\\begin{tikzpicture}", picture, post, BITMAP);
     }
     FinishDisplayedBitmap();
 
@@ -2472,6 +2476,7 @@ void CmdMusic(int code)
     safe_free(contents);
 }
 
+/* TODO: make it handle more than one parameter in \usetikzlibrary{} */
 void CmdTikzlib(int code) 
 {
     char *tikzlib = getBraceParam();
