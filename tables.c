@@ -93,16 +93,51 @@ static void FreeTabular(TabularT *table)
 {
     int i;
     for (i=0; i <= table->n; i++) {
-        if(table->after[i] ) free(table->after[i]);
-        if(table->before[i]) free(table->before[i]);
+        if (table->after[i] != NULL) {
+            free(table->after[i]);
+            table->after[i] = NULL;
+	}
+        if (table->before[i] != NULL) {
+            free(table->before[i]);
+            table->before[i] = NULL;
+	}
     }
-    free(table->align);
-    free(table->vert);
-    free(table->chars);
-    free(table->width);
-    free(table->cline);
-    free(table->after);
-    free(table->before);
+    if (table->align != NULL) {
+        free(table->align);
+        table->align = NULL;
+    }
+
+
+    if (table->vert != NULL) {
+	free(table->vert);
+        table->vert = NULL;
+    }
+
+    if (table->chars != NULL) {
+        free(table->chars);
+        table->chars = NULL;
+    }
+
+    if (table->width != NULL) {
+        free(table->width);
+        table->width = NULL;
+    }
+
+    if (table->cline != NULL) {
+        free(table->cline);
+        table->cline = NULL;
+    }
+
+    if (table->after != NULL) {
+        free(table->after);
+        table->after = NULL;
+    }
+
+    if (table->before != NULL) {
+        free(table->before);
+        table->before = NULL;
+    }
+
     free(table);
     table = NULL;
 }
@@ -134,6 +169,7 @@ static int countTabularColumns(const char *format)
             case 'c':
             case 'r':
             case 'l':
+            case 'X':
                 iCol++;
                 s++;
                 break;
@@ -163,7 +199,7 @@ static int countTabularColumns(const char *format)
             default:
                 s++;
                 break;
-        }
+        }    
     }
     return iCol;
 }
@@ -512,8 +548,6 @@ static void TabularMultiParameters(const char *cell, int *col_span, char *align,
     *align    = mtable->align[1];
     *col_span = atoi(num);
     
-  /*  PrintTabular(mtable); */
-
     free(num);
     free(format);
     FreeTabular(mtable);
@@ -1020,7 +1054,6 @@ void CmdTabular(int code)
     
             diagnostics(4, "Entering CmdTabular() options [%s], format {%s}", (pos) ? pos : "", cols);
             tabular_layout = TabularPreamble(cols);
-            if (0) PrintTabular(tabular_layout);
             diagnostics(5, "*********** TABULAR TABULAR TABULAR *************");
             diagnostics(5, "%s",table);
             diagnostics(5, "*********** TABULAR TABULAR TABULAR *************");
@@ -1036,7 +1069,6 @@ void CmdTabular(int code)
             }
     
             TabularSetWidths(tabular_layout);
-            if (0) PrintTabular(tabular_layout);
             
             TabularGetRow(table, &this_row, &next_row_start, &this_height);
             first_row = TRUE;
