@@ -103,38 +103,38 @@ static void FreeTabular(TabularT *table)
 	}
     }
     if (table->align != NULL) {
-        free(table->align);
+//       free(table->align);
         table->align = NULL;
     }
 
-
     if (table->vert != NULL) {
-	free(table->vert);
+//	free(table->vert);
         table->vert = NULL;
     }
 
     if (table->chars != NULL) {
-        free(table->chars);
+//        free(table->chars);
         table->chars = NULL;
     }
 
+
     if (table->width != NULL) {
-        free(table->width);
+//        free(table->width);
         table->width = NULL;
     }
 
     if (table->cline != NULL) {
-        free(table->cline);
+//        free(table->cline);
         table->cline = NULL;
     }
 
     if (table->after != NULL) {
-        free(table->after);
+//        free(table->after);
         table->after = NULL;
     }
 
     if (table->before != NULL) {
-        free(table->before);
+//        free(table->before);
         table->before = NULL;
     }
 

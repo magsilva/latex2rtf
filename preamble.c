@@ -185,6 +185,8 @@ void setPackageInputenc(char *option)
         CmdFontEncoding(ENCODING_RAW);
     else if (strstr(option, "utf8"))
         CmdFontEncoding(ENCODING_UTF8);
+    else if (strstr(option, "utf8x"))
+        CmdFontEncoding(ENCODING_UTF8);
     else if (strstr(option, "ot2enc"))
         setPackageBabel("russian");     
     else

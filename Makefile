@@ -7,7 +7,7 @@ PKGMANDIR?=man
 
 #reasonable flags for developing
 #CFLAGS = -g -O -D_FORTIFY_SOURCE=2 -Wall -Waggregate-return -Wmissing-declarations -Wmissing-prototypes -Wredundant-decls -Wshadow -Wstrict-prototypes -Wformat=2
-CFLAGS = -O2
+CFLAGS = -O2 -g
 
 PLATFORM?=-DUNIX   # Mac OS X, Linux, BSD
 #PLATFORM?=-DMSDOS # Windows/DOS
