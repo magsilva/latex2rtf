@@ -248,6 +248,7 @@ static CommandArray commands[] = {
     {"nameref", CmdLabel, LABEL_NAMEREF},
     {"cite", CmdCite, CITE_CITE},
     {"citet", CmdNatbibCite, CITE_T},
+    {"citeauthor", CmdCiteName, 0},
     {"citeonline", CmdNatbibCite, CITE_CITE},
     {"nobibliography", CmdIgnoreParameter, No_Opt_One_NormParam},  
     {"bibliography", CmdBibliography, 0},
