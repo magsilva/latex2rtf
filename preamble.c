@@ -705,7 +705,7 @@ static void CmdUseOnepackage(char* package, char *options)
         if (options) {
             ParseOptGeometry(options);
         }
-    } else if (strcmp(package,"acronym") == 0) {
+    } else if (strstr(package,"acronym") != NULL) {
         UsePackageAcronym(options);
     } else if (strcmp(package,"ifpdf") == 0) {
         ConvertString("\\newif\\ifpdf");
