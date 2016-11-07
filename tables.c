@@ -1039,16 +1039,20 @@ void CmdTabular(int code)
     
             diagnostics(WARNING, "Nested tabular/tabbing environments not allowed");
             diagnostics(5, "table_table_table_table_table\n%stable_table_table_table_table", table);
+/*
             fprintRTF("{\\pard\\ql\\b0\\i0\\scaps0\\f%d ", num);
             p = begin;
             while (*p)
                 fprintRTF("%c",*p++);
+*/
             p = table;
             while (*p)
                 fprintRTF("%c",*p++);
+/*
             p = end;
             while (*p)
                 fprintRTF("%c",*p++);
+*/
     
         } else {
     
