@@ -6,8 +6,7 @@ RMDIR?=rm -rf
 PKGMANDIR?=man
 
 #reasonable flags for developing
-#CFLAGS = -g -O -D_FORTIFY_SOURCE=2 -Wall -Waggregate-return -Wmissing-declarations -Wmissing-prototypes -Wredundant-decls -Wshadow -Wstrict-prototypes -Wformat=2
-CFLAGS = -O2 -g
+#CFLAGS = -g -D_FORTIFY_SOURCE=2 -Wall -Waggregate-return -Wmissing-declarations -Wmissing-prototypes -Wredundant-decls -Wshadow -Wstrict-prototypes -Wformat=2
 
 PLATFORM?=-DUNIX   # Mac OS X, Linux, BSD
 #PLATFORM?=-DMSDOS # Windows/DOS
@@ -209,19 +208,18 @@ releasedate:
 doc: doc/latex2rtf.texi doc/Makefile
 	cd doc && $(MAKE) -k
 
-# install: latex2rtf doc/latex2rtf.1 $(CFGS) scripts/latex2png
-#	cd doc && $(MAKE)
-install: latex2rtf $(CFGS) scripts/latex2png
+install: latex2rtf doc/latex2rtf.1 $(CFGS) scripts/latex2png
+	cd doc && $(MAKE)
 	$(MKDIR) $(DESTDIR)$(BINDIR)
 	$(MKDIR) $(DESTDIR)$(MANDIR)
 	$(MKDIR) $(DESTDIR)$(CFGDIR)
 	cp -p scripts/latex2png  $(DESTDIR)$(BINDIR)
-#	cp -p doc/latex2rtf.1    $(DESTDIR)$(MANDIR)
-#	cp -p doc/latex2png.1    $(DESTDIR)$(MANDIR)
+	cp -p doc/latex2rtf.1    $(DESTDIR)$(MANDIR)
+	cp -p doc/latex2png.1    $(DESTDIR)$(MANDIR)
 	cp -p $(CFGS)            $(DESTDIR)$(CFGDIR)
-#	cp -p doc/latex2rtf.html $(DESTDIR)$(SUPPORTDIR)
-#	cp -p doc/latex2rtf.pdf  $(DESTDIR)$(SUPPORTDIR)
-#	cp -p doc/latex2rtf.txt  $(DESTDIR)$(SUPPORTDIR)
+	cp -p doc/latex2rtf.html $(DESTDIR)$(SUPPORTDIR)
+	cp -p doc/latex2rtf.pdf  $(DESTDIR)$(SUPPORTDIR)
+	cp -p doc/latex2rtf.txt  $(DESTDIR)$(SUPPORTDIR)
 	cp -p $(BINARY_NAME)     $(DESTDIR)$(BINDIR)
 	@echo "******************************************************************"
 	@echo "*** latex2rtf successfully installed as \"$(BINARY_NAME)\""

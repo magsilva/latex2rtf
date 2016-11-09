@@ -1,0 +1,2272 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head> 
+<meta charset="utf-8" />
+<title>latex2rtf: User's Manual</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+<body>
+
+<div id="wrapper">
+	<div id="topbar"><h1> latex2rtf: User's Manual </h1></div>
+	<div id="menu">
+	<a href="index.html">About</a>
+	<a href="manpage.html">Man Page</a>
+	<a href="docs.html">Documentation</a>
+	<a href="http://sourceforge.net/tracker/?group_id=22654">Support</a>
+	<a href="http://sourceforge.net/projects/latex2rtf/">Download</a>
+	</div>
+	<div id="logo"></div>
+	<div id="content">
+
+<h2 class="unnumbered">LaTeX2RTF</h2>
+
+<p>This file documents LaTeX2RTF
+, a converter that translates LaTeX
+to RTF.
+
+   <p>Copyright 1998-2002 Georg Lehner,
+updates Copyright 1999-2014 by Wilfried Hennings and Scott Prahl,
+with contributions by Mikhail Polianski.
+
+   <p>Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+   <p>Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided also that the
+sections entitled &ldquo;Copying&rdquo; and &ldquo;GNU General Public License&rdquo; are
+included exactly as in the original, and provided that the entire
+resulting derived work is distributed under the terms of a permission
+notice identical to this one.
+
+   <p>Permission is granted to copy and distribute translations of this manual
+into another language, under the above conditions for modified versions,
+except that this permission notice may be stated in a translation
+approved by the Free Software Foundation.
+
+<!-- This document applies to version 2.3.9 of @ltor{}. -->
+<p><a id="Introduction"></a>
+
+<h2 class="chapter">1 Introduction</h2>
+
+<p>LaTeX2RTF
+is a translator program from LaTeX text into &ldquo;rich text
+format&rdquo; files. These files are commonly referred to as RTF files. RTF
+is a published standard format by Microsoft. This standard can be
+ambiguous in places and Microsoft ignores parts of the standard it finds
+inconvenient, but RTF is widely used by many WYSIWIG text editors and is
+supported by Microsoft Word and most text processors.
+
+<p>LaTeX2RTF
+translates the text and as much of the formatting information
+from LaTeX to RTF. Be forewarned that the typeset output is not
+nearly as good as what you would get from using LaTeX
+directly. So, why bother translating? Consider,
+
+     <ol type=1 start=1>
+<li>You use LaTeX
+and hate everything beginning with MS-<small class="enddots">....</small>
+Nevertheless, you have to share your documents with people who don't
+even know that there are alternatives to MS-<small class="enddots">....</small>
+
+     <li>You know somebody who frequently sends you very fine LaTeX
+documents. 
+Unfortunately, you are &ldquo;on the other side&rdquo; and need to import her
+files, steal some part, and then desktop publish it in your fine
+MS-<small class="dots">...</small> environment.
+
+     <li>You like LaTeX and BibTeX. You interact with the rest of the
+world. You know someone that wants to include your writing in a Word
+document.
+
+     </ol>
+
+   <p>There are drawbacks to the conversion process. In fact, don't expect any LaTeX
+file to
+be converted as you would like, don't expect it to be converted without errors or
+warnings, and don't be especially surprised when it doesn't convert at all.  LaTeX2RTF
+is
+known to have many bugs and many missing features. Paradoxically, this number seems to
+grow more and more with each day.  However, we can categorically state that there are some
+special cases in which a LaTeX file will be translated to RTF satisfactorily by
+LaTeX2RTF &mdash; This was sort of disclaimer, ok? OK!
+
+   <p>LaTeX is a system for typesetting text and therefore it focuses on the logical
+structure of a document, whilst RTF is meant to be a transport format for a family of
+Desktop Publishing Software, dealing mostly with the design of a text.
+
+   <p>Although the commands and styles in LaTeX are much more flexible and
+standardized than in RTF, only a small subset of commands has been implemented to date
+(see <a href="#Unimplemented-Features">Unimplemented Features</a>).
+
+   <p>Some of the capabilities of LaTeX2RTF
+are restricted in scope or buggy (see <a href="#Known-Bugs">Known Bugs</a>).
+
+   <p><a id="index-RTF-sucks-1"></a>RTF is a moving target, because Microsoft does not stop inventing new extensions and
+features; consequently you cannot view newer RTF files with older word processors. 
+The syntax and semantics of RTF are somewhat artistic, i.e., you can generate a
+syntactically correct RTF file that cannot be displayed by some/most word processors. 
+For more details on RTF the specification consult the links at <a href="http://latex2rtf.sf.net/">http://latex2rtf.sf.net/</a>
+
+<p><a id="Installation"></a>
+
+<h2 class="chapter">2 Installation</h2>
+
+<p><a id="index-installation-2"></a>
+
+<p><a id="General"></a>
+
+<h3 class="section">2.1 General</h3>
+
+<p>The documentation of the program is found in the <span class="file">doc/</span> directory
+in the file <span class="file">latex2rtf.texi</span> in the GNU TeXInfo format. 
+For your convenience, you can find <acronym>HTML</acronym> and <acronym>PDF</acronym>
+versions of the manual there as well.<br>
+Note: In this manual, the terms "directory" and "folder" are used interchangeably.
+
+<p><a id="Obtaining-LaTeX2RTF"></a>
+
+<h3 class="section">2.2 Obtaining LaTeX2RTF
+</h3>
+
+<p>LaTeX2RTF
+is available for many Unix Platforms, for the Macintosh, and for MS-DOS,
+including all versions of MS Windows.
+
+<p>The latest version of LaTeX2RTF
+is available at
+<a href="http://sourceforge.net/projects/latex2rtf/">SourceForge</a>
+and &mdash; with some delay &mdash; on CTAN sites:
+e.g., <a href="http://www.dante.de">http://www.dante.de</a> or <a href="http://www.ctan.org">http://www.ctan.org</a>.
+
+   <p>The DOS package will also run under all MS Windows versions
+up to Windows 7, except 64bit systems. 
+It requires an i386 processor or better.<br>
+It should only be used on older Microsoft systems.<br>
+For Win9x, ME, NT, or newer, you should use the win or win-NO-GUI package.
+
+   <p>The win-NO-GUI package only runs under Win32
+(Win9x, ME, NT, 2000, XP, 2003, Vista, Win7). 
+From LaTeX2RTF version 2.0.0 up it also runs on 64bit systems.
+
+   <p>The win package is the win-NO-GUI package plus graphical user
+interface (GUI) shell (l2rshell) and installer.<br>
+It only runs under Win NT, 2000, XP, 2003, Vista, and Win7.<br>
+From LaTeX2RTF version 2.0.0 up it also runs on 64bit systems.
+
+   <p>The win64 package (only LaTeX2RTF version 1.9.19) is the win package
+but with 32bit versions of the shell utilities so that it also runs
+on 64bit systems. From LaTeX2RTF version 2.0.0 up, there is no separate
+win64 package, as the win32 package will also run on 64bit systems.
+
+   <p>There are a few people working on LaTeX2RTF, and some more make
+contributions, coordinated by
+Wilfried Hennings (texconvfaq &ldquo;at&rdquo; gmx.de). 
+See the <a href="http://sourceforge.net/projects/latex2rtf/">SourceForge</a>
+project pages for the latest news.
+
+<p><a id="UNIX"></a>
+
+<h3 class="section">2.3 UNIX</h3>
+
+<p>To install,
+     <ol type=1 start=1>
+<li>Edit <span class="file">Makefile</span> for your local configuration.  In particular, pay attention
+to the <span class="env">PREFIX</span> variable.  If you do not have root access you might wish
+to set the makefile variable <span class="env">PREFIX</span> to be your home directory.
+
+     <p>On some machines the cc compiler will issue errors. Therefore the
+default compiler command in the Makefile is <code>CC=gcc</code>.
+
+     <li>From version 1.9.13 up, LaTeX2RTF supports conversion of LaTeX equations to
+bitmaps using the shell script <span class="file">latex2png</span>, 
+found in <span class="file">scripts/</span>. 
+<span class="file">latex2png</span> requires that both LaTeX
+and <span class="file">ImageMagick</span> are installed. LaTeX2RTF
+will translate documents without a working <span class="file">latex2png</span>, but some
+features will be missing.  You can verify that the <span class="file">latex2png</span> script
+is working by typing <code>make</code> in the <span class="file">scripts/</span> directory.
+
+     <li><code>make</code>
+
+     <p>If this is not your first time installation, you may want to preserve
+your old configuration (<span class="file">*.cfg</span>) files. Copy them to a safe place
+before installing.
+
+     <p>On IBM AIX, the IBM make utility does not support some of the commands
+used in Makefile. In this case use <code>gmake</code> (from GNU) instead.
+
+     <p>Sun has decided to support the XPG4 standard on Solaris by an
+alternative set of binaries.  To allow bitmap conversion of equations, two
+things are needed.  First, change the first line of latex2png to <code>#!/usr/xpg4/bin/sh</code>
+Second, define the XPG4_GREP environment variable accordingly,
+for bash-like shells <code>XPG4_GREP=/usr/xpg4/bin/grep; export XPG4_GREP</code> or
+for tsch-like shells <code>setenv XPG4_GREP /usr/xpg4/bin/grep</code>.
+
+     <li><code>make install</code>
+
+     <p>If your <code>mkdir</code> doesn't support the <span class="option">-p</span> option, then create
+the necessary directories by hand and remove the option from the
+<code>$MKDIR</code> variable. If you have other problems, just copy
+<span class="file">latex2rtf</span> and <span class="file">latex2png</span> to a binary directory, and move
+the contents of the <span class="file">cfg/</span> directory to the location specified by
+<code>$CFG_INSTALL</code>.
+
+     <li><code>make check</code>
+
+     <p>[OPTIONAL] This tests LaTeX2RTF on a variety of LaTeX files.  Expect
+a whole lot of warnings, but no outright errors. (On IBM AIX, use <code>gmake check</code>.) 
+Note that this will check the basic functionality of the <span class="file">latex2png</span>
+script, and then that of <span class="file">latex2rtf</span>.
+
+     <li><code>make install-info</code>
+
+     <p>[OPTIONAL] This installs <span class="file">.info</span> files for use with the <code>info</code>
+program.
+
+        </ol>
+
+   <p>You no longer need to define the environment variable <span class="env">RTFPATH</span>. This
+is only necessary if you move the directory containing the <span class="file">.cfg</span> files. 
+Just define <span class="env">RTFPATH</span> to be the path for the new location of the <span class="file">cfg</span>
+directory.
+
+<p><a id="DOS-or-Windows"></a>
+
+<h3 class="section">2.4 DOS</h3>
+
+<p>The <acronym>UNIX</acronym> and Mac packages do not contain an executable for DOS
+or Windows. You may compile it yourself (with djgpp or MinGW) or get the <br>
+DOS package as file <span class="file">latex2rtf-x.x.x_dos.zip</span>
+(where x.x.x is the version number) <br>
+or the win-NO-GUI package as file <span class="file">latex2rtf-x.x.x_win-NO-GUI.zip</span>
+(no installer, no graphical user interface (GUI))<br>
+from <a href="http://sourceforge.net/projects/latex2rtf/">SourceForge</a><br>
+
+   <p>The DOS package contains a precompiled executable
+which should run under plain DOS and also in the command prompt
+(or &ldquo;console&rdquo;) of any MS Windows system including Vista and Windows 7
+but not on 64bit systems.<br>
+
+   <p>To install the DOS or win-no-GUI package of LaTeX2RTF, extract all files
+from the zip archive, preserving the folder structure
+(winzip: check &ldquo;use folder names&rdquo;),
+preferably to <span class="file">C:\l2r</span>, or under Windows, to your "Program Files"
+folder (which ever it is named in your system)
+because then it will find its cfg files by default.<br>
+If you extracted them to another folder (e.g. <span class="file">C:\my_files\l2r</span>),
+either edit the file <span class="file">L2RPREP.BAT</span>
+and change the folder <span class="file">C:\l2r</span> to where you put them, or specify the
+path to the cfg folder in the command line.<br>
+Avoid blanks in folder and file names!
+
+   <p>Make sure that the folder containing the file <span class="file">L2RPREP.BAT</span>
+is in your search path, or put this file into a folder
+which is in your search path.<br>
+To display the current search path, enter <span class="file">PATH</span>
+from the command prompt (with no arguments).
+
+   <p>Under plain DOS, conversion of equations or figures to bitmaps is not
+possible because Ghostscript and ImageMagick are not available
+for plain DOS.
+
+<p><a id="Win32-systems"></a>
+
+<h3 class="section">2.5 MS Windows systems</h3>
+
+<p>To install LaTeX2RTF
+on a MS Windows system (WinNT, Win2000, WinXP,
+Vista, Win7), download the win package,
+execute the <span class="file">latex2rtf-x.x.x_win.exe</span>
+(where x.x.x is the version number) and follow the instructions.
+
+   <p>Note: The installer and GUI shell do not support Win9x and WinMe
+since LaTeX2RTF v.1.9.17. 
+If you have one of these systems, you should use the
+win-NO-GUI package (1.9.19 and up) of LaTeX2RTF.
+
+   <p>To start the program double-click the LaTeX2RTF icon,
+or drag and drop a <span class="file">.tex</span> file onto the icon.
+
+   <p>If your LaTeX
+document refers to external graphic files, e.g. eps,
+or you want to use the option to convert equations to bitmaps,
+you must have LaTeX, ImageMagick and Ghostscript installed. These programs are
+freely available for download at <a href="http://www.miktex.org/">http://www.miktex.org/</a>,
+<a href="http://www.imagemagick.org">http://www.imagemagick.org</a> and 
+<a href="http://www.ghostscript.com">http://www.ghostscript.com</a>
+
+   <p>The following versions were available at the time of writing
+and tested together with LaTeX2RTF version 2.3.9: <br>
+- MikTeX 2.9 <br>
+- Ghostscript 9.10 or 9.15 <br>
+- ImageMagick-6.8.9-8-Q16-x86-dll.exe
+
+   <p>If MikTeX, ImageMagick and Ghostscript are installed, the paths to their
+executables are detected automatically. If for any reason this doesn't
+happen, these paths can be specified manually in the &ldquo;Environment&rdquo;
+tab of the LaTeX2RTF GUI shell window.
+
+   <p>If you need to start LaTeX2RTF not from its own shell but from commandline
+or another Windows application, you need to add the folder containing
+the latex2png script and the helper programs to the search path.<br>
+Some applications (e.g. Lyx) allow to temporarily add the path by
+specifying it in the options.<br>
+If this is not possible, you can add the latex2rtf folder to Windows'
+default path like follows:
+
+   <p>To add a folder &ndash; e.g. C:\Program Files\latex2rtf &ndash; to the search path:
+     <ul>
+<li>Note that the folder name "Program Files" contains a blank. 
+This would lead to some problems as some parts of the latex2rtf program
+package interpret the blank as a parameter delimiter. 
+Therefore in the following example the folder name "Program Files" is
+replaced by its DOS equivalent "PROGRA~1" which has the additional
+effect that this is similar for several if not all European languages.<br>
+<li>Win95, Win98, WinME
+          <ul>
+<li>Open the file <span class="file">C:\AUTOEXEC.BAT</span> either with Edit (DOS) or
+with Notepad (Windows). 
+<li>At the end of that file, add the line
+<span class="file">PATH=C:\PROGRA~1\latex2rtf;%PATH%</span>
+<li>Save the file to its original location. Shutdown and reboot the PC.<br>
+</ul>
+     <li>WinNT, Win2000, WinXP, Vista, Win7
+          <ul>
+<li>Right-click &ldquo;My Computer&rdquo; (German: &ldquo;Arbeitsplatz&rdquo;), then select &ldquo;Properties&rdquo;;
+<li>NT: Click the &ldquo;Environment&rdquo; tab;<br>
+XP and up: Click the &ldquo;Advanced&rdquo; tab, then the &ldquo;Environment variables&rdquo; button;
+<li>Find the line beginning with <span class="file">PATH=</span> and insert the string <br>
+<span class="file">C:\PROGRA~1\latex2rtf;</span><br>
+so that the complete line looks like <br>
+<span class="file">PATH=C:\PROGRA~1\latex2rtf;C:\WINDOWS;...</span>
+<li>Click "OK"
+</ul>
+     </ul>
+
+   <p>If you do NOT use the GUI (l2rshell.exe),
+either the folders where TeX, ImageMagick and Ghostscript are installed
+must also be in your search path, or you must edit the file <span class="file">L2RPREP.BAT</span>,
+ensure that the pathes in this file point to the folders where
+TeX, ImageMagick and Ghostscript are installed on your machine,
+and call <span class="file">l2rprep</span> before calling <span class="file">latex2rt</span>. <br>
+Or you edit <span class="file">l2r.bat</span> and call <span class="file">l2r</span> instead of
+calling <span class="file">latex2rt</span>.
+
+   <p>If you DO use the GUI (l2rshell.exe), the TeX, ImageMagick and Ghostscript folders
+are automatically added to the search path by the GUI.
+
+   <p>When equations are to be converted to bitmaps, for each equation LaTeX2RTF
+first writes a temporary l2r_nnnn.tex file to disk which consists
+of only the equation to be converted. It then sends the call
+for <span class="file">"bash latex2png l2r_nnnn.tex"</span> to the operating system. <br>
+In previous versions of latex2rtf, some users got the message
+&ldquo;Out of environment space&rdquo; (can occur only under Windows 95, Windows 98
+or Windows ME); this should be solved now by using bash.exe instead of command.com.
+
+<p><a id="Macintosh"></a>
+
+<h3 class="section">2.6 Macintosh</h3>
+
+<p>If you want a MacOS X version, make sure that you have installed the developer tools CD
+that is appropriate for your OS version, and then follow the directions above for a
+<acronym>UNIX</acronym> installation.  Alternatively you can install using fink
+<a href="http://fink.sourceforge.net/">http://fink.sourceforge.net/</a> or as an i-installer package
+<a href="http://www.rna.nl/ii.html">http://www.rna.nl/ii.html</a>.
+
+   <p>As of 2006-01-30 there also is a GUI shell for Macintosh.<br>
+See <a href="http://www.inf.ethz.ch/personal/fischerk/LaTeX2rtf/index.html">http://www.inf.ethz.ch/personal/fischerk/LaTeX2rtf/index.html</a>
+
+   <p>There is a PPC port of an old version 1.9k for Classic MacOS LaTeX2RTF
+. 
+To convert a LaTeX file using this version,  drag the file onto the LaTeX2RTF icon.  The
+translation is best if there are <span class="file">.aux</span> and 
+<span class="file">.bbl</span> files in the same folder as
+the <span class="file">.tex</span> file to be converted.  
+These should be generated using LaTeX and
+<span class="file">bibtex</span>.
+
+<p><a id="Problems-Compiling"></a>
+
+<h3 class="section">2.7 Problems Compiling</h3>
+
+<p>The code for LaTeX2RTF
+is standard <acronym>ANSI</acronym> C.  Some possible pitfalls are
+     <ul>
+<li>Not correctly defining your compiler in the Makefile. 
+The default is to use <code>gcc</code>.
+
+     <li>Encountering errors because the compiler options.  During development
+all compiler warnings are turned on.  However, different compilers have
+different interpretations of <span class="option">-Wall</span> and
+may generate errors that were not found in a different development
+system.  Please report these, but a quick fix is to remove all compiler
+options.
+
+   </ul>
+
+<p><a id="Problems-with-make-check"></a>
+
+<h3 class="section">2.8 Problems with <code>make check</code></h3>
+
+<p>All the files in the <span class="file">test</span> directory are converted (with varying degrees
+of success) using LaTeX2RTF and are tested before most CVS check-ins and with
+all released tarballs.  There will be many warning messages, but there should
+be no actual error messages.  If you do not have a working latex2png script, then
+some of the files will fail to be translated.
+
+<p><a id="Using-LaTeX2RTF"></a>
+
+<h2 class="chapter">3 Using LaTeX2RTF</h2>
+
+<p><a id="General-Assumptions"></a>
+
+<h3 class="section">3.1 General Assumptions</h3>
+
+<p>LaTeX2RTF
+assumes that the <span class="file">.tex</span> file you want to convert is a valid
+LaTeX document.  The chances of a successful LaTeX2RTF conversion are slightly better than the
+proverbial snowball's if the <span class="file">.tex</span> file doesn't <code>latex</code> properly.  Use
+LaTeX to find and correct errors before using LaTeX2RTF
+.<br>
+LaTeX2RTF also needs the <span class="file">.aux</span> file and <span class="file">.bbl</span> file
+which are generated by running <code>latex</code> on the <span class="file">.tex</span> file
+
+<p>To correctly convert font names you must edit the <span class="file">fonts.cfg</span> configuration file. 
+This file is used to specify the needed font names and how the LaTeX default font names
+should be converted to RTF (see <a href="#Font-Configuration">Font Configuration</a>). LaTeX
+variables and user defined commands are not evaluated. They will be simply ignored. To let LaTeX2RTF 
+know the names of variables you can add them in the <span class="file">ignore.cfg</span> file 
+(see <a href="#Ignore-Command">Ignore Command</a>).
+
+   <p>The environment variable RTFPATH may contain a search path for the support files (all
+files ending in <span class="file">.cfg</span>). If no file is found during the search in the search-path or
+if the environment variable is not set, the compiled-in default for the configuration-file
+directory is used. If the files are not found at all the program aborts.
+
+   <p>In the DOS and Windows versions the search path is separated by `;' in the Unix version by `:'. For
+the paths themselves apply `\' and `/'. A separator may appear at the beginning or ending
+of RTFPATH.
+
+   <p>Make sure that the configuration files are in the correct directory (or folder). LaTeX2RTF
+will need at least <span class="file">fonts.cfg</span>, <span class="file">direct.cfg</span>, 
+<span class="file">ignore.cfg</span>, <span class="file">english.cfg</span>. You may
+have to change one ore more of them to suit your needs (see <a href="#Configuration">Configuration</a>).
+
+   <p>See <a href="#Missing-options">Missing options</a>, for actual implementations irregularities.
+
+   <p>See <a href="#Reporting-Bugs">Reporting Bugs</a>, for information on how to reach the maintainer.
+
+<p><a id="LaTeX2RTF-Options"></a>
+
+<h3 class="section">3.2 LaTeX2RTF
+Options</h3>
+
+<p>The LaTeX2RTF
+command converts a LaTeX
+file into RTF text format. The text and
+much of the formatting information is translated to RTF making the new file
+look similar to the original.  The command line syntax is:
+
+<pre class="example">     latex2rtf [-options] inputfile[.tex]
+</pre>
+   <p>for the DOS and Windows versions:
+
+<pre class="example">     latex2rt [-options] inputfile[.tex]
+</pre>
+   <p>The options set in the Windows GUI (l2rshell.exe) are inserted as
+command line options when clicking RUN.
+
+   <p>The <code>-options</code> may consist of one or more of the following
+
+     <dl>
+<dt><code>-a auxfile</code><dd>specify an <span class="file">.aux</span> file (for table and figure references) that
+differs from <span class="file">inputfile.aux</span>. If this is omitted, the name of the
+inputfile with the suffix replaced <span class="file">.aux'</span>will be taken.  You must
+provide both files (<span class="file">.tex</span> and the <span class="file">.aux</span>) to be able to
+convert cross-references in a LaTeX
+file.  The <span class="file">.aux</span> is created
+by running the <span class="file">inputfile.tex</span> through <code>latex</code>.
+
+     <br><dt><code>-b bblfile</code><dd>Unless an <span class="file">bblfile</span> is specified with the <code>-b</code> option, 
+LaTeX2RTF uses a <span class="file">inputfile.bbl</span>.  
+The <span class="file">bblfile</span> file is used for citations and is typically
+created by running <span class="file">inputfile.aux</span> through <span class="file">bibtex</span>.
+
+     <br><dt><code>-C codepage</code><dd>used to specify the character set (code page) used in the LaTeX
+document. This is only important when non-ansi characters are included in the LaTeX
+document. Typically this is done in a LaTeX2e  file by using <code>\usepackage[codepage]{inputenc}</code>
+and in this case you need not specify the -C codepage option. 
+If NO <code>\usepackage[codepage]{inputenc}</code> is in the LaTeX2e  file, you must
+inform the converter about the codepage by the -C codepage option. You may select any
+of the following code pages: ansinew, applemac, cp437, cp437de, cp850, cp852, cp865,
+decmulti, cp1250, cp1252, latin1, latin2, latin3, latin4, latin5, latin9, next.  The
+default behavior is to use ansinew (code page 1252).  Cyrillic support includes
+conversion of koi8-r, koi8-u, cp1251, cp855, cp866, maccyr, and macukr encodings.
+
+     <br><dt><code>-d debug_level</code><dd>The <span class="option">-d</span> 
+option determines the amount of debugging information to send to
+stderr while translating. debug_level=0 means only Errors, `1' Warning Messages
+(default) also.  The debug_level can go as high as `7' for insane amounts of
+debugging fun. Warnings and error messages are output to stderr and by default
+listed in the console window. They can be redirected to a file &ldquo;latex2rtf.log&rdquo;
+by appending <code>2&gt;latex2rtf.log</code> to the command line.
+
+     <br><dt><code>-D dots_per_inch</code><dd>used to specify the number of dots per inch for equations converted to bitmaps. 
+This value is also used when picture environments are converted to bitmaps as well
+as when EPS graphics are converted to png files.  The default value is 300 dots per
+inch.
+
+     <br><dt><code>-E# selects whether figures are included in the rtf (default) or created</code><dd>as 
+external files with the filenames inserted in the rtf text.
+
+     <p>The options -E4, -E8 and -E12 are experimental and may not work as expected.
+
+          <dl>
+    <dt><code>-E0</code><dd>    Do not include any figures in RTF. 
+    <br><dt><code>-E1</code><dd>    Include figures that need no conversion. 
+    <br><dt><code>-E2</code><dd>    Include figures that need conversion. 
+    <br><dt><code>-E3</code><dd>    Include all figures (default). 
+    <br><dt><code>-E4</code><dd>    Insert filenames for figures that do not need conversion. 
+    <br><dt><code>-E8</code><dd>    Insert filenames for figures that need conversion. 
+    <br><dt><code>-E12</code><dd>    Insert filenames for all figures. 
+    </dl>
+     With options -E4, -E8 and -E12, pdf and ps are converted to eps
+and the eps filenames inserted. Bitmap files are inserted in
+their original format. 
+After opening the rtf in a textprocessing or dtp program,
+a macro can search for the inserted filenames
+and insert the files in their places.
+
+     <br><dt><code>-f#</code><dd>where # selects which fields to use during conversion:
+          <dl>
+    <dt><code>-f0</code><dd>    do not use fields in RTF.  This is handy when primitive RTF
+    editors are being used to view the RTF output. 
+    <br><dt><code>-f1</code><dd>    use fields for equations but not <code>\ref</code> and <code>\cite</code>. 
+    <br><dt><code>-f2</code><dd>    use fields for <code>\ref</code> and <code>\cite</code> but not equations.  This
+    will be useful for versions of OpenOffice that import cross-references
+    properly (as of Sept 2003 in a soon-to-be released version) but do not properly
+    handle fields in equations. 
+    <br><dt><code>-f3</code><dd>    use fields when possible.  This is the default and is most useful when
+    the RTF file is being exported to be used in Word.  This retains the most
+    information from the original LaTeX
+file. 
+    </dl>
+
+     <br><dt><code>-F</code><dd>use LaTeX to create bitmaps for all figures.  This may help when figures are
+not translated properly with the default settings.  This typically requires
+a functional version of ImageMagick on your machine to work properly.
+
+     <br><dt><code>-h</code><dd>a short usage description
+
+     <br><dt><code>-i language</code><dd>used to set the idiom or language used by the LaTeX
+document.  Typically, this is specified in a LaTeX2e
+ document by including <code>\usepackage[language]{babel}</code> where
+<code>language</code> is one of the languages supported by the <code>babel</code> package. All
+languages listed in the babel system are supported so far as translations for &ldquo;Chapter,&rdquo;
+&ldquo;References,&rdquo; and the like.  Furthermore, some commands found in the style files for
+german, french, russian, and czech style
+are supported (see <a href="#Language-Configuration">Language Configuration</a>).
+
+     <br><dt><code>-l</code><dd>same as <span class="option">-i latin1</span> (Note that the 
+default behavior is to use <span class="option">ansinew</span>
+which is a superset of <span class="option">latin1</span>). Included for
+backwards compatibility.
+
+     <br><dt><code>-M#</code><dd>where # selects the type of equation conversion.  Use
+          <dl>
+    <dt><code>-M1</code><dd>    convert displayed equations to RTF
+    <br><dt><code>-M2</code><dd>    convert inline equations to RTF
+    <br><dt><code>-M4</code><dd>    convert displayed equations to bitmap
+    <br><dt><code>-M8</code><dd>    convert inline equations to bitmap
+    <br><dt><code>-M16</code><dd>    insert Word comment field that contains the raw LaTeX equation
+    <br><dt><code>-M32</code><dd>    insert the raw latex equation in the RTF text delimited by <code>$ ... $</code> for
+    inline equations and by <code>\[ ... \]</code> for displayed equations.<br>
+    This is useful when using version 6 of the MathType equation
+    editor, which converts typed or pasted TeX code into a MathType equation.<br>
+    Probably this could also be useful for use in OpenOffice, as OO has an
+    equation syntax which partially resembles TeX syntax. 
+    <br><dt><code>-M64</code><dd>    convert displayed equations to EPS files and insert filenames in RTF text. 
+    <br><dt><code>-M128</code><dd>    convert inline equations to EPS files and insert filenames in RTF text. 
+    </dl>
+     These switches can be combined to get different effects.  Handy examples are
+          <dl>
+    <dt><code>-M3</code><dd>    convert both inline and displayed equations to RTF (default)
+    <br><dt><code>-M6</code><dd>    convert inline equations to RTF and displayed equations to bitmaps
+    <br><dt><code>-M12</code><dd>    convert both inline and displayed equations to bitmaps
+    <br><dt><code>-M192</code><dd>    convert both inline and displayed equations to EPS and insert filenames in RTF text
+    </dl>
+     Conversion to bitmaps or eps requires that you have installed a working latex2png script. 
+Producing bitmaps is slow.<br>
+When running the DOS version, conversion to bitmaps works for the first 26
+equations but fails for the rest with the message<br>
+"latex2png: pipe error: Too many open files (EMFILE)".<br>
+This is probably a bug in the djgpp 2.04 compiler.<br>
+The Windows version, compiled with MinGW, successfully
+converts at least 500 equations to bitmaps.<br>
+When -M64, -M128 or both are specified, equations are converted to
+individual eps files, the filenames of which are literally inserted in
+the rtf file, delimited by [###...###]. After loading the rtf file in a
+text processing program, a macro can be run which searches for "[###"
+and "###]", extracts the filename, and inserts the eps in that place. 
+The Windows installer package contains the code of such a macro for
+Word2010 in the file "WordMacro_InsertEPSfromNames.txt" in subfolder
+"scripts". (This macro may also run on other versions of Word but
+it was only tested on Word2010.) In Word, the inserted eps graphics
+display in bad quality on the screen and on non-postscript printers
+but can be printed in high quality on postscript and pdf printers.
+
+     <br><dt><code>-o outputfile</code><dd>Unless an <span class="file">outputfile</span> 
+is specified with the <code>-o</code> option, the resulting RTF
+filename is formed by removing <span class="file">.tex</span> from the <span class="file">inputfile</span> and appending
+<span class="file">.rtf</span>.
+
+     <br><dt><code>-p</code><dd>Escape parentheses in mathematical formulas.  This has no effect unless EQ fields
+are being generated.  When this option is used, then a `(' or `)' that appears
+in an EQ field will be preceeded by a backslash.  Despite documentation to the
+contrary (which says that all parentheses should be escaped), adding escapes usually
+produces a worse result than doing nothing. If Word displays some formulas with
+parentheses as &ldquo;Error!&rdquo;, you might try this option as a last resort. 
+See also the -S option.
+
+     <p>This is an option because it will break typesetting equations with non-matching
+parentheses (because an unmatched unquoted parenthesis would terminate the field).
+
+     <br><dt><code>-P /path/to/cfg</code><dd>used to specify the folder (i.e. directory) that contains the <code>.cfg</code> files
+and/or the folder that contains the latex2png script.<br>
+Unix, Mac: The folder that contains the latex2png script must be prepended
+by a ":".<br>
+DOS, Windows: The scripts folder is not used, the
+scripts are always taken from the search path, therefore the folder
+containing the scripts and the helper programs must be the first in the search path. 
+You can either add it to the search path permanently or add it temporarily by
+calling l2rprep.bat before starting conversions.<br>
+If any of the folder names contains a blank, the folder string must be
+enclosed in single (Unix, Mac) or double (DOS, Windows) quotes.<br>
+Examples:<br>
+(Unix:) <code>latex2rtf -P ./cfg/:./scripts/ foo</code><br>
+(DOS/Windows:) <code>latex2rt -P "C:\Program Files\latex2rtf\cfg" foo</code><br>
+Note that without specifying the -P option, LaTeX2RTF
+tries to find its cfg files in the following locations:<br>
+1. the folder specified by the environment variable <code>RTFPATH</code>, if this variable exists;<br>
+2. The folder <code>%PROGRAMFILES%\latex2rtf\cfg</code>, if the variable
+<code>PROGRAMFILES</code> exists &ndash; this is the folder in which LaTeX2RTF is installed
+by the Windows GUI installer with default settings;<br>
+3. the folder specified at compilation time by the variable
+<code>CFGDIR</code>. This is set in the Makefile. The DOS version is compiled
+with <code>CFGDIR=C:/l2r</code>, the Windows version with
+<code>CFGDIR=C:/PROGRA~1/latex2rtf</code>.
+
+     <br><dt><code>-se#</code><dd>selects the scale for equation conversion, where # is the scale factor
+(default 1.00).
+
+     <br><dt><code>-sf#</code><dd>selects the scale for figure conversion, where # is the scale factor
+(default 1.00).
+
+     <br><dt><code>-t#</code><dd>where # selects the type of table conversion.  Use
+          <dl>
+    <dt><code>-t1</code><dd>    convert tables to RTF (default)
+    <br><dt><code>-t2</code><dd>    convert tables to bitmaps
+    </dl>
+
+     <br><dt><code>-v or -V</code><dd>prints version information on standard output and exits.
+
+     <br><dt><code>-S</code><dd>used to specify that semicolons should be used to separate arguments in RTF fields
+(instead of commas).  Typically this is needed when the machine that opens the RTF file
+has a version of Windows that uses `,' for decimal points.
+
+     <br><dt><code>-T /path/to/tmp</code><dd>used to specify the folder where to put temporary files. 
+The path can be absolute, e.g. <code>/path/to/tmp</code> or relative
+to the folder where the .tex input file is in, e.g. <code>tmp</code> or <code>./tmp</code>.<br>
+If you call LaTeX2RTF from the commandline (e.g. under Linux or
+when called as export filter by LyX), make sure that the tmp folder exists. 
+Only the LaTeX2RTF Windows shell tries to create the tmp folder,
+the command line program doesn't.
+
+     <br><dt><code>-W</code><dd>includes warnings directly in the RTF file
+
+     <br><dt><code>-Z#</code><dd>add the specified number of extra <code>}</code> 
+to the end of the RTF file.  This is useful for files that are not cleanly converted by LaTeX2RTF.
+
+   </dl>
+
+   <p>With no arguments other than switches starting with a &ldquo;-&rdquo;,
+LaTeX2RTF acts as a filter, i.e., it reads from <code>stdin</code> and writes
+to <code>stdout</code>. 
+In addition, diagnostic messages are sent to <code>stderr</code>. 
+If these standard channels are not redirected using <code>&lt;</code>
+and <code>&gt;</code>, then the input is read from the command line,
+and both output and error messages are printed on the screen. 
+To redirect warnings and error messages to a file
+&ldquo;latex2rtf.log&rdquo;, append <code>2&gt;latex2rtf.log</code> to the command line.
+
+   <p>If a non-switch argument is present, LaTeX2RTF assumes it is the name of
+the input file. The file must have extension &ldquo;.tex&rdquo; but the extension
+is optional. The output file is constructed from the input file name
+by removing the extension &ldquo;.tex&rdquo; and adding &ldquo;.rtf&rdquo;.
+
+<p><a id="Debugging"></a>
+
+<h3 class="section">3.3 Debugging</h3>
+
+<p>With the <span class="option">-d</span> option you can specify how much processing information
+LaTeX2RTF reports. 
+If there is a logfile specified the output goes to this file. Nonetheless
+Warnings and Errors are logged to stderr always. They can be redirected
+to a file &ldquo;latex2rtf.log&rdquo; by appending <code>2&gt;latex2rtf.log</code>
+to the command line.
+
+   <p>Possible values of <span class="option">-d</span> are
+     <ol type=1 start=0>
+<li>only errors. 
+<li>Translation Warnings (default). 
+<li>shows preparsing of sections
+<li>Reasonably high level debugging messages
+<li>Show all function calls
+<li>Show each character as it is processed
+<li>Show processing of characters as they are output as well
+        </ol>
+
+<p><a id="Features"></a>
+
+<h2 class="chapter">4 Features</h2>
+
+<p>In this chapter you find what styles is LaTeX2RTF supposed to translate
+correctly to RTF.
+
+<p><a id="LaTeX2e"></a>
+
+<h3 class="section">4.1 LaTeX2e</h3>
+
+<p>LaTeX2RTF
+understands most of the commands introduced with LaTeX2e.  It translates both
+the old 2.09 version of <code>\documentstyle[options]{format#}</code> and the newer
+<code>\documentclass[options]{format}</code>.
+
+<p><a id="Unicode-Support"></a>
+
+<h3 class="section">4.2 Unicode Support</h3>
+
+<p>As of version 1.9.17, LaTeX2RTF
+has limited unicode support.  LaTeX
+files
+that use unicode sequences are just emitted directly into the RTF file.<br>
+Symbols and odd characters in math sequences may also be converted to
+a unicode sequence. Some of them need the STIXGeneral fonts
+(see <a href="#Math-and-Special-Symbols">Math and Special Symbols</a>) to be installed on the system
+where the rtf file is to be displayed or printed.
+
+   <p>Support for unicode encoded input is activated by the LaTeX command <br>
+<code>\usepackage[utf8]{inputenc}</code> <br>
+or <br>
+<code>\usepackage[utf8x]{inputenc}</code>.
+
+<p><a id="Input-Encoding"></a>
+
+<h3 class="section">4.3 Input Encoding</h3>
+
+<p>It is not necesary to specify the <span class="option">-C</span> 
+option if you use <code>\usepackage{isolatin1}</code>
+or <code>\documentstyle[isolatin1]{...}</code>. LaTeX2RTF automagically detects these
+packages/style options and switches to processing of ISO-Latin1 codes.  The following
+encodings are supported: ansinew, applemac, cp437, cp437de, cp850, cp852, cp865,
+decmulti, cp1250, cp1252, latin1, latin2, latin3, latin4, latin5, latin9, next,
+koi8-r, koi8-u, cp1251, cp855, cp866, maccyr, macukr, utf8, and utf8x.  The encoding used in
+RTF files is cp1252.  If cyrillic fonts are present, then these are represented
+in the RTF file using cp1251 (Windows Cyrillic).
+
+<p><a id="Language-Support"></a>
+
+<h3 class="section">4.4 Language Support</h3>
+
+<p><a id="index-language-support-3"></a><a name="index-babel-4"></a>
+The following languages from the Babel package are supported: afrikaans,
+german, nynorsk, spanish, bahasa, dutch, icelandic, polish, swedish,
+basque, english, portuges, turkish, brazil, esperanto, irish, romanian,
+usorbian, breton, estonian, italian, samin, welsh, catalan, finnish,
+latin, scottish, croatian, lsorbian, serbian, czech, french, magyar,
+slovak, danish, galician, norsk, slovene.
+
+   <p>The only thing that these files do is to translate various words usually
+emitted by LaTeX during processing.  For example, this ensures that the LaTeX2RTF
+will provide the correct translation of the word &ldquo;Chapter&rdquo; in
+the converted document.
+
+   <p>You can select any of the above languages using the <span class="option">-l</span> option.  This
+is not needed if your LaTeX
+file contains <code>\usepackage[language]{babel}</code>.
+
+   <p>Encountering the <span class="option">german</span> package or babel option (by H. Partl of the
+Vienna University) makes LaTeX2RTF
+behave like that: German Quotes, German
+Umlauts by <code>"a</code>, etc<small class="enddots">....</small>  This support is programmed directly
+into LaTeX2RTF
+and supporting similar features for other languages will require
+patching the source code.
+
+   <p>There is similar support for <span class="option">french</span> packages.
+
+   <p>There is reasonable support for english, latin1, latin2, and cyrillic languages.
+
+   <p>See <a href="#Language-Configuration">Language Configuration</a>, for details on how to write a <span class="file">language.cfg</span> file
+for your language by yourself.
+
+<p><a id="Cross-References"></a>
+
+<h3 class="section">4.5 Cross References</h3>
+
+<p>Cross references include everything that you might expect and then some:
+bibliographic citations, equation references, table references, figure
+references, and section references.  Section, equation, table and figure references
+are implemented by placing RTF bookmarks around the equation number (or table
+number or figure number).
+
+   <p>Page references work but are implemented as &ldquo;warm&rdquo; cross-references.  This
+means that Word does not automatically update the page references when the file
+is opened.  To update the page references you must select the entire document
+(in Word) and press <code>F9</code>.
+
+   <p><a id="index-bibliography-5"></a>Bibliographic references currently require that a valid <span class="file">.aux</span> file be
+present.  This is where LaTeX2RTF obtains the reference numbers.  It would be
+nice if LaTeX2RTF just automatically numbered the references when there was
+no <span class="file">.aux</span> file, but LaTeX2RTF does not do this yet.
+
+   <p><a id="index-bibliography_002c-BibTeX-6"></a><a name="index-BibTeX-7"></a>LaTeX2RTF
+relies on BibTeX to convert and format bibliographic entries. 
+Usually the style file for a particular BibTeX format does not use any special LaTeX
+commands and therefore the bibliography file
+<span class="file">file.bbl</span> can be processed by LaTeX2RTF
+without difficulty. As a consequence, LaTeX2RTF
+can handle most bibliography styles without problem.
+
+   <p><a id="index-bibliography_002c-apacite-8"></a><a name="index-bibliography_002c-apalike-9"></a>
+<a name="index-bibliography_002c-authordate-10"></a><a name="index-bibliography_002c-harvard-11"></a>
+<a name="index-bibliography_002c-natbib-12"></a><a name="index-bibliography_002c-apanat1b-13"></a>
+<a name="index-apacite-14"></a><a name="index-apalike-15"></a><a name="index-authordate-16"></a>
+<a name="index-harvard-17"></a><a name="index-natbib-18"></a><a name="index-apanat1b-19"></a>
+There are several latex style packages that add additional
+latex commands to enhance bibliographic formatting. LaTeX2RTF
+currently supports the following bibliographic packages:<br>
+apacite, apalike, authordate, harvard, natbib (also with apanat1b). 
+These packages have many, many options and you may encounter
+problems with formatting in special cases.
+
+   <p>As of LaTeX2RTF
+1.9.17, the natbib command bibpunct is supported.
+
+   <p>Footnotes are implemented and appear at the bottom of each page. 
+<a id="index-footnotes-20"></a>
+<a id="index-index-21"></a>Indexing is reasonably-well supported.  The simple mark-up of <code>makeindex</code>
+<pre class="example">     \index{topic!subtopic@\textit{subtopic}}
+</pre>
+   <p>is supported.  The rest of the fancy indexing stuff is not implemented. 
+The index is created at the location of the <code>\printindex</code> command. 
+When a file with an index is first opened in Word, you must select the
+entire file and update the page references and fields by pressing <code>F9</code>.
+
+   <p>Currently, there is no support for <code>\labels</code> of <code>\item</code>s in enumerate environments.
+
+   <p>The conversion of cross-references is not perfect because of the different
+mechanisms in the LaTeX and Word worlds.  In particular, if there are
+multiple <code>\label</code> in a figure, table, or section environment then only the first
+gets processed.  It is also possible to confuse the LaTeX2RTF
+in eqnarray environments.
+
+<p><a id="Page-Formatting"></a>
+
+<h3 class="section">4.6 Page Formatting</h3>
+
+<p><a id="index-page-formatting-22"></a><a name="index-geometry-package-23"></a><a name="index-margins-24"></a>
+<a name="index-line-spacing-25"></a><a name="index-double-spacing-26"></a><a name="index-setspace-package-27"></a>
+LaTeX2RTF will handle some basic page formatting options, including
+\doublespacing (as implemented in the setspace package), and the margin
+setting options provided by the geometry package including commands in the
+ratio, centering and margin families. Not all geometry options are
+implemented yet, in part because there are no corresponding rtf commands
+for many of them.
+
+<p><a id="Equations"></a>
+
+<h3 class="section">4.7 Equations</h3>
+
+<p><a id="index-equations-28"></a>
+There are six separate levels of equation translation based on the -M switch,
+see <a href="#LaTeX2RTF-Options">LaTeX2RTF Options</a>. 
+Each equation is converted either to an EQ field or to a bitmap
+or inserted as raw TeX code in the document or converted to an eps file with the
+eps file name inserted in the document text delimited by [###...###].
+
+   <p>This is an interim solution (for some definition of &ldquo;interim&rdquo;). 
+Ideally the equations would become OLE equation objects in the
+RTF file, but this needs to be implemented.
+
+   <p>Some functions in the EQ fields have two or more parameters with a separator
+between each two. Unfortunately, the interpretation of these separators depends
+on the country specific settings in the MS Windows system in which the rtf file
+is opened. e.g. in English versions of MS Windows, the default parameter separator
+is the comma, in German versions the default is the semicolon. If the parameter
+in the RTF file does not match the Windows setting, some EQ fields are not
+interpreted correctly. You can check and set the separator in [Windows control panel
+- country settings - numbers - list separator]. By default, LaTeX2RTF
+uses
+the comma as separator. If LaTeX2RTF
+is called with the command line parameter -S ,
+the semicolon is inserted as parameter delimiter.
+
+   <p>Theoretically, according to the Word help file, parentheses `(' or `)' in
+mathematical formulas should be escaped (by a preceding backslash). 
+Despite this, adding escapes usually produces a worse result than doing nothing. 
+If Word displays some formulas with parentheses as &ldquo;Error!&rdquo;, you might try
+the -p option as a last resort.
+
+   <p>It is also possible to convert an EQ field generated by LaTeX2RTF to an
+Equation Editor object by opening the rtf file in Word and double-clicking on
+the equation. However there are bugs in the interface between Word and Equation
+Editor which prevent symbols in font Symbol or MTExtra to be converted correctly. 
+The full commercial version of the Equation Editor, called MathType, handles
+this conversion correctly.
+
+   <p>If you have MathType version 6 or later, an even better way to convert LaTeX
+equations to MathType is letting LaTeX2RTF write the LaTeX code of the equations verbatim in the
+rtf file (option -M32), then open the rtf file in Word, select the LaTeX code of
+an equation, cut it to the clipboard, open MathType, and paste the code. 
+MathType will convert the code into an equation. Wilfried tried to automate this
+in a Word macro, but this fails because the macro does not wait until MathType is
+started and ready to receive the pasted code. Maybe the MathType authors will
+give us a hint or provide such a macro.
+
+   <p>MathType can be downloaded from <a href="http://www.dessci.com/">http://www.dessci.com/</a>
+(30 day test version).
+
+<p><a id="Math-and-Special-Symbols"></a>
+
+<h3 class="section">4.8 Math and Special Symbols</h3>
+
+<p><a id="index-math-29"></a><a name="index-special-symbols-30"></a>
+The way that symbols are converted in the RTF is based on the following
+observations.  If the symbol is found in the latin 1 character set, then
+the current font is used, else the unicode code is inserted in the rtf code. 
+(Implemented since version 2.1.0)
+
+   <p>The means that on the system where the <span class="file">.rtf</span> file is opened, a unicode
+font should be available or these glyphs will not be displayed correctly. 
+As only the STIX fonts contain all needed characters, these fonts should be
+installed on the system where the rtf file is to be displayed or printed.
+
+   <p>Many mathematical and special symbols are directly supported by LaTeX2RTF. 
+Less common symbols (not found in the standard font)
+are supported by the conversion table in the file <span class="file">direct.cfg</span>,
+see <a href="#Direct-Conversion">Direct Conversion</a>.
+
+   <p>Required fonts are:
+
+     <ul>
+<li>&ldquo;Times&rdquo; / &ldquo;Times New Roman&rdquo; or &ldquo;Helvetica&rdquo; / &ldquo;Arial&rdquo;,
+preferably with Unicode extension (i.e. supporting all European languages
+including Cyrillic, Greek, and Hebrew). &ldquo;Times&rdquo; or &ldquo;Times New Roman&rdquo; and
+&ldquo;Helvetica&rdquo; or &ldquo;Arial&rdquo; are standard on all systems,
+but not their Unicode extension.
+
+     <li>&ldquo;STIXGeneral&rdquo; (4 fonts in plain, italic, bold, bold-italic). These fonts
+are available from <a href="http://sourceforge.net/projects/stixfonts/">http://sourceforge.net/projects/stixfonts/</a>.
+
+     <p>Note that while Office 2003 on Vista works correctly with the Open Type
+version, it does not on Windows XP (Word 2003 assigns no character
+spacing, and Publisher doesn't display the character at all). On
+Windows XP, Office 2003 only displays the symbols correctly with the
+TrueType (ttf) version of the fonts. But stixfonts.org only supplies
+the Open Type (otf) version. 
+TrueType versions of the fonts can be downloaded from
+<a href="http://sites.google.com/site/olegueret/stixfonts-ttf">http://sites.google.com/site/olegueret/stixfonts-ttf</a>.
+
+   </ul>
+
+<p><a id="Tables"></a>
+
+<h3 class="section">4.9 Tables</h3>
+
+<p><a id="index-tables-31"></a>
+Conversion of tabular and tabbing environments is somewhat lame.  The
+main difficulty is that LaTeX
+(and html) will size the columns of
+a table automatically.  There is no such feature in RTF.  Consequently,
+the conversion defaults to making all the columns have equal size.  This
+is suboptimal and should be revised.
+
+   <p>Another way is to use the option -t2
+to make latex render them as bitmaps and insert the bitmaps
+into the RTF file. This feature was added in version 1.9.19.
+
+<p><a id="Graphics"></a>
+
+<h3 class="section">4.10 Graphics</h3>
+
+<p><a id="index-graphics-32"></a>
+There is now rudimentary support for <code>\includegraphics</code>. 
+Three file types will be inserted into the RTF file without needing
+conversion: <span class="file">.pict</span>, <span class="file">.jpeg</span>, 
+and <span class="file">.png</span> files. 
+EPS and PDF files are converted to PNG using <code>convert</code> from the
+ImageMagick package.  Some options are even handled properly.
+
+<p><a id="Pagestyles"></a>
+
+<h3 class="section">4.11 Pagestyles</h3>
+
+<p><a id="index-pagestyles-33"></a>
+If there is no <code>\pagestyle</code> command, the RTF output is generated as with
+plain pagestyle, i.e. each page has its page number centered at the bottom.
+
+   <p>You must turn this off with the \pagestyle{empty} command in the LaTeX
+file if you don't want pagenumbers. 
+The headings and myheadings styles are silently ignored by now. 
+The twosided option to the \documentstyle or \documentclass produces the
+corresponding RTF tokens. 
+Note that these features require RTF Version 1.4.
+
+<p><a id="Hyperlatex"></a>
+
+<h3 class="section">4.12 Hyperlatex</h3>
+
+<p><a id="index-hyperlatex-34"></a>
+Hyperlatex support is largely broken at the moment, but continues to improve.
+
+   <p>Otfried Schwarzkopf has created the &ldquo;Hyperlatex Markup Language&rdquo; which is a
+&ldquo;little package that allows you to use LaTeX to prepare documents in HTML.&rdquo;
+It brings an Emacs lisp program with it to convert the Hyperlatex file to HTML. 
+Hyperlatex can be obtained from the CTAN-sites, see <a href="#Obtaining-LaTeX2RTF">Obtaining LaTeX2RTF</a>. 
+There are two convenient commands that avoid typing: \link and \xlink that
+generate an &ldquo;internal&rdquo; label which then is used in the following \Ref and
+\Pageref commands.
+
+   <p>LaTeX makes it possible to write `\link{anchor}[ltx]{label}', which typesets:
+`anchor ltx'. LaTeX2RTF does NOT support this aproach since the optional
+parameter is thrown away right now, see <a href="#LaTeX2RTF-under-Development">LaTeX2RTF under Development</a>.
+
+   <p>Note that you have to update your <span class="file">.cfg</span> files if you are upgrading, since
+there are a lot of HTML oriented commands in Hyperlatex that we simply can `ignore'.
+
+<p><a id="APA-Support"></a>
+
+<h3 class="section">4.13 APA Support</h3>
+
+<p><a id="index-APA-Support-35"></a>
+Some APA citation styles are supported, see <a href="#Citation-Commands">Citation Commands</a>
+
+   <p>Support for APA text formatting is only rudimentary at the moment
+(headings without numbering). 
+If you want to format a document according to APA,
+rename cfg/style.cfg to style_sav.cfg
+and rename cfg/styleAPA.cfg to style.cfg before starting LaTeX2RTF
+.
+
+<p><a id="Configuration"></a>
+
+<h2 class="chapter">5 Configuration</h2>
+
+<p><a id="Input-Processing"></a>
+
+<h3 class="section">5.1 Input processing</h3>
+
+<p><a id="index-input-processing-36"></a><a name="index-direct_002ecfg-37"></a><a name="index-ignore_002ecfg-38"></a>
+On processing input LaTeX2RTF first converts the LaTeX special
+characters. If it encounters one of the standard commands it is
+converted internally. If a command is not known to LaTeX2RTF it is first
+looked up in <span class="file">direct.cfg</span> and the RTF code specified there is
+output. If not found there it is looked up in the section
+<span class="file">ignore.cfg</span>. This file includes a lot of LaTeX
+commands that do not affect the output (cross reference information and the like), or
+that we are not able or willing to convert to RTF.
+
+   <p>You can use <span class="file">ignore.cfg</span> if you get tired of seeing
+<pre class="example">     WARNING: command: `foo' not found - ignored
+</pre>
+   <p class="noindent">and you don't need `foo' in your RTF document. It would be nice to send
+your additions to the LaTeX2RTF mailing list for inclusion in later distributions.
+
+   <p>LaTeX2RTF accepts Unix, MS-DOS, and Macintosh line ending codes (\n, \r\n
+and \r).  The files it creates get the line ending for the platform on
+which LaTeX2RTF was compiled.
+
+   <p>The LaTeX file may have been created with a wide variety of character
+sets.  If the LaTeX lacks the <code>\package[codepage]{inputenc}</code>
+definition, then you may need to use the command line switch to manually
+select the proper code page (see <a href="#Input-Encoding">Input Encoding</a>).
+
+<p><a id="Conditional-Parsing"></a>
+
+<h3 class="section">5.2 Conditional Parsing</h3>
+
+<p><a id="index-Conditional-Parsing-39"></a><a name="index-_0025latex2rtf-40"></a><a name="index-iflatextortf-41"></a>
+Starting with LaTeX2RTF 1.9.18, there is a handy method for controlling which content
+should be processed by LaTeX or by LaTeX2RTF.  Control is achieved using the
+standard <code>\if</code> facility of TeX.  If you include the following line in
+the preamble of your document (i.e., before <code>\begin{document}</code>)
+
+<pre class="example">     \newif\iflatextortf
+</pre>
+   <p>Then you will create a new <code>\iflatextortf</code> command in LaTeX
+. 
+TeX sets the value of this to <code>false</code> by default.  Now, LaTeX2RTF
+internally sets <code>\iflatextortf</code> to be true, and to ensure that
+this is always the case, LaTeX2RTF ignores the command <code>\latextortffalse</code>. 
+This means that you can control how different applications process your document by
+
+<pre class="example">     \iflatextortf
+     This code is processed only by latex2rtf
+     \else
+     This code is processed only by latex
+     \fi
+</pre>
+   <p>Note that <code>\iflatextortf</code> will only work within a section; you
+cannot use this command to conditionally parse code that crosses section
+boundaries. Also, it will only work on complete table or figure
+environments. Due to the mechanism used by LaTeX2RTF in processing these
+environments, at this time the only way to conditionally parse tables
+and figures is to include two complete versions of the environment in
+question, nested within an appropriate <code>\iflatex2rtf</code> structure.
+
+   <p>LaTeX2RTF
+versions 1.9.15 to 1.9.18 had the ability to hide contents from LaTeX
+
+   <p>but expose them to LaTeX2RTF
+by starting a line with <code>%latex2rtf:</code>.  This
+code was horribly broken, and it was removed.  The same functionality is readily
+achieved using the <code>\iflatextortf</code> mechanism.  For example, the old
+method allowed
+
+<pre class="example">     %latex2rtf: This line will only appear in the latex2rtf output,
+</pre>
+   <p>To get the same behavior, define <code>\iflatextortf</code> and use
+
+<pre class="example">     \iflatextortf
+     This code is processed only by latex2rtf
+     \fi
+</pre>
+   <p><a id="Output-Formatting"></a>
+
+<h3 class="section">5.3 Output Formatting</h3>
+
+<p>On writing output, LaTeX2RTF generates the operating system specific line ending code
+(<code>\n</code> on Unix, <code>\r\n</code> on DOS or Windows), depending on which system
+LaTeX2RTF was compiled. 
+As both should be legal to any RTF Reader the resulting RTF rendering should
+not be affected.
+
+   <p>LaTeX2RTF
+does not offer a whole lot of flexibility in how files are translated,
+but it does offer some.  This flexibility resides in four files <span class="file">direct.cfg</span>,
+<span class="file">ignore.cfg</span>, <span class="file">fonts.cfg</span>, and <span class="file">language.cfg</span>.  These filese
+are documented in the next four sections.
+
+<p><a id="Direct-Conversion"></a>
+
+<h3 class="section">5.4 Direct Conversion</h3>
+
+<p>The file <span class="file">direct.cfg</span> is used for converting LaTeX
+commands by simple text replacement. The format consists of lines with a LaTeX
+command with backslash followed by comma. The rest of the line 
+until a <span class="samp">.</span> character will be written
+to the RTF file when the command is found in the LaTeX file. Lines
+starting with a <span class="samp">#</span> character are ignored. 
+After the <span class="samp">.</span> everything is ignored
+to end of line. To select a specific font use <code>*fontname*</code>, where
+<code>fontname</code> be defined in <span class="file">fonts.cfg</span>. 
+To write the <span class="samp">*</span> character use <span class="samp">**</span>.
+
+<pre class="verbatim">
+\bigstar,{\u8727**}.
+\copyright,\'a9.
+</pre>
+
+   <p>In general, specific fonts should not be specified in this file. There is a
+mechanism to do this, but it turns out that this is not as useful as originally
+thought.  The main reason that this fails is because the conversion of equations
+from Word fields to Equation Editor objects is buggy.  The consequence is that
+to have symbols show up properly, they must be encoded differently when the Symbol
+and MT Extra fonts are used &mdash; depending on whether Word fields are active or
+not.  It was all very tedious to figure out a mechanism that was &ldquo;least broken.&rdquo;
+
+<p><a id="Ignore-Command"></a>
+
+<h3 class="section">5.5 Ignore Command</h3>
+
+<p>The file <span class="file">ignore.cfg</span> is used for defining how to ignore specific commands. 
+This file is used for recognition of LaTeX variables, user defined variables, and
+some simple commands. All variables are ignored but the converter must know the
+names to correctly ignore assignments to variables. Lines in this file consist
+of a variable name with backslash, followed by comma and the type of the
+variable followed by <span class="samp">.</span>. Possible types are
+
+     <dl>
+<dt><span class="samp">NUMBER</span><dd>simple numeric value
+<br><dt><span class="samp">MEASURE</span><dd>numeric value with following unit of measure
+<br><dt><span class="samp">OTHER</span><dd>ignores anything to the first character after <span class="samp">=</span> and from there to next
+space. e.g., <code>\setbox\bak=\hbox</code>
+<br><dt><span class="samp">COMMAND</span><dd>ignores anything to next <span class="samp">\</span> and from there to the occurence of anything
+but a letter e.g., <code>\newbox\bak</code>
+<br><dt><span class="samp">SINGLE</span><dd>ignores single command e.g., <code>\noindent</code>
+<br><dt><span class="samp">PARAMETER</span><dd>ignores a command with one parameter e.g., <code>\foo{bar}</code>
+<br><dt><span class="samp">PACKAGE</span><dd>does not produce a Warning message if PACKAGE is encountered, e.g.,
+`<code>\kleenex,PACKAGE.</code>' ignores `<code>\usepackage{kleenex}</code>'
+<br><dt><span class="samp">ENVCMD</span><dd>intended to process contents of unknown environment as if it were
+plain LaTeX
+, e.g. `<code>\environ,ENVCMD.</code>' <br>
+Therefore `<code>\begin{environ} text
+\end{environ}</code>' would be converted to `text'. 
+Doesn't work in LaTeX2RTF
+version 2.1.0 up to and including 2.3.0. 
+<br><dt><span class="samp">ENVIRONMENT</span><dd>ignores contents of that environment, 
+e.g., with `<code>\ifhtml,ENVIRONMENT.</code>&rdquo;,
+`<code>\begin{ifhtml} text \end{ifhtml}</code>' ignores `text'. 
+</dl>
+
+   <p>The types are in upper case exactly as above. Do not use spaces. Lines starting
+with a <span class="samp">#</span> character are ignored. After the <span class="samp">.</span> everything is ignored to end of
+line. Example:
+<pre class="example">     \pagelength,MEASURE.
+</pre>
+   <p><a id="Font-Configuration"></a>
+
+<h3 class="section">5.6 Font Configuration</h3>
+
+<p>The file <span class="file">fonts.cfg</span> contains the font name mapping.  For example, this
+file determines what font is used to represent <code>\rm</code> characters in the RTF file.
+
+   <p>A line consists of a font name in LaTeX followed by comma and a font
+name in RTF. The end is marked by a <span class="samp">.</span>. No spaces are allowed. The
+LaTeX font will be converted to the RTF font when it is found
+in the LaTeX file. If multiple translations for the same LaTeX
+font are specified, only the first is used. All fonts in a LaTeX
+file that are not in this file will be mapped to the default font. All RTF fonts
+listed in this file will be in every RTF file header whether used or
+not.  Lines starting with a <span class="samp">#</span> character are ignored. After the
+<span class="samp">.</span> everything is ignored to end of line.
+
+   <p>To add a RTF font not used as substitute for a LaTeX
+font &mdash; for example a Symbol font used
+in <span class="file">direct.cfg</span> &mdash; use a dummy LaTeX
+name like in the following
+<pre class="example">     Dummy3,MathematicalSymbols.
+</pre>
+   <p>Make sure you use the correct font name. Take care of spaces in font names. The
+default fonts are named Roman <code>\rm</code>, Slanted <code>\sl</code>, Sans Serif
+<code>\sf</code>, Typewriter <code>\tt</code>, or Calligraphic <code>\cal</code>.
+
+<p><a id="Language-Configuration"></a>
+
+<h3 class="section">5.7 Language Configuration</h3>
+
+<p>The file(s) <span class="file">language.cfg</span> control the translation of LaTeX
+'s &ldquo;hardcoded&rdquo; sectioning names. 
+The standard LaTeX styles have some fixed Title names like `Part', `Reference'
+or `Bibliography' that appeared in English or German in the output with the
+original versions of LaTeX2RTF.
+
+   <p>It is unlikely that you will need to create a new <span class="file">language.cfg</span> file. 
+However, just look at one of the existing files and follow the pattern. 
+The format is really simple.
+
+<p><a id="Error-Messages-and-Logging"></a>
+
+<h2 class="chapter">6 Error Messages and Logging</h2>
+
+<p>As stated in the Debugging section, LaTeX2RTF provides a means to control
+the amount of debugging information through the <span class="option">-d#</span> switch. 
+By using a debugging level of 4, you can get a pretty good idea of what
+LaTeX command caused the problem and what line that command might be
+found on. Warnings and error messages are output to stderr and by default
+listed in the console window. They can be redirected to a file
+&ldquo;latex2rtf.log&rdquo; by appending <code>2&gt;latex2rtf.log</code> to the command line.
+
+     <dl>
+<dt><span class="samp">Fatal error messages</span><dd>indicate a bug in the source code. PLEASE report them, if they do not
+apear in the documentation (see <a href="#Reporting-Bugs">Reporting Bugs</a>).
+
+     <br><dt><span class="samp">Error messages</span><dd>always abort the program and are caused by conditions that prevent
+further conversion of the input file.  Typically this is cause by LaTeX2RTF
+getting hopelessly confused by the number of braces in the LaTeX file.
+
+     <br><dt><span class="samp">Warning messages</span><dd>inform you, that there is some conversion loss from LaTeX
+to RTF, or that the output file has some restrictions on some RTF Readers. Most of these
+warnings can be supressed by add the offending command to the <span class="file">ignore.cfg</span>
+file. 
+</dl>
+
+   <p>Error and Warning messages should follow the GNU Coding standards, i.e. they
+have the format
+<pre class="example">     inputfile':line: Error|Warning: message
+</pre>
+   <p>You can also control the level of debugging output by inserting <code>\verbositylevel{#}</code>
+in the LaTeX file.  This is very handy if you have a large LaTeX file
+that is failing in only a small section.  For example,
+<pre class="example">     problem free latex file ....
+     \verbositylevel{5}
+     problematic code
+     \verbositylevel{0}
+</pre>
+   <p class="noindent">will cause a huge amount of debugging information to be emitted
+for the problematic code.
+
+   <p>Error reporting and logging still has many inconsistencies, but it
+gets better with each release. 
+Don't try to make any sense in debugging levels above 4, these are for my
+own delight only and can change significantly between versions.
+
+   <p>The <span class="file">inputfile</span> may be incorrectly identified if it is incorporated
+through <code>\input</code> or <code>\include</code>.  The line may be also be wrong
+at times.  See <a href="#Known-Bugs">Known Bugs</a>.
+
+<p><a id="History"></a>
+
+<h2 class="chapter">7 History &amp; Copyright</h2>
+
+<p><a id="index-History-of-the-program-42"></a><a name="index-Copyright-issues-43"></a>
+In 1994 the first Version of LaTeX2RTF was written by Fernando Dorner and Andreas Granzer of
+the Vienna University supervised by Ralf Schlatterbeck in a one-semester course. They
+created a simple LaTeX parser and added most of the infrastructure for the program. 
+This was version 1.0 of LaTeX2RTF.  In 1995, work on LaTeX2RTF was continued in another
+one-semester course by Friedrich Polzer and Gerhard Trisko. The result was LaTeX2RTF
+version 1.5.  Ralf Schlatterbeck (ralf &ldquo;at&rdquo; zoo.priv.at) maintained and 
+extended LaTeX2RTF until 1998.
+
+   <p>In 1998 Georg Lehner (jorge_lehner &ldquo;at&rdquo; gmx.net) found the reference to LaTeX2RTF
+on the
+<a href="http://tug.org/utilities/texconv/index.html">TeX Conversion Webpage</a> of
+Wilfried Hennings and added some functionality and took
+over the maintainence of the program.  The last version release by Georg is 1.8aa. 
+The bulk of development post 1.8aa was done by Scott Prahl. 
+Wilfried Hennings now coordinates the development of the program and maintains the project
+on <a href="http://sourceforge.net/projects/latex2rtf/">SourceForge</a> where there are also
+(low volume) mailing lists for users and developers. Mailing via one of these lists requires
+subscription to the list (to prevent spam). 
+For subscription to these lists visit the page:
+<a href="http://lists.sourceforge.net/lists/listinfo/latex2rtf-users">users list</a>
+or
+<a href="http://lists.sourceforge.net/lists/listinfo/latex2rtf-developers">developers list</a>
+
+   <p>As of October 2014, version 2.3.9 of LaTeX2RTF is available.
+
+   <p>The contents of this manual were composed by copying shamelessly what was
+available in the original sources and documentation.
+
+<p><a id="LaTeX2RTF-under-Development"></a>
+
+<h2 class="chapter">8 LaTeX2RTF under Development</h2>
+
+<p><a id="Unimplemented-Features"></a>
+
+<h3 class="section">8.1 Unimplemented Features</h3>
+
+     <ul>
+<li>LaTeX2RTF ignores some optional parameters of <code>\documentstyle</code>
+<li>Add the code to produce the corresponding chapter, section, and page
+numbering with headings and myheadings pagestyles. Implement
+<code>\markboth</code> and <code>\markright</code>. 
+<li>To support <code>\tableofcontents</code> there would be two approaches:
+Transfer sectioning information, title text and then produce page
+numbers by the rtf- reader. Scan and label all of the sectioning
+commands while reading and then construct the sectioning information
+using these labels. Needs two passes on LaTeX input. 
+</ul>
+
+<p><a id="Missing-options"></a>
+
+<h3 class="section">8.2 Missing options</h3>
+
+<p>Missing or buggy command line options.
+
+     <dl>
+<dt><span class="option">-d</span><dd>Information logging and 
+Error reporting is not implemented consistently. 
+Need to test and track problems with the linenumber and with the file name.
+
+     <br><dt><span class="option">--long_names</span><dd>It would be useful 
+to implement the GNU long option names, e.g.: `&ndash;debug',
+`&ndash;output_file', `&ndash;quiet', etc.  
+This could be done by switching to the GNU getopt package. 
+</dl>
+
+<p><a id="Known-Bugs"></a>
+
+<h3 class="section">8.3 Known Bugs</h3>
+
+     <ol type=1 start=1>
+<li>The first parameter of a \link{anchor}[ltx]{label} is converted to
+the rtf-output. Label is stored to hyperref for later use, the optional
+parameter is ignored. [ltx] should be processed as Otfried recommends
+it, to use for exclusive LaTeX output.e.g:
+\link{readhere}[~\Ref]{explaining: chapter}. Since
+{explaining:chapter} is yet read by LaTeX and hyperlatex when [...] 
+is evaluated it produces the correct reference. LaTeX2RTF is only
+strolling from left to right through the text and can't remember what
+she will see in the future. 
+<li>The diagnostics routine does not output the correct (actual)
+input filename. (`.aux', `.bbl', <code>\input</code>).
+     </ol>
+
+<p><a id="Reporting-Bugs"></a>
+
+<h3 class="section">8.4 Reporting Bugs</h3>
+
+<p>Report bugs to to the bug tracking system at <a href="http://sourceforge.net/projects/latex2rtf/">SourceForge</a>. 
+Only report bugs for the latest version of LaTeX2RTF that is available. 
+Please provide the following information and observe the following
+guidelines when reporting a bug in the program:
+     <ol type=1 start=1>
+<li>State the version of LaTeX2RTF
+that you are using.  You can get the version by
+specifying the <span class="option">-V</span> option to LaTeX2RTF
+.
+
+     <li>Specify the your operating system and version. Be sure to check the file `Makefile'
+for settings that may be specific to your machine, especially for some versions of SunOS
+there may be settings which are needed to compile successfully. Do this before submitting
+a bug report.
+
+     <li>If the program produces wrong output or does not work for you, include a short
+LaTeX file along with a description of the problem.  Isolating the bug into a small
+LaTeX file does two things.  First, it provides a file that can be used to test future
+versions of LaTeX2RTF and second, it certainly improves the chances that the bug will get
+some attention.  Do not send me large LaTeX or RTF files, I simply do not have the time
+to wade through large files to search for a bug!
+
+     <li>Be patient. I am maintaining the program in my free time. I did not
+write most of the code. Often I do not have the time to answer to your
+question. I will, however, try to fix reported bugs in upcoming releases.
+        </ol>
+
+<p><a id="Todo-List"></a>
+
+<h3 class="section">8.5 Todo List</h3>
+
+<p>Scott's ToDo list
+     <ul>
+<li>Use lex/yacc to implement getSection
+<li>Add support for pagestyle
+<li>Better support for ignoring commands
+</ul>
+
+<p class="noindent">Georg's todo list
+     <ul>
+<li>Make this Manual more consistent, the ToDo and Known Bug List shorter
+and the Features List longer. 
+<li>Harmonize all of the error and warning messages. 
+<li>Put warnings everywhere applicable about producing RTF 1.4 tokens. 
+<li>Provide an Error and Warning recovery guide to the user. 
+<li>Add a chapter with lists of all LaTeX commands that convert, and that
+do not convert to RTF, including their status (for future releases,
+never, partially functional, ...). 
+</ul>
+
+<p><a id="LaTeX-Commands"></a>
+
+<h3 class="section">8.6 Command List</h3>
+
+<p>Listed here are all the LaTeX
+commands currently parsed by LaTeX2RTF. 
+Note: inclusion in this list does not mean that a command is fully and
+correctly handled by LaTeX2RTF. In some cases the commands here are
+place-holders only, and are not implemented at all. The list is provided
+to encourage developers to note any departures from the behaviour that
+LaTeX users will expect. The location of the commands is noted to
+assist anyone interested in hacking on the C source code. This list is a
+work in progress, and may not be immediately useful to general users,
+other than to indicate those commands that we have at least contemplated
+implementing.
+
+<p><a id="General-Commands"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">8.6.1 General Commands</h4>
+
+<p>These commands are found in the <code>commands[]</code> array in commands.c. 
+They are arranged alphabetically within sections according to function.
+
+<p><a id="Basic-Commands"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">8.6.1.1 Basic Commands</h5>
+
+<p>All listed commands work as expected.
+
+     <dl>
+<dt>begin<a id="index-begin-44"></a><br><dt>centerline<a name="index-centerline-45"></a><br><dt>end<a name="index-end-46"></a><br><dt>endnote<a name="index-endnote-47"></a><br><dt>footnote<a name="index-footnote-48"></a><br><dt>raggedright<a name="index-raggedright-49"></a><br><dt>the<a name="index-the-50"></a><br><dt>today<a name="index-today-51"></a><br><dt>vcenter<a name="index-vcenter-52"></a><dd></dl>
+
+<p><a id="Font-Commands"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">8.6.1.2 Font Commands</h5>
+
+<p>All listed commands work as expected.
+
+     <dl>
+<dt>bf<a id="index-bf-53"></a><br><dt>bfseries<a name="index-bfseries-54"></a><br><dt>cal<a name="index-cal-55"></a><br><dt>em<a name="index-em-56"></a><br><dt>emph<a name="index-emph-57"></a><br><dt>enotesize<a name="index-enotesize-58"></a><br><dt>footnotesize<a name="index-footnotesize-59"></a><br><dt>HUGE<a name="index-HUGE-60"></a><br><dt>Huge<a name="index-Huge-61"></a><br><dt>huge<a name="index-huge-62"></a><br><dt>it<a name="index-it-63"></a><br><dt>itshape<a name="index-itshape-64"></a><br><dt>LARGE<a name="index-LARGE-65"></a><br><dt>Large<a name="index-Large-66"></a><br><dt>large<a name="index-large-67"></a><br><dt>mathbf<a name="index-mathbf-68"></a><br><dt>mathcal<a name="index-mathcal-69"></a><br><dt>mathit<a name="index-mathit-70"></a><br><dt>mathmd<a name="index-mathmd-71"></a><br><dt>mathnormal<a name="index-mathnormal-72"></a><br><dt>mathrm<a name="index-mathrm-73"></a><br><dt>mathsc<a name="index-mathsc-74"></a><br><dt>mathsf<a name="index-mathsf-75"></a><br><dt>mathsl<a name="index-mathsl-76"></a><br><dt>mathtt<a name="index-mathtt-77"></a><br><dt>mathup<a name="index-mathup-78"></a><br><dt>mdseries<a name="index-mdseries-79"></a><br><dt>mit<a name="index-mit-80"></a><br><dt>normalfont<a name="index-normalfont-81"></a><br><dt>normalsize<a name="index-normalsize-82"></a><br><dt>rm<a name="index-rm-83"></a><br><dt>rmfamily<a name="index-rmfamily-84"></a><br><dt>sc<a name="index-sc-85"></a><br><dt>scfamily<a name="index-scfamily-86"></a><br><dt>scriptsize<a name="index-scriptsize-87"></a><br><dt>scshape<a name="index-scshape-88"></a><br><dt>sf<a name="index-sf-89"></a><br><dt>sffamily<a name="index-sffamily-90"></a><br><dt>sl<a name="index-sl-91"></a><br><dt>slshape<a name="index-slshape-92"></a><br><dt>small<a name="index-small-93"></a><br><dt>ssmall<a name="index-ssmall-94"></a><br><dt>textbf<a name="index-textbf-95"></a><br><dt>textfont<a name="index-textfont-96"></a><br><dt>textit<a name="index-textit-97"></a><br><dt>textmd<a name="index-textmd-98"></a><br><dt>textnormal<a name="index-textnormal-99"></a><br><dt>textrm<a name="index-textrm-100"></a><br><dt>textsc<a name="index-textsc-101"></a><br><dt>textsf<a name="index-textsf-102"></a><br><dt>textsl<a name="index-textsl-103"></a><br><dt>texttt<a name="index-texttt-104"></a><br><dt>textup<a name="index-textup-105"></a><br><dt>tiny<a name="index-tiny-106"></a><br><dt>tt<a name="index-tt-107"></a><br><dt>ttfamily<a name="index-ttfamily-108"></a><br><dt>underbar<a name="index-underbar-109"></a><br><dt>underline<a name="index-underline-110"></a><br><dt>upshape<a name="index-upshape-111"></a><dd></dl>
+
+<p><a id="Logos"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">8.6.1.3 Logos</h5>
+
+<p>All listed commands work as expected.
+
+     <dl>
+<dt>AmSLaTeX<a id="index-AmSLaTeX-112"></a><br><dt>AmSTeX<a name="index-AmSTeX-113"></a><br><dt>BibTeX<a name="index-BibTeX-114"></a><br><dt>kern<a name="index-kern-115"></a><br><dt>LaTeX<a name="index-LaTeX-116"></a><br><dt>latex<a name="index-latex-117"></a><br><dt>LaTeXe<a name="index-LaTeXe-118"></a><br><dt>lower<a name="index-lower-119"></a><br><dt>LyX<a name="index-LyX-120"></a><br><dt>SLiTeX<a name="index-SLiTeX-121"></a><br><dt>TeX<a name="index-TeX-122"></a><dd></dl>
+
+<p><a id="Special-Characters"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">8.6.1.4 Special Characters</h5>
+
+<p>These commands all work as expected.
+
+     <dl>
+<dt>\<a id="index-_005c-123"></a><br><dt>acute<a name="index-acute-124"></a><br><dt>b<a name="index-b-125"></a><br><dt>bar<a name="index-bar-126"></a><br><dt>breve<a name="index-breve-127"></a><br><dt>c<a name="index-c-128"></a><br><dt>check<a name="index-check-129"></a><br><dt>d<a name="index-d-130"></a><br><dt>ddot<a name="index-ddot-131"></a><br><dt>dot<a name="index-dot-132"></a><br><dt>grave<a name="index-grave-133"></a><br><dt>H<a name="index-H-134"></a><br><dt>hat<a name="index-hat-135"></a><br><dt>i<a name="index-i-136"></a><br><dt>j<a name="index-j-137"></a><br><dt>l<a name="index-l-138"></a><br><dt>L<a name="index-L-139"></a><br><dt>r<a name="index-r-140"></a><br><dt>tilde<a name="index-tilde-141"></a><br><dt>u<a name="index-u-142"></a><br><dt>v<a name="index-v-143"></a><br><dt>vec<a name="index-vec-144"></a><dd></dl>
+
+<p><a id="Sectioning-Commands"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">8.6.1.5 Sectioning Commands</h5>
+
+     <dl>
+<dt>chapter<a id="index-chapter-145"></a><br><dt>chapter*<a name="index-chapter_002a-146"></a><br><dt>paragraph<a name="index-paragraph-147"></a><br><dt>paragraph*<a name="index-paragraph_002a-148"></a><br><dt>part<a name="index-part-149"></a><br><dt>part*<a name="index-part_002a-150"></a><br><dt>section<a name="index-section-151"></a><br><dt>section*<a name="index-section_002a-152"></a><br><dt>subparagraph<a name="index-subparagraph-153"></a><br><dt>subparagraph*<a name="index-subparagraph_002a-154"></a><br><dt>subsection<a name="index-subsection-155"></a><br><dt>subsection*<a name="index-subsection_002a-156"></a><br><dt>subsubsection<a name="index-subsubsection-157"></a><br><dt>subsubsection*<a name="index-subsubsection_002a-158"></a><dd></dl>
+
+<p><a id="Uncategorized"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">8.6.1.6 Uncategorized</h5>
+
+<p>These commands need to be organized into new or existing sections.
+
+     <dl>
+<dt>abstract<a id="index-abstract-159"></a>
+<br><dt>addcontents<a id="index-addcontents-160"></a><dd>Ignored
+
+     <br><dt>addcontentsline<a id="index-addcontentsline-161"></a><dd>Ignored
+
+     <br><dt>addvspace<a id="index-addvspace-162"></a><dd>Ignored
+
+     <br><dt>aleph<a id="index-aleph-163"></a>
+<br><dt>Alph<a id="index-Alph-164"></a>
+<br><dt>alph<a id="index-alph-165"></a><dd>Ignored
+
+     <br><dt>alpha<a id="index-alpha-166"></a>
+<br><dt>Alpha<a id="index-Alpha-167"></a><dd>Ignored
+
+     <br><dt>amalg<a id="index-amalg-168"></a>
+<br><dt>and<a id="index-and-169"></a>
+<br><dt>angle<a id="index-angle-170"></a>
+<br><dt>appendix<a id="index-appendix-171"></a><dd>Ignored
+
+     <br><dt>approx<a id="index-approx-172"></a>
+<br><dt>arabic<a id="index-arabic-173"></a><dd>Ignored
+
+     <br><dt>ast<a id="index-ast-174"></a>
+<br><dt>author<a id="index-author-175"></a>
+<br><dt>baselineskip<a id="index-baselineskip-176"></a>
+<br><dt>because<a id="index-because-177"></a>
+<br><dt>beta<a id="index-beta-178"></a>
+<br><dt>Beta<a id="index-Beta-179"></a>
+<br><dt>bibentry<a id="index-bibentry-180"></a>
+<br><dt>bibitem<a id="index-bibitem-181"></a>
+<br><dt>bibliography<a id="index-bibliography-182"></a>
+<br><dt>bibliographystyle<a id="index-bibliographystyle-183"></a>
+<br><dt>bibliographystyle<a id="index-bibliographystyle-184"></a><dd>Ignored
+
+     <br><dt>bigskip<a id="index-bigskip-185"></a>
+<br><dt>bot<a id="index-bot-186"></a>
+<br><dt>BoxedEPSF<a id="index-BoxedEPSF-187"></a>
+<br><dt>bullet<a id="index-bullet-188"></a>
+<br><dt>cap<a id="index-cap-189"></a>
+<br><dt>caption<a id="index-caption-190"></a>
+<br><dt>cdot<a id="index-cdot-191"></a>
+<br><dt>cdots<a id="index-cdots-192"></a>
+<br><dt>centering<a id="index-centering-193"></a>
+<br><dt>char<a id="index-char-194"></a>
+<br><dt>chi<a id="index-chi-195"></a>
+<br><dt>Chi<a id="index-Chi-196"></a>
+<br><dt>circ<a id="index-circ-197"></a>
+<br><dt>cite<a id="index-cite-198"></a>
+<br><dt>citeonline<a id="index-citeonline-199"></a>
+<br><dt>cleardoublepage<a id="index-cleardoublepage-200"></a>
+<br><dt>clearpage<a id="index-clearpage-201"></a>
+<br><dt>clubsuit<a id="index-clubsuit-202"></a>
+<br><dt>cong<a id="index-cong-203"></a>
+<br><dt>contentsline<a id="index-contentsline-204"></a>
+<br><dt>coprod<a id="index-coprod-205"></a>
+<br><dt>cup<a id="index-cup-206"></a>
+<br><dt>date<a id="index-date-207"></a>
+<br><dt>ddots<a id="index-ddots-208"></a>
+<br><dt>delta<a id="index-delta-209"></a>
+<br><dt>Delta<a id="index-Delta-210"></a>
+<br><dt>dfrac<a id="index-dfrac-211"></a>
+<br><dt>Diamond<a id="index-Diamond-212"></a>
+<br><dt>diamondsuit<a id="index-diamondsuit-213"></a>
+<br><dt>div<a id="index-div-214"></a>
+<br><dt>doteq<a id="index-doteq-215"></a>
+<br><dt>dotfill<a id="index-dotfill-216"></a><dd>There is no rtf code for dotfill; LaTeX2RTF
+inserts an ellipsis only.
+
+     <br><dt>dots<a id="index-dots-217"></a>
+<br><dt>dots<a id="index-dots-218"></a>
+<br><dt>downarrow<a id="index-downarrow-219"></a>
+<br><dt>Downarrow<a id="index-Downarrow-220"></a>
+<br><dt>efloatseparator<a id="index-efloatseparator-221"></a>
+<br><dt>ell<a id="index-ell-222"></a>
+<br><dt>emptyset<a id="index-emptyset-223"></a>
+<br><dt>endinput<a id="index-endinput-224"></a>
+<br><dt>endnotemark<a id="index-endnotemark-225"></a><dd>Ignored
+
+     <br><dt>ensuremath<a id="index-ensuremath-226"></a>
+<br><dt>epsfbox<a id="index-epsfbox-227"></a>
+<br><dt>epsffile<a id="index-epsffile-228"></a>
+<br><dt>epsilon<a id="index-epsilon-229"></a>
+<br><dt>eqref<a id="index-eqref-230"></a>
+<br><dt>equiv<a id="index-equiv-231"></a>
+<br><dt>eta<a id="index-eta-232"></a>
+<br><dt>exists<a id="index-exists-233"></a>
+<br><dt>fbox<a id="index-fbox-234"></a>
+<br><dt>fbox<a id="index-fbox-235"></a>
+<br><dt>fnsymbol<a id="index-fnsymbol-236"></a><dd>Ignored
+
+     <br><dt>footnotemark<a id="index-footnotemark-237"></a><dd>Ignored
+
+     <br><dt>forall<a id="index-forall-238"></a>
+<br><dt>frac<a id="index-frac-239"></a>
+<br><dt>Frac<a id="index-Frac-240"></a>
+<br><dt>framebox<a id="index-framebox-241"></a><dd>Ignored
+
+     <br><dt>frenchspacing<a id="index-frenchspacing-242"></a><dd>Ignored
+
+     <br><dt>gamma<a id="index-gamma-243"></a>
+<br><dt>Gamma<a id="index-Gamma-244"></a>
+<br><dt>ge<a id="index-ge-245"></a>
+<br><dt>geq<a id="index-geq-246"></a>
+<br><dt>gg<a id="index-gg-247"></a>
+<br><dt>glossary<a id="index-glossary-248"></a><dd>Ignored
+
+     <br><dt>glossaryentry<a id="index-glossaryentry-249"></a><dd>Ignored
+
+     <br><dt>hbar<a id="index-hbar-250"></a>
+<br><dt>hbox<a id="index-hbox-251"></a>
+<br><dt>heartsuit<a id="index-heartsuit-252"></a>
+<br><dt>hsize<a id="index-hsize-253"></a>
+<br><dt>hslash<a id="index-hslash-254"></a>
+<br><dt>hspace<a id="index-hspace-255"></a><dd>Ignored
+
+     <br><dt>hspace*<a id="index-hspace_002a-256"></a><dd>Ignored
+
+     <br><dt>htmladdnormallink<a id="index-htmladdnormallink-257"></a>
+<br><dt>htmlref<a id="index-htmlref-258"></a>
+<br><dt>iiint<a id="index-iiint-259"></a>
+<br><dt>iint<a id="index-iint-260"></a>
+<br><dt>Im<a id="index-Im-261"></a>
+<br><dt>in<a id="index-in-262"></a>
+<br><dt>include<a id="index-include-263"></a>
+<br><dt>includegraphics<a id="index-includegraphics-264"></a>
+<br><dt>includegraphics*<a id="index-includegraphics_002a-265"></a>
+<br><dt>includeonly<a id="index-includeonly-266"></a><dd>Ignored
+
+     <br><dt>indent<a id="index-indent-267"></a>
+<br><dt>index<a id="index-index-268"></a>
+<br><dt>indexentry<a id="index-indexentry-269"></a><dd>Ignored
+
+     <br><dt>infty<a id="index-infty-270"></a>
+<br><dt>input<a id="index-input-271"></a>
+<br><dt>int<a id="index-int-272"></a>
+<br><dt>int<a id="index-int-273"></a>
+<br><dt>iota<a id="index-iota-274"></a>
+<br><dt>kappa<a id="index-kappa-275"></a>
+<br><dt>label<a id="index-label-276"></a>
+<br><dt>lambda<a id="index-lambda-277"></a>
+<br><dt>Lambda<a id="index-Lambda-278"></a>
+<br><dt>land<a id="index-land-279"></a>
+<br><dt>langle<a id="index-langle-280"></a>
+<br><dt>lceil<a id="index-lceil-281"></a>
+<br><dt>ldots<a id="index-ldots-282"></a>
+<br><dt>le<a id="index-le-283"></a>
+<br><dt>left<a id="index-left-284"></a>
+<br><dt>leftarrow<a id="index-leftarrow-285"></a>
+<br><dt>Leftarrow<a id="index-Leftarrow-286"></a>
+<br><dt>leftharpoondown<a id="index-leftharpoondown-287"></a>
+<br><dt>leftleftarrows<a id="index-leftleftarrows-288"></a>
+<br><dt>leftrightarrow<a id="index-leftrightarrow-289"></a>
+<br><dt>Leftrightarrow<a id="index-Leftrightarrow-290"></a>
+<br><dt>leftrightarrows<a id="index-leftrightarrows-291"></a>
+<br><dt>leq<a id="index-leq-292"></a>
+<br><dt>let<a id="index-let-293"></a><dd>Ignored
+
+     <br><dt>letterspace<a id="index-letterspace-294"></a>
+<br><dt>lfloor<a id="index-lfloor-295"></a>
+<br><dt>lim<a id="index-lim-296"></a>
+<br><dt>liminf<a id="index-liminf-297"></a>
+<br><dt>limsup<a id="index-limsup-298"></a>
+<br><dt>linebreak<a id="index-linebreak-299"></a><dd>Ignored
+
+     <br><dt>lineskip<a id="index-lineskip-300"></a>
+<br><dt>listoffigures<a id="index-listoffigures-301"></a>
+<br><dt>listoftables<a id="index-listoftables-302"></a>
+<br><dt>ll<a id="index-ll-303"></a>
+<br><dt>longleftarrow<a id="index-longleftarrow-304"></a>
+<br><dt>longleftrightarrows<a id="index-longleftrightarrows-305"></a>
+<br><dt>longrightarrow<a id="index-longrightarrow-306"></a>
+<br><dt>lor<a id="index-lor-307"></a>
+<br><dt>makebox<a id="index-makebox-308"></a><dd>Ignored
+
+     <br><dt>maketitle<a id="index-maketitle-309"></a>
+<br><dt>mapsto<a id="index-mapsto-310"></a>
+<br><dt>marginpar<a id="index-marginpar-311"></a><dd>Ignored
+
+     <br><dt>markboth<a id="index-markboth-312"></a><dd>Ignored
+
+     <br><dt>markright<a id="index-markright-313"></a><dd>Ignored
+
+     <br><dt>matrix<a id="index-matrix-314"></a>
+<br><dt>mbox<a id="index-mbox-315"></a>
+<br><dt>measuredangle<a id="index-measuredangle-316"></a>
+<br><dt>medskip<a id="index-medskip-317"></a>
+<br><dt>mho<a id="index-mho-318"></a>
+<br><dt>moveleft<a id="index-moveleft-319"></a>
+<br><dt>moveright<a id="index-moveright-320"></a>
+<br><dt>mp<a id="index-mp-321"></a>
+<br><dt>mu<a id="index-mu-322"></a>
+<br><dt>multicolumn<a id="index-multicolumn-323"></a>
+<br><dt>nabla<a id="index-nabla-324"></a>
+<br><dt>ne<a id="index-ne-325"></a>
+<br><dt>nearrow<a id="index-nearrow-326"></a>
+<br><dt>neg<a id="index-neg-327"></a>
+<br><dt>neq<a id="index-neq-328"></a>
+<br><dt>newblock<a id="index-newblock-329"></a>
+<br><dt>newcount<a id="index-newcount-330"></a><dd>Ignored
+
+     <br><dt>newfont<a id="index-newfont-331"></a><dd>Ignored
+
+     <br><dt>newpage<a id="index-newpage-332"></a>
+<br><dt>newsavebox<a id="index-newsavebox-333"></a><dd>Ignored
+
+     <br><dt>nobibliography<a id="index-nobibliography-334"></a><dd>Ignored
+
+     <br><dt>nobreakspace<a id="index-nobreakspace-335"></a>
+<br><dt>nocite<a id="index-nocite-336"></a>
+<br><dt>noindent<a id="index-noindent-337"></a>
+<br><dt>nolinebreak<a id="index-nolinebreak-338"></a><dd>Ignored
+
+     <br><dt>nonfrenchspacing<a id="index-nonfrenchspacing-339"></a><dd>Ignored
+
+     <br><dt>nonumber<a id="index-nonumber-340"></a>
+<br><dt>nopagebreak<a id="index-nopagebreak-341"></a><dd>Ignored
+
+     <br><dt>notag<a id="index-notag-342"></a>
+<br><dt>nu<a id="index-nu-343"></a>
+<br><dt>numberline<a id="index-numberline-344"></a>
+<br><dt>nwarrow<a id="index-nwarrow-345"></a>
+<br><dt>omega<a id="index-omega-346"></a>
+<br><dt>Omega<a id="index-Omega-347"></a>
+<br><dt>omicron<a id="index-omicron-348"></a>
+<br><dt>onecolumn<a id="index-onecolumn-349"></a>
+<br><dt>onlinecite<a id="index-onlinecite-350"></a>
+<br><dt>oplus<a id="index-oplus-351"></a>
+<br><dt>oslash<a id="index-oslash-352"></a>
+<br><dt>otimes<a id="index-otimes-353"></a>
+<br><dt>output<a id="index-output-354"></a><dd>Ignored
+
+     <br><dt>overline<a id="index-overline-355"></a>
+<br><dt>pagebreak<a id="index-pagebreak-356"></a>
+<br><dt>pagenumbering<a id="index-pagenumbering-357"></a><dd>Ignored
+
+     <br><dt>pageref<a id="index-pageref-358"></a>
+<br><dt>pagestyle<a id="index-pagestyle-359"></a><dd>Ignored
+
+     <br><dt>par<a id="index-par-360"></a>
+<br><dt>parbox<a id="index-parbox-361"></a>
+<br><dt>partial<a id="index-partial-362"></a>
+<br><dt>perp<a id="index-perp-363"></a>
+<br><dt>phi<a id="index-phi-364"></a>
+<br><dt>Phi<a id="index-Phi-365"></a>
+<br><dt>pi<a id="index-pi-366"></a>
+<br><dt>Pi<a id="index-Pi-367"></a>
+<br><dt>pm<a id="index-pm-368"></a>
+<br><dt>prec<a id="index-prec-369"></a>
+<br><dt>printindex<a id="index-printindex-370"></a>
+<br><dt>prod<a id="index-prod-371"></a>
+<br><dt>prod<a id="index-prod-372"></a>
+<br><dt>propto<a id="index-propto-373"></a>
+<br><dt>protect<a id="index-protect-374"></a><dd>Ignored
+
+     <br><dt>psfig<a id="index-psfig-375"></a>
+<br><dt>psfrag<a id="index-psfrag-376"></a><dd>Ignored
+
+     <br><dt>psi<a id="index-psi-377"></a>
+<br><dt>Psi<a id="index-Psi-378"></a>
+<br><dt>qquad<a id="index-qquad-379"></a>
+<br><dt>quad<a id="index-quad-380"></a>
+<br><dt>raisebox<a id="index-raisebox-381"></a><dd>Ignored
+
+     <br><dt>rangle<a id="index-rangle-382"></a>
+<br><dt>rceil<a id="index-rceil-383"></a>
+<br><dt>Re<a id="index-Re-384"></a>
+<br><dt>ref<a id="index-ref-385"></a>
+<br><dt>refstepcounter<a id="index-refstepcounter-386"></a>
+<br><dt>rfloor<a id="index-rfloor-387"></a>
+<br><dt>rho<a id="index-rho-388"></a>
+<br><dt>right<a id="index-right-389"></a>
+<br><dt>Rightarrow<a id="index-Rightarrow-390"></a>
+<br><dt>rightarrow<a id="index-rightarrow-391"></a>
+<br><dt>rightharpoonup<a id="index-rightharpoonup-392"></a>
+<br><dt>rightleftarrows<a id="index-rightleftarrows-393"></a>
+<br><dt>rightleftharpoons<a id="index-rightleftharpoons-394"></a>
+<br><dt>rightrightarrows<a id="index-rightrightarrows-395"></a>
+<br><dt>Roman<a id="index-Roman-396"></a><dd>Ignored
+
+     <br><dt>roman<a id="index-roman-397"></a><dd>Ignored
+
+     <br><dt>rule<a id="index-rule-398"></a>
+<br><dt>samepage<a id="index-samepage-399"></a><dd>Ignored
+
+     <br><dt>savebox<a id="index-savebox-400"></a><dd>Ignored
+
+     <br><dt>sbox<a id="index-sbox-401"></a><dd>Ignored
+
+     <br><dt>searrow<a id="index-searrow-402"></a>
+<br><dt>setbox<a id="index-setbox-403"></a>
+<br><dt>settowidth<a id="index-settowidth-404"></a><dd>Ignored
+
+     <br><dt>sigma<a id="index-sigma-405"></a>
+<br><dt>Sigma<a id="index-Sigma-406"></a>
+<br><dt>sim<a id="index-sim-407"></a>
+<br><dt>simeq<a id="index-simeq-408"></a>
+<br><dt>smallskip<a id="index-smallskip-409"></a>
+<br><dt>spadesuit<a id="index-spadesuit-410"></a>
+<br><dt>sqrt<a id="index-sqrt-411"></a>
+<br><dt>stackrel<a id="index-stackrel-412"></a>
+<br><dt>stepcounter<a id="index-stepcounter-413"></a><dd>Ignored
+
+     <br><dt>stretch<a id="index-stretch-414"></a><dd>Ignored
+
+     <br><dt>subset<a id="index-subset-415"></a>
+<br><dt>subseteq<a id="index-subseteq-416"></a>
+<br><dt>succ<a id="index-succ-417"></a>
+<br><dt>sum<a id="index-sum-418"></a>
+<br><dt>sum<a id="index-sum-419"></a>
+<br><dt>supset<a id="index-supset-420"></a>
+<br><dt>supseteq<a id="index-supseteq-421"></a>
+<br><dt>surd<a id="index-surd-422"></a>
+<br><dt>swarrow<a id="index-swarrow-423"></a>
+<br><dt>tableofcontents<a id="index-tableofcontents-424"></a>
+<br><dt>tau<a id="index-tau-425"></a>
+<br><dt>textalpha<a id="index-textalpha-426"></a>
+<br><dt>textbeta<a id="index-textbeta-427"></a>
+<br><dt>textbullet<a id="index-textbullet-428"></a>
+<br><dt>textchi<a id="index-textchi-429"></a>
+<br><dt>textcolor<a id="index-textcolor-430"></a>
+<br><dt>textDelta<a id="index-textDelta-431"></a>
+<br><dt>textdelta<a id="index-textdelta-432"></a>
+<br><dt>textellipsis<a id="index-textellipsis-433"></a>
+<br><dt>textepsilon<a id="index-textepsilon-434"></a>
+<br><dt>texteta<a id="index-texteta-435"></a>
+<br><dt>textGamma<a id="index-textGamma-436"></a>
+<br><dt>textgamma<a id="index-textgamma-437"></a>
+<br><dt>textiota<a id="index-textiota-438"></a>
+<br><dt>textkappa<a id="index-textkappa-439"></a>
+<br><dt>textLambda<a id="index-textLambda-440"></a>
+<br><dt>textlambda<a id="index-textlambda-441"></a>
+<br><dt>textmu<a id="index-textmu-442"></a>
+<br><dt>textnu<a id="index-textnu-443"></a>
+<br><dt>textOmega<a id="index-textOmega-444"></a>
+<br><dt>textomega<a id="index-textomega-445"></a>
+<br><dt>textperiodcentered<a id="index-textperiodcentered-446"></a>
+<br><dt>textPhi<a id="index-textPhi-447"></a>
+<br><dt>textphi<a id="index-textphi-448"></a>
+<br><dt>textPi<a id="index-textPi-449"></a>
+<br><dt>textpi<a id="index-textpi-450"></a>
+<br><dt>textPsi<a id="index-textPsi-451"></a>
+<br><dt>textpsi<a id="index-textpsi-452"></a>
+<br><dt>textSigma<a id="index-textSigma-453"></a>
+<br><dt>textsigma<a id="index-textsigma-454"></a>
+<br><dt>textsubscript<a id="index-textsubscript-455"></a>
+<br><dt>textsuperscript<a id="index-textsuperscript-456"></a>
+<br><dt>textTau<a id="index-textTau-457"></a>
+<br><dt>texttau<a id="index-texttau-458"></a>
+<br><dt>textTheta<a id="index-textTheta-459"></a>
+<br><dt>texttheta<a id="index-texttheta-460"></a>
+<br><dt>textXi<a id="index-textXi-461"></a>
+<br><dt>textxi<a id="index-textxi-462"></a>
+<br><dt>textzeta<a id="index-textzeta-463"></a>
+<br><dt>thanks<a id="index-thanks-464"></a>
+<br><dt>therefore<a id="index-therefore-465"></a>
+<br><dt>Theta<a id="index-Theta-466"></a>
+<br><dt>theta<a id="index-theta-467"></a>
+<br><dt>times<a id="index-times-468"></a>
+<br><dt>title<a id="index-title-469"></a>
+<br><dt>to<a id="index-to-470"></a>
+<br><dt>triangleleft<a id="index-triangleleft-471"></a>
+<br><dt>triangleright<a id="index-triangleright-472"></a>
+<br><dt>twocolumn<a id="index-twocolumn-473"></a>
+<br><dt>typeaout<a id="index-typeaout-474"></a><dd>Ignored
+
+     <br><dt>Typein<a id="index-Typein-475"></a><dd>Ignored
+
+     <br><dt>typein<a id="index-typein-476"></a><dd>Ignored
+
+     <br><dt>typeout<a id="index-typeout-477"></a><dd>Ignored
+
+     <br><dt>Uparrow<a id="index-Uparrow-478"></a>
+<br><dt>uparrow<a id="index-uparrow-479"></a>
+<br><dt>updownarrow<a id="index-updownarrow-480"></a>
+<br><dt>Updownarrow<a id="index-Updownarrow-481"></a>
+<br><dt>upsilon<a id="index-upsilon-482"></a>
+<br><dt>Upsilon<a id="index-Upsilon-483"></a>
+<br><dt>url<a id="index-url-484"></a>
+<br><dt>usebox<a id="index-usebox-485"></a><dd>Ignored
+
+     <br><dt>value<a id="index-value-486"></a>
+<br><dt>varepsilon<a id="index-varepsilon-487"></a>
+<br><dt>varnothing<a id="index-varnothing-488"></a>
+<br><dt>varphi<a id="index-varphi-489"></a>
+<br><dt>varpi<a id="index-varpi-490"></a>
+<br><dt>varpropto<a id="index-varpropto-491"></a>
+<br><dt>varsigma<a id="index-varsigma-492"></a>
+<br><dt>vartheta<a id="index-vartheta-493"></a>
+<br><dt>vbox<a id="index-vbox-494"></a>
+<br><dt>vdots<a id="index-vdots-495"></a>
+<br><dt>vee<a id="index-vee-496"></a>
+<br><dt>verb<a id="index-verb-497"></a>
+<br><dt>verb*<a id="index-verb_002a-498"></a>
+<br><dt>vref<a id="index-vref-499"></a>
+<br><dt>vsize<a id="index-vsize-500"></a>
+<br><dt>vskip<a id="index-vskip-501"></a>
+<br><dt>vspace<a id="index-vspace-502"></a>
+<br><dt>vspace*<a id="index-vspace_002a-503"></a>
+<br><dt>wedge<a id="index-wedge-504"></a>
+<br><dt>wp<a id="index-wp-505"></a>
+<br><dt>xi<a id="index-xi-506"></a>
+<br><dt>Xi<a id="index-Xi-507"></a>
+<br><dt>zeta<a id="index-zeta-508"></a><dd>
+</dl>
+
+<p><a id="Preamble-Commands"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">8.6.2 Preamble Commands</h4>
+
+<p>These commands are found in <code>PreambleCommands[]</code> in commands.c, and
+are implemented in preamble.c.
+
+     <dl>
+<dt>addtocounter<a id="index-addtocounter-509"></a>
+<br><dt>addtolength<a id="index-addtolength-510"></a>
+<br><dt>baselineskip<a id="index-baselineskip-511"></a>
+<br><dt>celsius<a id="index-celsius-512"></a>
+<br><dt>cfoot<a id="index-cfoot-513"></a>
+<br><dt>chead<a id="index-chead-514"></a>
+<br><dt>cline<a id="index-cline-515"></a>
+<br><dt>DeclareRobustCommand<a id="index-DeclareRobustCommand-516"></a>
+<br><dt>DeclareRobustCommand*<a id="index-DeclareRobustCommand_002a-517"></a>
+<br><dt>def<a id="index-def-518"></a>
+<br><dt>degreecelsius<a id="index-degreecelsius-519"></a>
+<br><dt>documentclass<a id="index-documentclass-520"></a>
+<br><dt>documentstyle<a id="index-documentstyle-521"></a>
+<br><dt>doublespacing<a id="index-doublespacing-522"></a><dd>Currently, the only command from the setspace package that is
+implemented, and the only way to modify line spacing.
+
+     <br><dt>endnotetext<a id="index-endnotetext-523"></a>
+<br><dt>EUR<a id="index-EUR-524"></a>
+<br><dt>euro<a id="index-euro-525"></a>
+<br><dt>evensidemargin<a id="index-evensidemargin-526"></a>
+<br><dt>fancyfoot<a id="index-fancyfoot-527"></a>
+<br><dt>fancyhead<a id="index-fancyhead-528"></a>
+<br><dt>flushbottom<a id="index-flushbottom-529"></a>
+<br><dt>footnotetext<a id="index-footnotetext-530"></a>
+<br><dt>geometry<a id="index-geometry-531"></a><dd>Currently recognizes *ratio, *centering, *margin, left, right, inner,
+outer, top, bottom, right, left (including vmargin, hratio etc.)
+
+     <br><dt>headheight<a id="index-headheight-532"></a>
+<br><dt>headsep<a id="index-headsep-533"></a>
+<br><dt>hline<a id="index-hline-534"></a>
+<br><dt>hoffset<a id="index-hoffset-535"></a>
+<br><dt>htmladdnormallink<a id="index-htmladdnormallink-536"></a>
+<br><dt>htmlref<a id="index-htmlref-537"></a>
+<br><dt>hyphenation<a id="index-hyphenation-538"></a>
+<br><dt>iflatextortf<a id="index-iflatextortf-539"></a>
+<br><dt>ifx<a id="index-ifx-540"></a>
+<br><dt>include<a id="index-include-541"></a>
+<br><dt>input<a id="index-input-542"></a>
+<br><dt>latextortffalse<a id="index-latextortffalse-543"></a><dd>Ignored
+
+     <br><dt>latextortftrue<a id="index-latextortftrue-544"></a><dd>Ignored
+
+     <br><dt>lfoot<a id="index-lfoot-545"></a>
+<br><dt>lhead<a id="index-lhead-546"></a>
+<br><dt>listoffiles<a id="index-listoffiles-547"></a><dd>Ignored
+
+     <br><dt>makeglossary<a id="index-makeglossary-548"></a><dd>Ignored
+
+     <br><dt>makeindex<a id="index-makeindex-549"></a><dd>Ignored
+
+     <br><dt>makelabels<a id="index-makelabels-550"></a><dd>Ignored
+
+     <br><dt>markboth<a id="index-markboth-551"></a><dd>Ignored
+
+     <br><dt>markright<a id="index-markright-552"></a><dd>Ignored
+
+     <br><dt>newcommand<a id="index-newcommand-553"></a>
+<br><dt>newcounter<a id="index-newcounter-554"></a>
+<br><dt>newenvironment<a id="index-newenvironment-555"></a>
+<br><dt>newif<a id="index-newif-556"></a>
+<br><dt>newlength<a id="index-newlength-557"></a>
+<br><dt>newtheorem<a id="index-newtheorem-558"></a>
+<br><dt>nobreakspace<a id="index-nobreakspace-559"></a>
+<br><dt>nofiles<a id="index-nofiles-560"></a><dd>Ignored
+
+     <br><dt>oddsidemargin<a id="index-oddsidemargin-561"></a>
+<br><dt>pagenumbering<a id="index-pagenumbering-562"></a><dd>Ignored
+
+     <br><dt>pagestyle<a id="index-pagestyle-563"></a>
+<br><dt>parindent<a id="index-parindent-564"></a>
+<br><dt>parskip<a id="index-parskip-565"></a>
+<br><dt>providecommand<a id="index-providecommand-566"></a>
+<br><dt>raggedbottom<a id="index-raggedbottom-567"></a>
+<br><dt>renewcommand<a id="index-renewcommand-568"></a>
+<br><dt>renewenvironment<a id="index-renewenvironment-569"></a>
+<br><dt>renewtheorem<a id="index-renewtheorem-570"></a><dd>Ignored
+
+     <br><dt>resizebox<a id="index-resizebox-571"></a>
+<br><dt>resizebox*<a id="index-resizebox_002a-572"></a>
+<br><dt>rfoot<a id="index-rfoot-573"></a>
+<br><dt>rhead<a id="index-rhead-574"></a>
+<br><dt>setcounter<a id="index-setcounter-575"></a>
+<br><dt>setlength<a id="index-setlength-576"></a>
+<br><dt>signature<a id="index-signature-577"></a>
+<br><dt>textheight<a id="index-textheight-578"></a>
+<br><dt>textwidth<a id="index-textwidth-579"></a>
+<br><dt>theendnotes<a id="index-theendnotes-580"></a>
+<br><dt>thepage<a id="index-thepage-581"></a>
+<br><dt>thispagestyle<a id="index-thispagestyle-582"></a><dd>Ignored
+
+     <br><dt>topmargin<a id="index-topmargin-583"></a>
+<br><dt>usepackage<a id="index-usepackage-584"></a>
+<br><dt>verbositylevel<a id="index-verbositylevel-585"></a>
+<br><dt>voffset<a id="index-voffset-586"></a><dd>
+</dl>
+
+<p><a id="Letter-Commands"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">8.6.3 Letter Commands</h4>
+
+<p>Found in <code>LetterCommands[]</code> in commands.c.
+
+     <dl>
+<dt>address<a id="index-address-587"></a>
+<br><dt>cc<a id="index-cc-588"></a>
+<br><dt>closing<a id="index-closing-589"></a>
+<br><dt>encl<a id="index-encl-590"></a>
+<br><dt>opening<a id="index-opening-591"></a>
+<br><dt>ps<a id="index-ps-592"></a>
+<br><dt>signature<a id="index-signature-593"></a><dd>
+</dl>
+
+<p><a id="Language-Commands"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">8.6.4 Language Commands</h4>
+
+<p><a id="German-Commands"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">8.6.4.1 German Commands</h5>
+
+<p>Found in <code>GermanModeCommands[]</code> in commands.c.
+
+     <dl>
+<dt>ck<a id="index-ck-594"></a>
+<br><dt>glqq<a id="index-glqq-595"></a>
+<br><dt>glq<a id="index-glq-596"></a>
+<br><dt>grq<a id="index-grq-597"></a>
+<br><dt>grqq<a id="index-grqq-598"></a><dd>
+</dl>
+
+<p><a id="Czech-Commands"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">8.6.4.2 Czech Commands</h5>
+
+     <dl>
+<dt>uv<a id="index-uv-599"></a><dd></dl>
+
+<p><a id="French-Commands"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">8.6.4.3 French Commands</h5>
+
+     <dl>
+<dt>deuxpoints<a id="index-deuxpoints-600"></a><br><dt>dittomark<a name="index-dittomark-601"></a><br><dt>FCS<a name="index-FCS-602"></a><br><dt>fg<a name="index-fg-603"></a><br><dt>fup<a name="index-fup-604"></a><br><dt>ieme<a name="index-ieme-605"></a><br><dt>iemes<a name="index-iemes-606"></a><br><dt>ier<a name="index-ier-607"></a><br><dt>iere<a name="index-iere-608"></a><br><dt>ieres<a name="index-ieres-609"></a><br><dt>iers<a name="index-iers-610"></a><br><dt>inferieura<a name="index-inferieura-611"></a><br><dt>LCS<a name="index-LCS-612"></a><br><dt>lq<a name="index-lq-613"></a><br><dt>lqq<a name="index-lqq-614"></a><br><dt>numero<a name="index-numero-615"></a><br><dt>Numero<a name="index-Numero-616"></a><br><dt>numeros<a name="index-numeros-617"></a><br><dt>Numeros<a name="index-Numeros-618"></a><br><dt>og<a name="index-og-619"></a><br><dt>pointexclamation<a name="index-pointexclamation-620"></a><br><dt>pointinterrogation<a name="index-pointinterrogation-621"></a><br><dt>pointvirgule<a name="index-pointvirgule-622"></a><br><dt>primo<a name="index-primo-623"></a><br><dt>quarto<a name="index-quarto-624"></a><br><dt>rq<a name="index-rq-625"></a><br><dt>rqq<a name="index-rqq-626"></a><br><dt>secundo<a name="index-secundo-627"></a><br><dt>superieura<a name="index-superieura-628"></a><br><dt>tertio<a name="index-tertio-629"></a><br><dt>up<a name="index-up-630"></a><dd></dl>
+
+<p><a id="Russian-Commands"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">8.6.4.4 Russian Commands</h5>
+
+     <dl>
+<dt>CYRA<a id="index-CYRA-631"></a><br><dt>cyra<a name="index-cyra-632"></a><br><dt>CYRB<a name="index-CYRB-633"></a><br><dt>cyrb<a name="index-cyrb-634"></a><br><dt>CYRC<a name="index-CYRC-635"></a><br><dt>cyrc<a name="index-cyrc-636"></a><br><dt>CYRCH<a name="index-CYRCH-637"></a><br><dt>cyrch<a name="index-cyrch-638"></a><br><dt>CYRCHSH<a name="index-CYRCHSH-639"></a><br><dt>cyrchsh<a name="index-cyrchsh-640"></a><br><dt>CYRD<a name="index-CYRD-641"></a><br><dt>cyrd<a name="index-cyrd-642"></a><br><dt>CYRE<a name="index-CYRE-643"></a><br><dt>cyre<a name="index-cyre-644"></a><br><dt>CYREREV<a name="index-CYREREV-645"></a><br><dt>cyrerev<a name="index-cyrerev-646"></a><br><dt>CYRERY<a name="index-CYRERY-647"></a><br><dt>cyrery<a name="index-cyrery-648"></a><br><dt>CYRF<a name="index-CYRF-649"></a><br><dt>cyrf<a name="index-cyrf-650"></a><br><dt>CYRG<a name="index-CYRG-651"></a><br><dt>cyrg<a name="index-cyrg-652"></a><br><dt>CYRH<a name="index-CYRH-653"></a><br><dt>cyrh<a name="index-cyrh-654"></a><br><dt>CYRHRDSN<a name="index-CYRHRDSN-655"></a><br><dt>cyrhrdsn<a name="index-cyrhrdsn-656"></a><br><dt>CYRI<a name="index-CYRI-657"></a><br><dt>cyri<a name="index-cyri-658"></a><br><dt>CYRISHRT<a name="index-CYRISHRT-659"></a><br><dt>cyrishrt<a name="index-cyrishrt-660"></a><br><dt>CYRK<a name="index-CYRK-661"></a><br><dt>cyrk<a name="index-cyrk-662"></a><br><dt>CYRL<a name="index-CYRL-663"></a><br><dt>cyrl<a name="index-cyrl-664"></a><br><dt>CYRM<a name="index-CYRM-665"></a><br><dt>cyrm<a name="index-cyrm-666"></a><br><dt>CYRN<a name="index-CYRN-667"></a><br><dt>cyrn<a name="index-cyrn-668"></a><br><dt>CYRO<a name="index-CYRO-669"></a><br><dt>cyro<a name="index-cyro-670"></a><br><dt>CYRP<a name="index-CYRP-671"></a><br><dt>cyrp<a name="index-cyrp-672"></a><br><dt>CYRR<a name="index-CYRR-673"></a><br><dt>cyrr<a name="index-cyrr-674"></a><br><dt>CYRS<a name="index-CYRS-675"></a><br><dt>cyrs<a name="index-cyrs-676"></a><br><dt>CYRSFTSN<a name="index-CYRSFTSN-677"></a><br><dt>cyrsftsn<a name="index-cyrsftsn-678"></a><br><dt>CYRSH<a name="index-CYRSH-679"></a><br><dt>cyrsh<a name="index-cyrsh-680"></a><br><dt>CYRT<a name="index-CYRT-681"></a><br><dt>cyrt<a name="index-cyrt-682"></a><br><dt>CYRU<a name="index-CYRU-683"></a><br><dt>cyru<a name="index-cyru-684"></a><br><dt>CYRV<a name="index-CYRV-685"></a><br><dt>cyrv<a name="index-cyrv-686"></a><br><dt>CYRYA<a name="index-CYRYA-687"></a><br><dt>cyrya<a name="index-cyrya-688"></a><br><dt>CYRYU<a name="index-CYRYU-689"></a><br><dt>cyryu<a name="index-cyryu-690"></a><br><dt>CYRZ<a name="index-CYRZ-691"></a><br><dt>cyrz<a name="index-cyrz-692"></a><br><dt>CYRZH<a name="index-CYRZH-693"></a><br><dt>cyrzh<a name="index-cyrzh-694"></a><dd></dl>
+
+<p><a id="Citation-Commands"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">8.6.5 Citation Commands</h4>
+
+<p><a id="Apacite-Commands"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">8.6.5.1 Apacite Commands</h5>
+
+     <dl>
+<dt>AX<a id="index-AX-695"></a><br><dt>BAnd<a name="index-BAnd-696"></a><br><dt>BBA<a name="index-BBA-697"></a><br><dt>BBAA<a name="index-BBAA-698"></a><br><dt>BBAB<a name="index-BBAB-699"></a><br><dt>BBAY<a name="index-BBAY-700"></a><br><dt>BBC<a name="index-BBC-701"></a><br><dt>BBCP<a name="index-BBCP-702"></a><br><dt>BBCQ<a name="index-BBCQ-703"></a><br><dt>BBN<a name="index-BBN-704"></a><br><dt>BBOP<a name="index-BBOP-705"></a><br><dt>BBOQ<a name="index-BBOQ-706"></a><br><dt>BCAY<a name="index-BCAY-707"></a><br><dt>BCBL<a name="index-BCBL-708"></a><br><dt>BCBT<a name="index-BCBT-709"></a><br><dt>BCHAIR<a name="index-BCHAIR-710"></a><br><dt>BCHAIRS<a name="index-BCHAIRS-711"></a><br><dt>BCnt<a name="index-BCnt-712"></a><br><dt>BCntIP<a name="index-BCntIP-713"></a><br><dt>BED<a name="index-BED-714"></a><br><dt>BEd<a name="index-BEd-715"></a><br><dt>BEDS<a name="index-BEDS-716"></a><br><dt>Bem<a name="index-Bem-717"></a><br><dt>BIP<a name="index-BIP-718"></a><br><dt>BMTh<a name="index-BMTh-719"></a><br><dt>BNUM<a name="index-BNUM-720"></a><br><dt>BNUMS<a name="index-BNUMS-721"></a><br><dt>BOthers<a name="index-BOthers-722"></a><br><dt>BOWP<a name="index-BOWP-723"></a><br><dt>BPG<a name="index-BPG-724"></a><br><dt>BPGS<a name="index-BPGS-725"></a><br><dt>BPhD<a name="index-BPhD-726"></a><br><dt>BREPR<a name="index-BREPR-727"></a><br><dt>BTR<a name="index-BTR-728"></a><br><dt>BTRANS<a name="index-BTRANS-729"></a><br><dt>BTRANSS<a name="index-BTRANSS-730"></a><br><dt>BUMTh<a name="index-BUMTh-731"></a><br><dt>BUPhD<a name="index-BUPhD-732"></a><br><dt>BVOL<a name="index-BVOL-733"></a><br><dt>BVOLS<a name="index-BVOLS-734"></a><br><dt>citeA<a name="index-citeA-735"></a><br><dt>citeauthor<a name="index-citeauthor-736"></a><br><dt>citeNP<a name="index-citeNP-737"></a><br><dt>citeyear<a name="index-citeyear-738"></a><br><dt>citeyearNP<a name="index-citeyearNP-739"></a><br><dt>fullcite<a name="index-fullcite-740"></a><br><dt>fullciteA<a name="index-fullciteA-741"></a><br><dt>fullciteauthor<a name="index-fullciteauthor-742"></a><br><dt>fullciteNP<a name="index-fullciteNP-743"></a><br><dt>shortcite<a name="index-shortcite-744"></a><br><dt>shortciteA<a name="index-shortciteA-745"></a><br><dt>shortciteauthor<a name="index-shortciteauthor-746"></a><br><dt>shortciteNP<a name="index-shortciteNP-747"></a><dd></dl>
+
+<p><a id="AuthorDate-Commands"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">8.6.5.2 AuthorDate Commands</h5>
+
+     <dl>
+<dt>citename<a id="index-citename-748"></a><br><dt>shortcite<a name="index-shortcite-749"></a><dd></dl>
+
+<p><a id="Harvard-Commands"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">8.6.5.3 Harvard Commands</h5>
+
+     <dl>
+<dt>cite<a id="index-cite-750"></a><br><dt>citeaffixed<a name="index-citeaffixed-751"></a><br><dt>citeasnoun<a name="index-citeasnoun-752"></a><br><dt>citename<a name="index-citename-753"></a><br><dt>citeyear<a name="index-citeyear-754"></a><br><dt>citeyear*<a name="index-citeyear_002a-755"></a><br><dt>harvardand<a name="index-harvardand-756"></a><br><dt>harvarditem<a name="index-harvarditem-757"></a><br><dt>harvardyearleft<a name="index-harvardyearleft-758"></a><br><dt>harvardyearright<a name="index-harvardyearright-759"></a><br><dt>possessivecite<a name="index-possessivecite-760"></a><dd></dl>
+
+<p><a id="HyperLatex-Commands"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">8.6.5.4 HyperLatex Commands</h5>
+
+     <dl>
+<dt>Cite<a id="index-Cite-761"></a><br><dt>link<a name="index-link-762"></a><br><dt>Pageref<a name="index-Pageref-763"></a><br><dt>Ref<a name="index-Ref-764"></a><br><dt>S<a name="index-S-765"></a><br><dt>xlink<a name="index-xlink-766"></a><dd></dl>
+
+<p><a id="Natbib-Commands"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h5 class="subsubsection">8.6.5.5 Apacite Commands</h5>
+
+     <dl>
+<dt>bibpunct<a id="index-bibpunct-767"></a><br><dt>cite<a name="index-cite-768"></a><br><dt>citealp<a name="index-citealp-769"></a><br><dt>Citealp<a name="index-Citealp-770"></a><br><dt>citealp*<a name="index-citealp_002a-771"></a><br><dt>citealt<a name="index-citealt-772"></a><br><dt>Citealt<a name="index-Citealt-773"></a><br><dt>citealt*<a name="index-citealt_002a-774"></a><br><dt>citeauthor<a name="index-citeauthor-775"></a><br><dt>Citeauthor<a name="index-Citeauthor-776"></a><br><dt>citeauthor*<a name="index-citeauthor_002a-777"></a><br><dt>citep<a name="index-citep-778"></a><br><dt>Citep<a name="index-Citep-779"></a><br><dt>citep*<a name="index-citep_002a-780"></a><br><dt>citet<a name="index-citet-781"></a><br><dt>Citet<a name="index-Citet-782"></a><br><dt>citet*<a name="index-citet_002a-783"></a><br><dt>citetext<a name="index-citetext-784"></a><br><dt>citeyear<a name="index-citeyear-785"></a><br><dt>citeyearpar<a name="index-citeyearpar-786"></a><dd></dl>
+
+<p><a id="Acronym-Commands"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">8.6.6 Acronym Commands</h4>
+
+     <dl>
+<dt>usepackage [options] {acronym}<a id="index-usepackage-_005boptions_005d-_0040_007bacronym_0040_007d-787"></a><br><dt>ac<a name="index-ac-788"></a><br><dt>acfi<a name="index-acfi-789"></a><br><dt>acro<a name="index-acro-790"></a><br><dt>acrodef<a name="index-acrodef-791"></a><br><dt>acrodefplural<a name="index-acrodefplural-792"></a><br><dt>acused<a name="index-acused-793"></a><dd></dl>
+
+<p><a id="Other-Commands"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">8.6.7 Other Commands</h4>
+
+<p>Other Commands: <br>
+item <br>
+caption <br>
+center <br>
+
+<p><a id="Environments"></a>
+
+<!-- node-name,  next,  previous,  up -->
+<h4 class="subsection">8.6.8 Environments</h4>
+
+<p>Environments processed - found in <code>params[]</code> in commands.c.
+
+     <dl>
+<dt>abstract<a id="index-abstract-794"></a>
+<br><dt>acknowledgments<a id="index-acknowledgments-795"></a>
+<br><dt>align<a id="index-align-796"></a>
+<br><dt>align*<a id="index-align_002a-797"></a>
+<br><dt>alltt<a id="index-alltt-798"></a>
+<br><dt>array<a id="index-array-799"></a>
+<br><dt>bf<a id="index-bf-800"></a>
+<br><dt>bfseries<a id="index-bfseries-801"></a>
+<br><dt>center<a id="index-center-802"></a>
+<br><dt>comment<a id="index-comment-803"></a>
+<br><dt>compactenum<a id="index-compactenum-804"></a>
+<br><dt>compactitem<a id="index-compactitem-805"></a>
+<br><dt>description<a id="index-description-806"></a>
+<br><dt>displaymath<a id="index-displaymath-807"></a>
+<br><dt>document<a id="index-document-808"></a>
+<br><dt>em<a id="index-em-809"></a>
+<br><dt>enumerate<a id="index-enumerate-810"></a>
+<br><dt>eqnarray<a id="index-eqnarray-811"></a>
+<br><dt>eqnarray*<a id="index-eqnarray_002a-812"></a>
+<br><dt>equation<a id="index-equation-813"></a>
+<br><dt>equation*<a id="index-equation_002a-814"></a>
+<br><dt>figure<a id="index-figure-815"></a>
+<br><dt>figure*<a id="index-figure_002a-816"></a>
+<br><dt>flushleft<a id="index-flushleft-817"></a>
+<br><dt>flushright<a id="index-flushright-818"></a>
+<br><dt>htmlonly<a id="index-htmlonly-819"></a><dd>Ignored
+
+     <br><dt>it<a id="index-it-820"></a>
+<br><dt>itemize<a id="index-itemize-821"></a>
+<br><dt>itshape<a id="index-itshape-822"></a>
+<br><dt>landscape<a id="index-landscape-823"></a>
+<br><dt>latexonly<a id="index-latexonly-824"></a><dd>Ignored
+
+     <br><dt>letter<a id="index-letter-825"></a>
+<br><dt>list<a id="index-list-826"></a>
+<br><dt>longtable<a id="index-longtable-827"></a>
+<br><dt>longtable*<a id="index-longtable_002a-828"></a>
+<br><dt>math<a id="index-math-829"></a>
+<br><dt>mdseries<a id="index-mdseries-830"></a>
+<br><dt>minipage<a id="index-minipage-831"></a>
+<br><dt>multicolumn<a id="index-multicolumn-832"></a>
+<br><dt>music<a id="index-music-833"></a>
+<br><dt>picture<a id="index-picture-834"></a>
+<br><dt>quotation<a id="index-quotation-835"></a>
+<br><dt>quote<a id="index-quote-836"></a>
+<br><dt>rawhtml<a id="index-rawhtml-837"></a><dd>Ignored
+
+     <br><dt>rm<a id="index-rm-838"></a>
+<br><dt>rmfamily<a id="index-rmfamily-839"></a>
+<br><dt>sc<a id="index-sc-840"></a>
+<br><dt>scshape<a id="index-scshape-841"></a>
+<br><dt>sf<a id="index-sf-842"></a>
+<br><dt>sffamily<a id="index-sffamily-843"></a>
+<br><dt>sl<a id="index-sl-844"></a>
+<br><dt>sloppypar<a id="index-sloppypar-845"></a>
+<br><dt>slshape<a id="index-slshape-846"></a>
+<br><dt>small<a id="index-small-847"></a>
+<br><dt>tabbing<a id="index-tabbing-848"></a>
+<br><dt>table<a id="index-table-849"></a>
+<br><dt>table*<a id="index-table_002a-850"></a>
+<br><dt>tabular<a id="index-tabular-851"></a>
+<br><dt>tabular*<a id="index-tabular_002a-852"></a>
+<br><dt>thebibliography<a id="index-thebibliography-853"></a>
+<br><dt>theindex<a id="index-theindex-854"></a><dd>Ignored
+
+     <br><dt>titlepage<a id="index-titlepage-855"></a>
+<br><dt>tt<a id="index-tt-856"></a>
+<br><dt>ttfamily<a id="index-ttfamily-857"></a>
+<br><dt>verbatim<a id="index-verbatim-858"></a>
+<br><dt>Verbatim<a id="index-Verbatim-859"></a>
+<br><dt>verse<a id="index-verse-860"></a><dd>
+</dl>
+
+<p><a id="Function-Index"></a>
+
+<h2 class="chapter">9 Function Index</h2>
+
+<p><a id="Concept-Index"></a>
+
+<h2 class="chapter">10 Concept Index</h2>
+	<a style="float:right" href="http://sourceforge.net/projects/latex2rtf">
+	<img src="http://sflogo.sourceforge.net/sflogo.php?group_id=22654&amp;type=15" alt="Get LaTeX to RTF converter at SourceForge" height="40" width="150">
+	</a>
+	</div>
+
+</div>
+</body>
+</html>

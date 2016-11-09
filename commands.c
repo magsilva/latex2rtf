@@ -508,7 +508,7 @@ static CommandArray PreambleCommands[] = {
     {"docnumber", CmdIgnoreParameter, No_Opt_One_NormParam},
     {"graphicspath",  CmdGraphicsPath, 0 },
     {"", NULL, 0}
-};
+};                              /* end of list */
 
 static CommandArray ItemizeCommands[] = {
     {"item", CmdItem, ITEMIZE_MODE},
