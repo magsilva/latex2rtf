@@ -115,12 +115,10 @@ int i=0;
 
 #define POUND_POUND 9997
 
+/**
+ * Retrieves and expands a defined macro care is taken to avoid buffer overruns.
+ */
 static char *expandmacro(char *macro, char *opt_param, int params)
-
-/**************************************************************************
-     purpose: retrieves and expands a defined macro 
-              care is taken to avoid buffer overruns
-**************************************************************************/
 {
     int i = 0, param;
     char *args[9], *dmacro, *macro_piece, *next_piece, *expanded, *buffer=NULL, *cs;
@@ -131,8 +129,9 @@ static char *expandmacro(char *macro, char *opt_param, int params)
     diagnostics(5, "expandmacro: optional '%s'", opt_param);
     diagnostics(5, "expandmacro: num args  %d", params);
     
-    if (params <= 0)
+    if (params <= 0) {
         return strdup(macro);
+    }
 
     if (opt_param) {
         args[0] = getBracketParam();
@@ -275,27 +274,19 @@ int maybeDefinition(char *s, size_t n)
     return FALSE;
 }
 
+/**
+ * Checks to see if a named TeX definition exists.
+ *
+ * Returns: the array index of the named TeX definition.
+ */
 int existsDefinition(char *s)
-
-/**************************************************************************
-     purpose: checks to see if a named TeX definition exists
-     returns: the array index of the named TeX definition
-**************************************************************************/
 {
     int i;
 
     for (i = 0; i < iDefinitionCount; i++) {
-    /*
-        char *tt = my_strndup(s,strlen(Definitions[i].name));
-        diagnostics(WARNING, "def text has=<%s>, i=%d, trying=<%s>", tt, i, Definitions[i].name);
-        free(tt);
-    */
+        diagnostics(4, "def text has=<%s>, i=%d, trying=<%s>", s, i, Definitions[i].name);
         if (strcmp(s, Definitions[i].name) == 0) {
-    /*
-            char *ss = my_strndup(s,strlen(Definitions[i].name));
-            diagnostics(WARNING, "def text has=<%s>, i=%d, matched=<%s>", ss, i, Definitions[i].name);
-            free(ss);
-    */
+            diagnostics(4, "def text has=<%s>, i=%d, matched=<%s>", s, i, Definitions[i].name);
             break;
         }
     }
@@ -306,6 +297,7 @@ int existsDefinition(char *s)
         return i;
 }
 
+// TODO: CmdNewDef name=<\flaky> param=0 opt_param=<> def=<\textit{flaky}\xspace>
 void newDefinition(char *name, char *opt_param, char *def, int params)
 
 /**************************************************************************
@@ -399,19 +391,18 @@ void renewDefinition(char *name, char *opt_param, char *def, int params)
     }
 }
 
+
+/**
+ * Retrieves and expands a \newcommand macro.
+ */ 
 char *expandDefinition(int thedef)
-
-/**************************************************************************
-     purpose: retrieves and expands a \newcommand macro 
-**************************************************************************/
 {
-
-    if (thedef < 0 || thedef >= iDefinitionCount)
+    if (thedef < 0 || thedef >= iDefinitionCount) {
         return NULL;
+    }
 
     diagnostics(4, "expandDefinition name     =<%s>", Definitions[thedef].name);
-    diagnostics(5, "expandDefinition opt_param=<%s>",
-      (Definitions[thedef].opt_param) ? Definitions[thedef].opt_param : "");
+    diagnostics(5, "expandDefinition opt_param=<%s>", (Definitions[thedef].opt_param) ? Definitions[thedef].opt_param : "");
     diagnostics(5, "expandDefinition def      =<%s>", Definitions[thedef].def);
     diagnostics(5, "expandDefinition params   =<%d>", Definitions[thedef].params);
 

@@ -754,8 +754,11 @@ void CmdCounter(int code)
         else
             setCounter(s, num);
 
-    } else if (code == COUNTER_NEW)
+    } else if (code == COUNTER_NEW) {
         setCounter(s, 0);
+	} else if (code == COUNTER_INCR) {
+		incrementCounter(s);
+	}
 
     free(s);
 }

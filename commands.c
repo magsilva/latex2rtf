@@ -51,7 +51,7 @@ Authors:
 #include "biblio.h"
 
 static int iEnvCount = 0;               /* number of current environments */
-static CommandArray *Environments[100]; /* call chain for current environments */
+static CommandArray *Environments[101]; /* call chain for current environments */
 static int g_par_indent_array[100];
 static int g_left_indent_array[100];
 static int g_right_indent_array[100];
@@ -86,6 +86,7 @@ static CommandArray commands[] = {
     {"bf", CmdFontSeries, F_SERIES_BOLD_1},
     {"textbf", CmdFontSeries, F_SERIES_BOLD_2},
     {"mathbf", CmdFontSeries, F_SERIES_BOLD_2},
+    {"bm", CmdFontSeries, F_SERIES_BOLD_2},
 
     {"mdseries", CmdFontSeries, F_SERIES_MEDIUM},
     {"textmd", CmdFontSeries, F_SERIES_MEDIUM_2},
@@ -1057,6 +1058,11 @@ static CommandArray ignoreCommands[] = {
 };
 
 
+static CommandArray xspaceCommand[] = {
+    {"xspace", CmdXspace, 0},
+    {"", NULL, 0}
+};
+
 int CurrentEnvironmentCount(void)
 
 /****************************************************************************
@@ -1123,6 +1129,8 @@ static char *EnvironmentName(CommandArray *code)
         return strdup("acronym");
     if (code == spacingCommands)
         return strdup("setpace");
+    if (code == xspaceCommand)
+	return strdup("xspace");
     return strdup("unknown");
 }
 
@@ -1336,7 +1344,9 @@ globals: changes Environment - array of active environments
         case SPACING_MODE:
             Environments[iEnvCount] = spacingCommands;
             break;
-
+        case XSPACE_MODE:
+            Environments[iEnvCount] = xspaceCommand;
+            break;
         default:
             diagnostics(ERROR, "assertion failed at function PushEnvironment");
     }

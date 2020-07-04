@@ -147,7 +147,7 @@ void putRtfCharEscaped(char cThis);
 void putRtfStrEscaped(const char * string);
 char *getTmpPath(void);
 char *my_strdup(const char *str);
-FILE *my_fopen(char *path, char *mode);
+FILE *my_fopen(const char *path, char *mode);
 
 void debug_malloc(void);
 

@@ -37,6 +37,8 @@ void CmdEuro(int code);
 void CmdDegreeCelsius(int code);
 void CmdNot(int code);
 
+void CmdXspace(int code);
+
 #define IERF 1
 #define IEREF 2
 #define IERSF 3

@@ -1309,6 +1309,21 @@ void CmdSymbol(int code)
     
 }
 
+/**
+ * Print white space if text not followed by punctuation.
+ */
+void CmdXspace(int code)
+{
+    int c;
+    c = getTexChar();
+    if (isspace(c)) {
+	fprintRTF(" ");
+    }
+    ungetTexChar(c);
+}
+
+
+
 static void TeXlogo(void )
 
 /******************************************************************************

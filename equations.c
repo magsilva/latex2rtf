@@ -1095,7 +1095,7 @@ parameter: type of operand
     
     /* is there an exponent/subscript ? */
     cThis = getNonBlank();
-
+    possible_limits = TRUE;     /* WH added 2017-04-12 */
     if (cThis == '\\') {        /* accept \nolimits and \limits */
         ungetTexChar(cThis);
         command = getSimpleCommand();
@@ -1137,21 +1137,21 @@ parameter: type of operand
         switch (code) {
             case 4:
                 if (upper_limit || lower_limit)
-                    fprintRTF("( %c %c )\\\\I", g_field_separator, g_field_separator);
+                    fprintRTF("( %c %c )\\\\i", g_field_separator, g_field_separator);
                 else
-                    fprintRTF("\\\\in( %c %c )\\\\I", g_field_separator, g_field_separator);
+                    fprintRTF("\\\\in( %c %c )\\\\i", g_field_separator, g_field_separator);
                 /* \iiint --- fall through */
             case 3:
                 if (upper_limit || lower_limit)
-                    fprintRTF("( %c %c )\\\\I", g_field_separator, g_field_separator);
+                    fprintRTF("( %c %c )\\\\i", g_field_separator, g_field_separator);
                 else
-                    fprintRTF("\\\\in( %c %c )\\\\I", g_field_separator, g_field_separator);
+                    fprintRTF("\\\\in( %c %c )\\\\i", g_field_separator, g_field_separator);
                 /* \iint --- fall through */
             case 0:
                 if (upper_limit || lower_limit)
-                    fprintRTF("(", g_field_separator, g_field_separator);
+                    fprintRTF("(");
                 else
-                    fprintRTF("\\\\in(", g_field_separator, g_field_separator);
+                    fprintRTF("\\\\in(");
                 break;
             case 1:
                 fprintRTF("\\\\su(");
@@ -1209,7 +1209,18 @@ parameter: type of operand
     }
 
     if (command) {
+        if (strcmp(command, "\\left") == 0) {         /* WH added 2017-04-11 */
+            CmdLeftRight(0);                          /* WH added 2017-04-11 */
+            }                                         /* WH added 2017-04-11 */
+        else if (strcmp(command, "\\right") == 0) {   /* WH added 2017-04-11 */
+            CmdLeftRight(1);                          /* WH added 2017-04-11 */
+            }                                         /* WH added 2017-04-11 */
+        else if (strcmp(command, "\\frac") == 0) {    /* WH added 2017-04-12 */
+            CmdFraction(0);                           /* WH added 2017-04-12 */
+            }                                         /* WH added 2017-04-12 */
+        else{                                         /* WH added 2017-04-11 */
         ConvertString(command);
+            }                                         /* WH added 2017-04-11 */
         free(command);
     }
     if (lower_limit)

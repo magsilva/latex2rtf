@@ -28,6 +28,7 @@
 #define HYPERREF_MODE     26
 #define ACRONYM_MODE      27
 #define SPACING_MODE      28
+#define XSPACE_MODE       29
 
 #define ON 0x4000
 #define OFF 0x0000

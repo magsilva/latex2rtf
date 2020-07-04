@@ -521,6 +521,7 @@ static void setDocumentOptions(char *optionlist)
             g_amsmath_package = TRUE;
             diagnostics(WARNING, "Incomplete support for package/option '%s' ", option);
         } else if (strcmp(option, "endnotes"    ) == 0 ||
+                   strcmp(option, "bm"          ) == 0 ||
                    strcmp(option, "pstricks-add") == 0 ||
                    strcmp(option, "fancyhdr"    ) == 0 ||
                    strcmp(option, "html"        ) == 0 ||
@@ -705,7 +706,7 @@ static void CmdUseOnepackage(char* package, char *options)
         if (options) {
             ParseOptGeometry(options);
         }
-    } else if (strstr(package,"acronym") != NULL) {
+    } else if (strcmp(package,"acronym") == 0) {
         UsePackageAcronym(options);
     } else if (strcmp(package,"ifpdf") == 0) {
         ConvertString("\\newif\\ifpdf");

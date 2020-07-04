@@ -1,4 +1,4 @@
-This is latex2rtf.info, produced by makeinfo version 6.1 from
+This is latex2rtf.info, produced by makeinfo version 6.5 from
 latex2rtf.texi.
 
 INFO-DIR-SECTION Document Preparation
@@ -13,105 +13,105 @@ This file documents LaTeX2RTF, a converter that translates LaTeX to RTF.
 
 * Menu:
 
-* Introduction::                
-* Installation::                
-* Using LaTeX2RTF::             
-* Features::                    
-* Configuration::               
-* Error Messages and Logging::  
-* History::                     
-* LaTeX2RTF under Development::  
-* Function Index::              
-* Concept Index::               
+* Introduction::
+* Installation::
+* Using LaTeX2RTF::
+* Features::
+* Configuration::
+* Error Messages and Logging::
+* History::
+* LaTeX2RTF under Development::
+* Function Index::
+* Concept Index::
 
  -- The Detailed Node Listing --
 
 Installation
 
-* General::                     
-* Obtaining LaTeX2RTF::         
-* UNIX::                        
-* DOS or Windows::              
-* MS Windows systems::               
-* Macintosh::                   
-* Problems Compiling::          
-* Problems with make check::    
+* General::
+* Obtaining LaTeX2RTF::
+* UNIX::
+* DOS or Windows::
+* MS Windows systems::
+* Macintosh::
+* Problems Compiling::
+* Problems with make check::
 
 Using LaTeX2RTF
 
-* General Assumptions::         
-* LaTeX2RTF Options::           
-* Debugging::                   
+* General Assumptions::
+* LaTeX2RTF Options::
+* Debugging::
 
 Features
 
-* LaTeX2e::                     
-* Unicode Support::             
-* Input Encoding::              
-* Language Support::            
-* Cross References::            
-* Page Formatting::             
-* Equations::                   
-* Math and Special Symbols::    
-* Tables::                      
-* Graphics::                    
-* Pagestyles::                  
+* LaTeX2e::
+* Unicode Support::
+* Input Encoding::
+* Language Support::
+* Cross References::
+* Page Formatting::
+* Equations::
+* Math and Special Symbols::
+* Tables::
+* Graphics::
+* Pagestyles::
 * Hyperlatex::
-* APA Support::                  
+* APA Support::
 
 Configuration
 
-* Input Processing::            
-* Conditional Parsing::           
-* Output Formatting::           
-* Direct Conversion::           
-* Ignore Command::              
-* Font Configuration::          
-* Language Configuration::      
+* Input Processing::
+* Conditional Parsing::
+* Output Formatting::
+* Direct Conversion::
+* Ignore Command::
+* Font Configuration::
+* Language Configuration::
 
 LaTeX2RTF under Development
 
-* Unimplemented Features::      
-* Missing options::             
-* Known Bugs::                  
-* Reporting Bugs::              
-* Todo List::                   
-* LaTeX Commands::              
+* Unimplemented Features::
+* Missing options::
+* Known Bugs::
+* Reporting Bugs::
+* Todo List::
+* LaTeX Commands::
 
 Command List
 
-* General Commands::            
-* Preamble Commands::           
-* Letter Commands::             
-* Language Commands::           
+* General Commands::
+* Preamble Commands::
+* Letter Commands::
+* Language Commands::
 * Citation Commands::
-* Acronym Commands::           
-* Other Commands::              
-* Environments::                
+* Acronym Commands::
+* Other Commands::
+* Environments::
 
 General Commands
 
-* Basic Commands::              
-* Font Commands::               
-* Logos::                       
-* Special Characters::          
-* Sectioning Commands::         
-* Uncategorized::               
+* Basic Commands::
+* Font Commands::
+* Logos::
+* Special Characters::
+* Sectioning Commands::
+* Uncategorized::
 
 Language Commands
 
-* German Commands::             
-* Czech Commands::              
-* French Commands::             
-* Russian Commands::            
+* German Commands::
+* Czech Commands::
+* French Commands::
+* Russian Commands::
 
 Citation Commands
 
-* Apacite Commands::            
-* AuthorDate Commands::         
-* Harvard Commands::            
-* HyperLatex Commands::         
-* Natbib Commands::             
+* Apacite Commands::
+* AuthorDate Commands::
+* Harvard Commands::
+* HyperLatex Commands::
+* Natbib Commands::
 
 
    Copyright 1998-2002 Georg Lehner, updates Copyright 1999-2016 by
@@ -202,14 +202,14 @@ File: latex2rtf.info,  Node: Installation,  Next: Using LaTeX2RTF,  Prev: Introd
 
 * Menu:
 
-* General::                     
-* Obtaining LaTeX2RTF::         
-* UNIX::                        
-* DOS or Windows::              
-* MS Windows systems::               
-* Macintosh::                   
-* Problems Compiling::          
-* Problems with make check::    
+* General::
+* Obtaining LaTeX2RTF::
+* UNIX::
+* DOS or Windows::
+* MS Windows systems::
+* Macintosh::
+* Problems Compiling::
+* Problems with make check::
 
 
 File: latex2rtf.info,  Node: General,  Next: Obtaining LaTeX2RTF,  Prev: Installation,  Up: Installation
@@ -524,9 +524,9 @@ File: latex2rtf.info,  Node: Using LaTeX2RTF,  Next: Features,  Prev: Installati
 
 * Menu:
 
-* General Assumptions::         
-* LaTeX2RTF Options::           
-* Debugging::                   
+* General Assumptions::
+* LaTeX2RTF Options::
+* Debugging::
 
 
 File: latex2rtf.info,  Node: General Assumptions,  Next: LaTeX2RTF Options,  Prev: Using LaTeX2RTF,  Up: Using LaTeX2RTF
@@ -901,19 +901,19 @@ correctly to RTF.
 
 * Menu:
 
-* LaTeX2e::                     
-* Unicode Support::             
-* Input Encoding::              
-* Language Support::            
-* Cross References::            
-* Page Formatting::             
-* Equations::                   
-* Math and Special Symbols::    
-* Tables::                      
-* Graphics::                    
-* Pagestyles::                  
+* LaTeX2e::
+* Unicode Support::
+* Input Encoding::
+* Language Support::
+* Cross References::
+* Page Formatting::
+* Equations::
+* Math and Special Symbols::
+* Tables::
+* Graphics::
+* Pagestyles::
 * Hyperlatex::
-* APA Support::                  
+* APA Support::
 
 
 File: latex2rtf.info,  Node: LaTeX2e,  Next: Unicode Support,  Prev: Features,  Up: Features
@@ -1260,13 +1260,13 @@ File: latex2rtf.info,  Node: Configuration,  Next: Error Messages and Logging,  
 
 * Menu:
 
-* Input Processing::            
+* Input Processing::
 * Conditional Parsing::
-* Output Formatting::           
-* Direct Conversion::           
-* Ignore Command::              
-* Font Configuration::          
-* Language Configuration::      
+* Output Formatting::
+* Direct Conversion::
+* Ignore Command::
+* Font Configuration::
+* Language Configuration::
 
 
 File: latex2rtf.info,  Node: Input Processing,  Next: Conditional Parsing,  Prev: Configuration,  Up: Configuration
@@ -1579,12 +1579,12 @@ File: latex2rtf.info,  Node: LaTeX2RTF under Development,  Next: Function Index,
 
 * Menu:
 
-* Unimplemented Features::      
-* Missing options::             
-* Known Bugs::                  
-* Reporting Bugs::              
-* Todo List::                   
-* LaTeX Commands::              
+* Unimplemented Features::
+* Missing options::
+* Known Bugs::
+* Reporting Bugs::
+* Todo List::
+* LaTeX Commands::
 
 
 File: latex2rtf.info,  Node: Unimplemented Features,  Next: Missing options,  Prev: LaTeX2RTF under Development,  Up: LaTeX2RTF under Development
@@ -1646,7 +1646,7 @@ File: latex2rtf.info,  Node: Reporting Bugs,  Next: Todo List,  Prev: Known Bugs
 
 Report bugs to to the bug tracking system at SourceForge
 (http://sourceforge.net/projects/latex2rtf/).  Only report bugs for the
-latest version of LaTeX2RTF that is available. Please provide the
+latest version of LaTeX2RTF that is available.  Please provide the
 following information and observe the following guidelines when
 reporting a bug in the program:
   1. State the version of LaTeX2RTF that you are using.  You can get the
@@ -1712,14 +1712,14 @@ contemplated implementing.
 
 * Menu:
 
-* General Commands::            
-* Preamble Commands::           
-* Letter Commands::             
-* Language Commands::           
+* General Commands::
+* Preamble Commands::
+* Letter Commands::
+* Language Commands::
 * Citation Commands::
-* Acronym Commands::           
-* Other Commands::              
-* Environments::                
+* Acronym Commands::
+* Other Commands::
+* Environments::
 
 
 File: latex2rtf.info,  Node: General Commands,  Next: Preamble Commands,  Prev: LaTeX Commands,  Up: LaTeX Commands
@@ -1732,12 +1732,12 @@ are arranged alphabetically within sections according to function.
 
 * Menu:
 
-* Basic Commands::              
-* Font Commands::               
-* Logos::                       
-* Special Characters::          
-* Sectioning Commands::         
-* Uncategorized::               
+* Basic Commands::
+* Font Commands::
+* Logos::
+* Special Characters::
+* Sectioning Commands::
+* Uncategorized::
 
 
 File: latex2rtf.info,  Node: Basic Commands,  Next: Font Commands,  Prev: General Commands,  Up: General Commands
@@ -2872,10 +2872,10 @@ File: latex2rtf.info,  Node: Language Commands,  Next: Citation Commands,  Prev:
 
 * Menu:
 
-* German Commands::             
-* Czech Commands::              
-* French Commands::             
-* Russian Commands::            
+* German Commands::
+* Czech Commands::
+* French Commands::
+* Russian Commands::
 
 
 File: latex2rtf.info,  Node: German Commands,  Next: Czech Commands,  Prev: Language Commands,  Up: Language Commands
@@ -3020,11 +3020,11 @@ File: latex2rtf.info,  Node: Citation Commands,  Next: Acronym Commands,  Prev: 
 
 * Menu:
 
-* Apacite Commands::            
-* AuthorDate Commands::         
-* Harvard Commands::            
-* HyperLatex Commands::         
-* Natbib Commands::             
+* Apacite Commands::
+* AuthorDate Commands::
+* Harvard Commands::
+* HyperLatex Commands::
+* Natbib Commands::
 
 
 File: latex2rtf.info,  Node: Apacite Commands,  Next: AuthorDate Commands,  Prev: Citation Commands,  Up: Citation Commands
@@ -4211,75 +4211,75 @@ File: latex2rtf.info,  Node: Concept Index,  Prev: Function Index,  Up: Top
 
 Tag Table:
 Node: Top118
-Node: Introduction3742
-Node: Installation6632
-Node: General7042
-Node: Obtaining LaTeX2RTF7468
-Node: UNIX9131
-Node: DOS or Windows11908
-Node: MS Windows systems13636
-Node: Macintosh17963
-Node: Problems Compiling18920
-Node: Problems with make check19615
-Node: Using LaTeX2RTF20140
-Node: General Assumptions20382
-Node: LaTeX2RTF Options22354
-Node: Debugging35751
-Node: Features36487
-Node: LaTeX2e37120
-Node: Unicode Support37438
-Node: Input Encoding38121
-Node: Language Support38898
-Node: Cross References40411
-Node: Page Formatting43111
-Node: Equations43633
-Node: Math and Special Symbols46514
-Node: Tables48482
-Node: Graphics49090
-Node: Pagestyles49511
-Node: Hyperlatex50115
-Node: APA Support51207
-Node: Configuration51649
-Node: Input Processing52022
-Node: Conditional Parsing53396
-Node: Output Formatting55384
-Node: Direct Conversion56092
-Node: Ignore Command57381
-Node: Font Configuration59248
-Node: Language Configuration60559
-Node: Error Messages and Logging61175
-Node: History63461
-Node: LaTeX2RTF under Development65245
-Node: Unimplemented Features65623
-Node: Missing options66413
-Node: Known Bugs66994
-Node: Reporting Bugs67850
-Node: Todo List69489
-Node: LaTeX Commands70279
-Node: General Commands71328
-Node: Basic Commands71842
-Node: Font Commands72114
-Node: Logos72719
-Node: Special Characters72966
-Node: Sectioning Commands73251
-Node: Uncategorized73578
-Node: Preamble Commands77712
-Node: Letter Commands79333
-Node: Language Commands79595
-Node: German Commands79907
-Node: Czech Commands80151
-Node: French Commands80321
-Node: Russian Commands80707
-Node: Citation Commands81226
-Node: Apacite Commands81572
-Node: AuthorDate Commands82098
-Node: Harvard Commands82301
-Node: HyperLatex Commands82609
-Node: Natbib Commands82822
-Node: Acronym Commands83140
-Node: Other Commands83380
-Node: Environments83574
-Node: Function Index84428
-Node: Concept Index144314
+Node: Introduction2827
+Node: Installation5717
+Node: General6011
+Node: Obtaining LaTeX2RTF6437
+Node: UNIX8100
+Node: DOS or Windows10877
+Node: MS Windows systems12605
+Node: Macintosh16932
+Node: Problems Compiling17889
+Node: Problems with make check18584
+Node: Using LaTeX2RTF19109
+Node: General Assumptions19312
+Node: LaTeX2RTF Options21284
+Node: Debugging34681
+Node: Features35417
+Node: LaTeX2e35864
+Node: Unicode Support36182
+Node: Input Encoding36865
+Node: Language Support37642
+Node: Cross References39155
+Node: Page Formatting41855
+Node: Equations42377
+Node: Math and Special Symbols45258
+Node: Tables47226
+Node: Graphics47834
+Node: Pagestyles48255
+Node: Hyperlatex48859
+Node: APA Support49951
+Node: Configuration50393
+Node: Input Processing50702
+Node: Conditional Parsing52076
+Node: Output Formatting54064
+Node: Direct Conversion54772
+Node: Ignore Command56061
+Node: Font Configuration57928
+Node: Language Configuration59239
+Node: Error Messages and Logging59855
+Node: History62141
+Node: LaTeX2RTF under Development63925
+Node: Unimplemented Features64219
+Node: Missing options65009
+Node: Known Bugs65590
+Node: Reporting Bugs66446
+Node: Todo List68086
+Node: LaTeX Commands68876
+Node: General Commands69837
+Node: Basic Commands70265
+Node: Font Commands70537
+Node: Logos71142
+Node: Special Characters71389
+Node: Sectioning Commands71674
+Node: Uncategorized72001
+Node: Preamble Commands76135
+Node: Letter Commands77756
+Node: Language Commands78018
+Node: German Commands78278
+Node: Czech Commands78522
+Node: French Commands78692
+Node: Russian Commands79078
+Node: Citation Commands79597
+Node: Apacite Commands79888
+Node: AuthorDate Commands80414
+Node: Harvard Commands80617
+Node: HyperLatex Commands80925
+Node: Natbib Commands81138
+Node: Acronym Commands81456
+Node: Other Commands81696
+Node: Environments81890
+Node: Function Index82744
+Node: Concept Index142630
 
 End Tag Table

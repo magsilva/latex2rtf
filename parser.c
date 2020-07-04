@@ -130,46 +130,40 @@ int CurrentFileDescriptor(void)
     return fd;
 }
 
-char *CurrentFileName(void)
-
-/***************************************************************************
- purpose:     returns the filename of the text being processed
-****************************************************************************/
+/**
+ * Returns the filename of the text being processed.
+ */
+char * CurrentFileName(void)
 {
-    char *s = "(Not set)";
-
-    if (g_parser_stack[g_parser_depth].file_name)
+    if (g_parser_depth >= 0)
         return g_parser_stack[g_parser_depth].file_name;
     else
-        return s;
+        return NULL;
 }
 
 /*
     The following two routines allow parsing of multiple files and strings
 */
 
-int PushSource(const char *filename, const char *string)
-
-/***************************************************************************
- purpose:     change the source used by getRawTexChar() to either file or string
+/**
+ * Change the source used by getRawTexChar() to either file or string
               --> pass NULL for unused argument (both NULL means use stdin)
               --> PushSource duplicates string
-****************************************************************************/
+ */
+int PushSource(const char *filename, const char *string)
 {
     char s[50];
-    FILE *p = NULL;
+    FILE *file = NULL;
     char *name = NULL;
     int i;
     int line = 1;
 
     if (0) {
-        diagnostics(WARNING, "Before PushSource** line=%d, g_parser_depth=%d, g_parser_include_level=%d",
-          g_parser_line, g_parser_depth, g_parser_include_level);
+        diagnostics(WARNING, "Before PushSource** line=%d, g_parser_depth=%d, g_parser_include_level=%d", g_parser_line, g_parser_depth, g_parser_include_level);
         for (i = 0; i <= g_parser_depth; i++) {
-            if (g_parser_stack[i].file)
+            if (g_parser_stack[i].file) {
                 diagnostics(WARNING, "i=%d file   =%s, line=%d", i, g_parser_stack[i].file_name, g_parser_stack[i].file_line);
-
-            else {
+	    } else {
                 strncpy_printable(s, g_parser_stack[i].string, 25);
                 diagnostics(WARNING, "i=%d string =%s, line=%d", i, s, g_parser_stack[i].file_line);
             }
@@ -187,17 +181,15 @@ int PushSource(const char *filename, const char *string)
         g_parser_include_level++;
         g_parser_line = 1;
         name = strdup("stdin");
-        p = stdin;
-
-        /* if not then try to open a file */
-    } else if (filename) {
-        p = my_fopen((char *)filename, "rb");
-        if (p == NULL)
+        file = stdin;
+    } else if (filename) {  /* if not then try to open a file */
+        file = my_fopen(filename, "rb");
+        if (file == NULL) {
             return 1;
+	}
         g_parser_include_level++;
         g_parser_line = 1;
         name = strdup(filename);
-
     } else {
         name = CurrentFileName();
         line = CurrentLineNumber();
@@ -205,16 +197,17 @@ int PushSource(const char *filename, const char *string)
 
     g_parser_depth++;
 
-    if (g_parser_depth >= PARSER_SOURCE_MAX)
+    if (g_parser_depth >= PARSER_SOURCE_MAX) {
         diagnostics(ERROR, "More than %d PushSource() calls", (int) PARSER_SOURCE_MAX);
+    }
 
     g_parser_string = (string) ? strdup(string) : NULL;
     g_parser_stack[g_parser_depth].string = g_parser_string;
     g_parser_stack[g_parser_depth].string_start = g_parser_string;
-    g_parser_stack[g_parser_depth].file = p;
+    g_parser_stack[g_parser_depth].file = file;
     g_parser_stack[g_parser_depth].file_line = line;
     g_parser_stack[g_parser_depth].file_name = name;
-    g_parser_file = p;
+    g_parser_file = file;
     g_parser_string = g_parser_stack[g_parser_depth].string;
 
     if (g_parser_file) {
@@ -225,13 +218,11 @@ int PushSource(const char *filename, const char *string)
     }
 
     if (0) {
-        diagnostics(WARNING, "After PushSource** line=%d, g_parser_depth=%d, g_parser_include_level=%d",
-          g_parser_line, g_parser_depth, g_parser_include_level);
+        diagnostics(WARNING, "After PushSource** line=%d, g_parser_depth=%d, g_parser_include_level=%d", g_parser_line, g_parser_depth, g_parser_include_level);
         for (i = 0; i <= g_parser_depth; i++) {
-            if (g_parser_stack[i].file)
+            if (g_parser_stack[i].file) {
                 diagnostics(WARNING, "i=%d file   =%s, line=%d", i, g_parser_stack[i].file_name, g_parser_stack[i].file_line);
-
-            else {
+            } else {
                 strncpy_printable(s, g_parser_stack[i].string, 25);
                 diagnostics(WARNING, "i=%d string =%s, line=%d", i, s, g_parser_stack[i].file_line);
             }

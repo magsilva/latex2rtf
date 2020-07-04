@@ -48,66 +48,57 @@ static int ret = 0;
 
 static void TranslateCommand(void);
 
+/**
+ * Convert string in TeX-format to Rtf-format.
+ */
 void ConvertString(const char *string)
-
-/******************************************************************************
-     purpose : converts string in TeX-format to Rtf-format
- ******************************************************************************/
 {
-    if (string == NULL || string == '\0')
+    if (string == NULL || strlen(string) == 0) {
         return;
+    }
 
     if (PushSource(NULL, string) == 0) {
         diagnostics(5, "Entering Convert() from ConvertString()");
-
         show_string(4, string, "converting");
-
-        while (StillSource())
+        while (StillSource()) {
             Convert();
-
+        }
         PopSource();
         diagnostics(5, "Exiting Convert() from ConvertString()");
     }
 }
 
-void ConvertAllttString(char *s)
 
-/******************************************************************************
-     purpose : converts string in TeX-format to Rtf-format
-               according to the alltt environment, which is like
-               verbatim environment except that \, {, and } have
-               their usual meanings
-******************************************************************************/
+/**
+ * Converts string in TeX-format to Rtf-format according to the alltt environment, which is like
+ * verbatim environment except that \, {, and } have their usual meanings.
+ */
+void ConvertAllttString(char *s)
 {
     char cThis;
 
-    if (s == NULL)
+    if (s == NULL) {
         return;
+    }
     diagnostics(3, "Entering Convert() from StringAllttConvert()");
 
     if (PushSource(NULL, s) == 0) {
-
         while (StillSource()) {
-
             cThis = getRawTexChar();    /* it is a verbatim like environment */
             switch (cThis) {
-
                 case '\\':
                     PushLevels();
                     TranslateCommand();
                     CleanStack();
                     break;
-
                 case '{':
                     PushBrace();
                     fprintRTF("{");
                     break;
-
                 case '}':
                     ret = RecursionLevel - PopBrace();
                     fprintRTF("}");
                     break;
-
                 default:
                     fprintRTF("%c",cThis);
                     break;
@@ -118,11 +109,10 @@ void ConvertAllttString(char *s)
     diagnostics(3, "Exiting Convert() from StringAllttConvert()");
 }
 
+/**
+ * Converts inputfile and writes result to outputfile.
+ */
 void Convert(void)
-
-/****************************************************************************
-purpose: converts inputfile and writes result to outputfile
- ****************************************************************************/
 {
     char cThis = '\n';
     char cLast = '\0';
@@ -530,13 +520,33 @@ purpose: converts inputfile and writes result to outputfile
     diagnostics(3, "Exiting Convert via exhaustion ret = %d", ret);
 }
 
-static void TranslateCommand(void)
+/**
+ * Purpose: see if this is a \xspace
+ */
+static int TryXspaceConvert(char *theCommand)
+{
+	diagnostics(4, "Trying Xspace with %s", theCommand);
+	if (strstr(theCommand, "xspace") != NULL) {
+                char remainingText[255];
+	       	diagnostics(4, "Found xspace command: %s", theCommand);
+		strcpy(remainingText, &theCommand[strlen("xspace")]);
+		if (strlen(remainingText) > 0) {
+			fprintRTF(" ");
+			ConvertString(remainingText);
+			fprintRTF(" ");
+        		return TRUE;
+		}
+	}
+	return FALSE;
+}
 
-/****************************************************************************
-purpose: The function is called on a backslash in input file and
-     tries to call the command-function for the following command.
-returns: success or not
- ****************************************************************************/
+/**
+ * The function is called on a backslash in input file and
+ * tries to call the command-function for the following command.
+ *
+ * returns: success or not
+ */
+static void TranslateCommand(void)
 {
     char cCommand[MAXCOMMANDLEN];
     int i, mode, height;
@@ -819,13 +829,16 @@ returns: success or not
         return;
     }
 
+    if (TryXspaceConvert(cCommand))
+	return;
+
     if (TryDirectConvert(cCommand))
         return;
 
     if (TryVariableIgnore(cCommand))
         return;
 
-    if (TryConditionSet(cCommand))
+    if (TryTheCounter(cCommand))
         return;
 
     diagnostics(WARNING, "Unknown command '\\%s'", cCommand);

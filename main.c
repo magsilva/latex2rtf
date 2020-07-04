@@ -1,6 +1,6 @@
 /* main.c - LaTeX to RTF conversion program
 
-Copyright (C) 1995-2012 The Free Software Foundation
+Copyright (C) 1995-2017 The Free Software Foundation
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -176,6 +176,9 @@ int main(int argc, char **argv)
     InitializeLatexLengths();
     InitializeBibliography();
     
+    ReadCfg();
+    InitializeDocumentFont(TexFontNumber("Roman"), 20, F_SHAPE_UPRIGHT, F_SERIES_MEDIUM, ENCODING_1252);
+	
     while ((c = my_getopt(argc, argv, "lhpuvFSVWZ:o:a:b:d:f:i:s:u:C:D:E:M:P:T:t:")) != EOF) {
         switch (c) {
             case 'a':
@@ -342,7 +345,7 @@ int main(int argc, char **argv)
 /* Parse filename.  Extract directory if possible.  Beware of stdin cases */
 
     if (argc == 1 && strcmp(*argv, "-") != 0) { /* filename exists and != "-" */
-        char *s, *t, *ext;
+        char *s, *t, ext[5];
 
         basename = strdup(*argv);   /* parse filename */
         s = strrchr(basename, PATHSEP);
@@ -356,16 +359,23 @@ int main(int argc, char **argv)
         }
 
         /* remove .tex or .ltx if present */
-        ext = basename + strlen(basename) - 4;
+	if (strlen(basename) > 5) {
+           strcpy(ext, &basename[strlen(basename) - 4]);
+	} else {
+	   strcpy(ext, "");
+	}
         if (strcmp(ext, ".tex") == 0 || strcmp(ext, ".ltx") == 0) {
             g_tex_name = strdup(basename);
-            *ext = '\0';
-        } else 
+        } else {
             g_tex_name = strdup_together(basename, ".tex");
-        
-        if (g_rtf_name == NULL) 
-            g_rtf_name = strdup_together3(g_home_dir,basename,".rtf");
+	}
+        if (g_rtf_name == NULL) {
+            g_rtf_name = strdup_together3(g_home_dir, basename, ".rtf");
+        } else if (strcmp(g_rtf_name, g_tex_name) == 0) {
+            diagnostics(ERROR, "rtf file must be different from tex file");
+        }
     }
+        
 
     if (g_aux_name == NULL && basename != NULL)
         g_aux_name = strdup_together(basename, ".aux");
@@ -396,12 +406,9 @@ int main(int argc, char **argv)
         diagnostics(2, "home directory is <%s>", (g_home_dir) ? g_home_dir : "");
     }
 
-    ReadCfg();
-
     if (PushSource(g_tex_name, NULL) == 0) {
         OpenRtfFile(g_rtf_name, &fRtf);
 
-        InitializeDocumentFont(TexFontNumber("Roman"), 20, F_SHAPE_UPRIGHT, F_SERIES_MEDIUM, ENCODING_1252);
         PushTrackLineNumber(TRUE);
 
         ConvertWholeDocument();
@@ -590,29 +597,24 @@ static void print_usage(void)
     exit(1);
 }
 
+/**
+ * Write message to stderr depending on debugging level.
+ */
 void diagnostics(int level, char *format, ...)
-
-/****************************************************************************
-purpose: Writes the message to stderr depending on debugging level
- ****************************************************************************/
 {
-    static int first = TRUE;
-    
+    static int first = TRUE; 
     char buffer[512], *buff_ptr;
     va_list apf;
     int i;
 
     buff_ptr = buffer;
-
     va_start(apf, format);
-
     if (level <= g_verbosity_level) {
-
         CurrentEnvironmentCount();
-
-        if (!first) fprintf(ERROUT,"\n");
-        
-        fprintf(ERROUT, "%s:%-3d ",CurrentFileName(),CurrentLineNumber());
+        if (!first) {
+	    fprintf(ERROUT,"\n");
+	}
+        fprintf(ERROUT, "%s:%-3d ", CurrentFileName(), CurrentLineNumber());
         switch (level) {
             case 0:
                 fprintf(ERROUT, "Error! ");
@@ -639,7 +641,6 @@ purpose: Writes the message to stderr depending on debugging level
                     fprintf(ERROUT, "{");
                 for (i = 8; i > BraceLevel; i--)
                     fprintf(ERROUT, " ");
-
                 for (i = 0; i < RecursionLevel; i++)
                     fprintf(ERROUT, "  ");
                 break;
@@ -654,9 +655,9 @@ purpose: Writes the message to stderr depending on debugging level
     if (level == 0) {
         fprintf(ERROUT, "\n");
         fflush(ERROUT);
-        if (fRtf) 
+        if (fRtf) { 
             fflush(fRtf);
-            
+	}   
         exit(EXIT_FAILURE);
     }
 }
@@ -787,13 +788,13 @@ params: filename - name of outputfile, possibly NULL for already open file
     }
 }
 
+/**
+ * Closes output file.
+ *
+ * Params: f - pointer to filepointer to invalidate
+ * Globals: g_tex_name;
+ */
 void CloseRtf(FILE ** f)
-
-/****************************************************************************
-purpose: closes output file.
-params: f - pointer to filepointer to invalidate
-globals: g_tex_name;
- ****************************************************************************/
 {
     int i;
 
@@ -977,38 +978,41 @@ purpose: duplicate string --- exists to ease porting
     return s;
 }
 
-FILE *my_fopen(char *path, char *mode)
-
-/****************************************************************************
-purpose: opens "g_home_dir/path"  and 
- ****************************************************************************/
+/**
+ * Opens "g_home_dir/path".
+ *
+ * Returns NULL if file or mode is not set or if could not open file.
+ */
+FILE *my_fopen(const char *path, char *mode)
 {
     char *name;
-    FILE *p;
+    FILE *file;
 
-    if (path == NULL || mode == NULL)
-        return (NULL);
+    if (path == NULL || mode == NULL) {
+        return NULL;
+    }
 
-    if (g_home_dir == NULL)
+    if (g_home_dir == NULL) {
         name = strdup(path);
-    else
+    } else {
         name = strdup_together(g_home_dir, path);
+    }
 
-    p = fopen(name, mode);
-
-    if (p == NULL) {
-        if (strstr(path, ".tex") != NULL)
-            p = (FILE *) open_cfg(path, FALSE);
-    } else
+    file = fopen(name, mode);
+    if (file == NULL) {
+        if (strstr(path, ".tex") != NULL) {
+            file = (FILE *) open_cfg(path, FALSE);
+	}
+    } else {
         diagnostics(2, "Opened '%s'", name);
+    }
     
-    if (p == NULL) {
+    if (file == NULL) {
         diagnostics(WARNING, "Cannot open '%s'", name);
-        fflush(NULL);
     }
 
     free(name);
-    return p;
+    return file;
 }
 
 void debug_malloc(void)

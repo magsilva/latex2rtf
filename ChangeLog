@@ -2,6 +2,87 @@
 ## latex2rtf changes from 2.3.0
 ##############
 
+r1267 | whennings
+cleaning up Makefile (Windows)
+
+r1266 | whennings
+resolving "latex2rtf ignores '-C'" (Michael Artmann 2018-09-08)
+cleaning up Makefile, isolating DESTDIR from PREFIX (Pedro Andres Aranda Gutierrez 2018-12-28)
+adding support for user defined counters accessed through \the<counter> (Pedro Andres Aranda Gutierrez 2018-12-28)
+adding hebrew.cfg
+
+r1265 | whennings
+reverting unwanted deletes
+
+r1264 | whennings
+updating Changelog
+
+r1263 | whennings
+add missing source files utf8_support.c, utf8_support.h, proof.c, proof.h, test/html.sty
+
+r1262 | whennings
+updating source files for release 2.3.17
+
+r1261 | whennings
+adding support for non-ascii characters in verbatim blocks 
+and theorem captions and support for the proof environment
+
+r1260 | whennings
+updated documentation (Linux uninstall)
+
+r1259 | whennings
+updated documentation (Linux uninstall)
+
+r1258 | whennings
+updated documentation (Linux uninstall)
+
+r1257 | whennings
+updated Russian translation for l2rshell
+
+r1256 | whennings
+committing updated README
+as released as v.2.3.16
+
+r1255 | whennings
+committing updated l2rshell files
+as released as v.2.3.16
+
+r1254 | whennings
+in l2rshell.cpp, added check for buffer overflow 
+ during construction of command line for latex2rt.exe
+released as v.2.3.16
+
+r1253 | whennings
+fixed ukrainian.cfg
+
+r1252 | whennings
+updated version info for l2rshell
+released as v.2.3.15
+
+r1251 | whennings
+fixed bug when \int was followed by \frac
+
+r1250 | whennings
+fixed bug when \int was followed by \left or \right
+released as v.2.3.14
+
+r1249 | whennings
+added support for package bm, supporting \bm (bold math)
+
+r1248 | whennings
+fixed bug in main.c line 368: comparison changed to using strcmp() (was =)
+released as v.2.3.13
+
+r1247 | whennings
+- updated documentation for installation under unix
+- in MAKEFILE, variable PREFIX was changed to DESTDIR
+
+r1246 | whennings
+added error message if output file is equal to input file
+fixed windows gui shell handling of output file choice
+(default output file extension was .tex!)
+released as v.2.3.12
+
 r1245 | whennings
 increased malloc size for character array by one to allow terminating null character
 in definitions.c line 157, graphics.c line 1882, tables.c line 1548 and line 1561

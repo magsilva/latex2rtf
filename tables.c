@@ -548,6 +548,8 @@ static void TabularMultiParameters(const char *cell, int *col_span, char *align,
     *align    = mtable->align[1];
     *col_span = atoi(num);
     
+  /*  PrintTabular(mtable); */
+
     free(num);
     free(format);
     FreeTabular(mtable);
@@ -1073,6 +1075,7 @@ void CmdTabular(int code)
             }
     
             TabularSetWidths(tabular_layout);
+            if (0) PrintTabular(tabular_layout);
             
             TabularGetRow(table, &this_row, &next_row_start, &this_height);
             first_row = TRUE;
